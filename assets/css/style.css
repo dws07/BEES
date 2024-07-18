@@ -1227,3 +1227,57 @@ input:checked + .slider:before {
   color: #000;
   font-size: 1.5rem;
 }
+
+/* navbar */
+.responsive-nav {
+  background-color: #053775;
+  border: none;
+  border-radius: 0px;
+  padding-left: 65px;
+  min-height: 40px;
+  margin-bottom: 0px;
+  margin-top: 15px;
+  /* position: relative;
+  z-index: 1; */
+}
+.responsive-nav .navbar-nav li {
+  margin-right: 2rem;
+}
+
+.responsive-nav .navbar-nav li :hover {
+  background-color: #1f58af !important;
+  color: #fff !important;
+}
+
+.responsive-nav .navbar-nav li a {
+  color: #fff;
+}
+
+.responsive-nav .navbar-nav > .active > a {
+  background-color: #1f58af !important;
+  color: #fff !important;
+}
+
+/* responsive */
+@media only screen and (max-width: 767px) {
+  /* Your CSS rules here */
+  .responsive-nav {
+    padding-left: 0px;
+    margin-top: 15rem;
+  }
+
+  .main-header .navbar {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .main-header .navbar .MainLogo {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+  }
+}
