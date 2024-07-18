@@ -21,6 +21,7 @@
 <script src="<?php echo base_url('assets/js/'); ?>nepali.datepicker.v4.0.4.min.js"></script>
 <script src="<?php echo base_url('assets/js/'); ?>toastify.min.js"></script>
 <script src="<?php echo base_url('assets/js/'); ?>dataTables.min.js"></script>
+<script language="javascript" type="text/javascript" src="http://dl.dropboxusercontent.com/u/152048609/nepali.js"></script>
 
 
 <script>
