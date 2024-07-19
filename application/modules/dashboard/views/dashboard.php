@@ -122,7 +122,7 @@ function ent_to_nepali_num_convert($number)
                                 </td>
                                 <td><?php echo $value->phone_number; ?></td>
                                 <td>
-                                    <?php echo $value->gone_dirction ?> 
+                                    <?php echo $value->gone ?> 
                                 </td>
                                 <td>
                                     <a href="<?php echo base_url('travel/admin/all/'.$value->id); ?>" class="btn bg-green btn-flat margin ViewDataBTN">

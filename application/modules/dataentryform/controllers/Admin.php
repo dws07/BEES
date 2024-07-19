@@ -13,36 +13,41 @@ class Admin extends Auth_controller
 		$this->load->library('form_validation');
 		$this->table = 'personal_information';
 		$this->userId = $this->data['userId'];
+		$this->redirect = 'dataentryform/admin/';
 	}
 
 	
 
 	public function all($page = '')
-	{
+	{ 
 
 		$like = [];
 		$param = [
-			'status !=' => '2',
+			'ti.status !=' => '2',
 		];
-		// if ($this->auth->current_user()->role_id == 1) {
-		//     $config['total_rows'] = $this->crud_model->count_all('dataentryform', array('status !=' => '2'), 'id');
-		// }else{
-		//     $config['total_rows'] = $this->crud_model->count_all('dataentryform', array('status !=' => '2','id !=' => 1), 'id');
-		// }
-		// if ($this->auth->current_user()->role_id != 1) {
-		//     $param['id !='] =1;
-		// }
-		if($this->input->method() == 'get'){
-			$search = $this->input->get('table_search');
-			$like['name' ] = $search;
-			
-		}
-		$total = $this->crud_model->total($this->table, $param, $like);
+		$session_param = $this->session->userdata('param');
+		if($this->input->method() == 'post' && $this->input->post()){
+			$fromdate = $this->input->post('fromdate');
+			$todate = $this->input->post('todate');
+			$param['ti.created >='] = $fromdate;
+			$param['ti.created <='] = $todate;
+			$this->session->set_userdata('param', $param);
+			$this->session->set_userdata('form_data', $this->input->post());
 
-		$config['base_url'] = base_url('dataentryform/admin/all');
+			redirect('dataentryform/admin/all');
+		// 	echo "<pre>";
+		// var_dump($param);exit; 
+		}else if($session_param){
+			$param = $session_param;
+		}
+		// echo "<pre>";
+		// var_dump($param);exit; 
+		$total = $this->crud_model->get_total_count_traveller_group_by_person($param); 
+		// var_dump($total);exit;
+		$config['base_url'] = base_url($this->redirect.'all');
 		$config['total_rows'] = $total;
 		$config['uri_segment'] = 4;
-		$config['per_page'] = 0;
+		$config['per_page'] = 1;
 		//outside of flist that is <ul></ul>
 		$config['full_tag_open'] = '<ul class="pagination pagination-sm m-0 float-right">';
 
@@ -52,7 +57,7 @@ class Admin extends Auth_controller
 		$config['first_tag_close'] = '</li>';
 
 		//for all list outside of the a tag that is <li></li>
-		$config['num_tag_open'] = '<li class="page-item">';
+		$config['num_tag_open'] = '<li class="page-item">'; 
 		//to add class to attribute
 		$config['attributes'] = array('class' => 'page-link');
 		$config['num_tag_close'] = '</li>';
@@ -72,21 +77,16 @@ class Admin extends Auth_controller
 		$config['last_link'] = 'Last';
 		$config['last_tag_open'] = '<li class="page-item">';
 		$config['last_tag_close'] = '</li>';
-
 		$config['full_tag_close'] = '</ul>';
 		$config['suffix'] = isset($search)?"?table_search=$search":'';
 
 		$this->pagination->initialize($config);
+
 		$page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
 
 		$data['pagination'] = $this->pagination->create_links();
-		// if ($this->auth->current_user()->role_id == 1) {
-		//     $data['roles'] = $this->crud_model->get_where_pagination('dataentryform', array('status !=' => '2'), $config["per_page"], $page);
-		// }else{
-		//     $data['roles'] = $this->crud_model->get_where_pagination('dataentryform', array('status !=' => '2','id !=' => 1), $config["per_page"], $page);
-		// }
-		// $data['roles']  = $this->crud_model->getData($this->table, $param, $like, $config["per_page"], $page);
-		$data['roles']  = $this->crud_model->get_person_list_no_limit_group_by_travel();
+
+		$data['items']  = $this->crud_model->get_person_list_limit_group_by_travel($config['per_page'], $page, $param);
 		// echo "<pre>";
 		// var_dump($data['roles']);exit();
 		$data['offset'] = $page;
@@ -96,7 +96,7 @@ class Admin extends Auth_controller
 		$data = array_merge($this->data, $data);
 
 		$this->load->view('layouts/admin/index', $data);
-	}
+	} 
 
 	public function saveSnaps(){
 		$folderPath = 'uploads/';
@@ -389,142 +389,154 @@ class Admin extends Auth_controller
 						if($childrens){ 
 							foreach($childrens as $key=>$val){
 								$totalchildren = $totalchildren + $key;
-								$html .= '<div class="DeleteFunctionsssss childraj">
-								<div class="row MainForm">
-									<div class="col-sm-6">
-										<div class="form-group child_btn">
-											<label>पुरा नाम : </label>
-											<input type="text" name="children_name[]" class="form-control utf8val width100 personalinfo2 cmnreset" id="children_name" placeholder="पुरा नाम" value="'.$val->children_name.'">
-										</div>
-									</div>
-									<div class="col-sm-6">
-										<div class="form-group child_btn">
-											<div class="flexxx">
-												<label>जन्म मिति  : </label>
-											</div>  
-												<input type="text" name="nepali_date_of_birthss[]" id="nepali-datepickerchild'.($key+1).'" class="form-control personalinfo nepdatesschild activessssss" placeholder="जन्म मिति" autocomplete="off" value="'.$val->nepali_dob_children.'"/>   
-										</div>
-									</div>    
-									<div class="col-sm-6">
-										<div class="form-group">
-											<label> उमेर : </label>
-											<input type="text" name="children_age[]" class="form-control width75 personalinfo2 cmnreset" id="children_age" placeholder="उमेर" value="'.$val->children_age.'">
-										</div>
-									</div>
-									<div class="col-sm-6">
-										<div class="form-group">
-											<label>लिंग : </label>
-											<div class="radiosss width75 ">
-												<input type="radio" class="personalinfo2 cmnreset" name="children_gender['.$key.']" value="पुरुष" '.(((isset($val->children_gender)) && $val->children_gender == "पुरुष") ? "checked" : "").'> <span>पुरुष</span>
-												<input type="radio" class="personalinfo2 cmnreset" name="children_gender['.$key.']" value="महिला" '.(((isset($val->children_gender)) && $val->children_gender == "महिला") ? "checked" : "").'> <span>महिला</span>
-												<input type="radio" class="personalinfo2 cmnreset" name="children_gender['.$key.']" value="तेस्रोलिंगी" '.(((isset($val->children_gender)) && $val->children_gender == "तेस्रोलिंगी") ? "checked" : "").'> <span>तेस्रोलिंगी</span>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-6">
-										<div class="form-group">
-											<label>ठेगाना : </label>
-											<input type="text" name="children_address[]" class="form-control utf8val width75 personalinfo2 cmnreset" id="children_address" placeholder="ठेगाना" value="'.$val->children_address.'">
-										</div>
-									</div>
-									<div class="col-sm-6">
-										<div class="form-group">
-											<label>परिचय पत्र नम्बर : </label>
-											<input type="text" name="children_identicard_number[]" class="form-control personalinfo2 cmnreset" id="children_identicard_number" placeholder="परिचय पत्र नम्बर " value="'.$val->children_identicard_number.'"> 
-										</div>
-									</div>
-									<div class="col-sm-6">
-										<div class="form-group">
-											<label> संरक्षकको पुरा नाम : </label>
-											<input type="text" name="children_parent_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_parent_name" placeholder="संरक्षकको पुरा नाम " value="'.$val->children_parent_name.'">
-										</div>
-									</div>
-									<div class="col-sm-6">
-										<div class="form-group">
-											<label>सम्बन्ध : </label>
-											<input type="text" name="children_relations[]" class="form-control utf8val personalinfo2 cmnreset width70" id="children_relations" placeholder="सम्बन्ध " value="'.$val->children_relations.'"> 
-										</div>
-									</div>
-									<div class="col-sm-6">
-										<div class="form-group">
-											<label>फर्केको : </label>
-											<div class="radiosss width75 ">
-												<input type="radio" class="personalinfo2" cmnreset name="is_returned_child['.$key.']" value="1" '.(((isset($val->is_returned)) && $val->is_returned == "1") ? "checked" : "").'> <span>हो</span>
-												<input type="radio" class="personalinfo2" cmnreset name="is_returned_child['.$key.']" value="0" '.(((isset($val->is_returned)) && $val->is_returned == "0") ? "checked" : "").'> <span>होइन</span> 
-											</div>  
-										</div>
-									</div>
-								</div>
-							</div>';
-							}
-						}else{
-							$html .= '<div class="DeleteFunctionsssss childraj">
-											<div class="row MainForm">
-												<div class="col-sm-6">
-													<div class="form-group child_btn">
-														<label>पुरा नाम : </label>
-														<input type="text" name="children_name[]" class="form-control utf8val width100 personalinfo2 cmnreset" id="children_name" placeholder="पुरा नाम" value="">
+								$html .=  '<div class="DeleteFunctionsssss childraj">
+												<div class="row MainForm">
+													<div class="col-sm-12">
+														<div class="form-group child_btn">
+															<label>पुरा नाम : </label>
+															<input type="text" name="children_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_name" style="width:80% !important" placeholder="पुरा नाम" value="'.$val->children_name.'">
+														</div>
+													</div> 
+													<div class="col-sm-6">
+														<div class="form-group child_btn">
+															<div class="flexxx">
+																<label>जन्म मिति  : </label>
+															</div>    
+																<input type="text" name="nepali_date_of_birthss[]" id="nepali-datepickerchild'.($key+1).'" style="width:58%" class="form-control personalinfo2 nepdatesschild activessssss cmnreset" placeholder="जन्म मिति" autocomplete="off" value="'.$val->nepali_dob_children.'"> 
+																<input type="text" name="english_date_of_birthss[]"
+																								id="datepickerchild'.($key+1).'"
+																								class="form-control personalinfo2 engdatesschild "
+																								placeholder="Date of Birth">
+																<input type="hidden" name="children_dob[]" id="dobsssschid">
+														</div>
+													</div>    
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label> उमेर : </label> 
+															<input type="text" name="children_age[]" class="form-control width75 personalinfo2 cmnreset" id="children_age'.($key+1).'" placeholder="उमेर" value="'.$val->children_age.'" readonly>
+														</div>
 													</div>
-												</div>
-												<div class="col-sm-6">
-													<div class="form-group child_btn">
-														<div class="flexxx">
-															<label>जन्म मिति  : </label>
-														</div>    
-															<input type="text" name="nepali_date_of_birthss[]" id="nepali-datepickerchild1" class="form-control personalinfo nepdatesschild ndp-nepali-calendar activessssss" placeholder="जन्म मिति" autocomplete="off"> 
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>लिंग : </label> 
+															<div class="radiosss" style="width:59%">
+																<input type="radio" class="personalinfo2_checked cmnreset_checked" name="children_gender['.$key.']" value="पुरुष" '.(((isset($val->children_gender)) && $val->children_gender == "पुरुष") ? "checked" : "").'> <span>पुरुष</span>
+																<input type="radio" class="personalinfo2_checked cmnreset_checked" name="children_gender['.$key.']" value="महिला" '.(((isset($val->children_gender)) && $val->children_gender == "महिला") ? "checked" : "").'> <span>महिला</span>
+																<input type="radio" class="personalinfo2_checked cmnreset_checked" name="children_gender['.$key.']" value="तेस्रोलिंगी" '.(((isset($val->children_gender)) && $val->children_gender == "तेस्रोलिंगी") ? "checked" : "").'> <span>तेस्रोलिंगी</span>
+															</div>
+														</div>
 													</div>
-												</div>    
-												<div class="col-sm-6">
-													<div class="form-group">
-														<label> उमेर : </label>
-														<input type="text" name="children_age[]" class="form-control width75 personalinfo2 cmnreset" id="children_age" placeholder="उमेर" value="">
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>ठेगाना : </label>
+															<input type="text" name="children_address[]" class="form-control utf8val width75 personalinfo2 cmnreset" id="children_address" placeholder="ठेगाना" value="'.$val->children_address.'">
+														</div>
 													</div>
-												</div>
-												<div class="col-sm-6">
-													<div class="form-group">
-														<label>लिंग : </label>
-														<div class="radiosss width75 ">
-															<input type="radio" class="personalinfo2 cmnreset" name="children_gender[0]" value="पुरुष"> <span>पुरुष</span>
-															<input type="radio" class="personalinfo2 cmnreset" name="children_gender[0]" value="महिला"> <span>महिला</span>
-															<input type="radio" class="personalinfo2 cmnreset" name="children_gender[0]" value="तेस्रोलिंगी"> <span>तेस्रोलिंगी</span>
+													<div class="col-sm-12">
+														<div class="form-group">
+															<label> संरक्षकको पुरा नाम : </label>
+															<input type="text" name="children_parent_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_parent_name" style="width:80%" placeholder="संरक्षकको पुरा नाम " value="'.$val->children_parent_name.'">
+														</div>
+													</div>
+													<div class="col-sm-12">
+														<div class="form-group">
+															<label>सम्बन्ध : </label>
+															<input type="text" name="children_relations[]" class="form-control utf8val personalinfo2 cmnreset" style="width:80%" id="children_relations" placeholder="सम्बन्ध " value="'.$val->children_relations.'">
+															<a class="btn btn-sm btn-danger FormRemoveFunction" id="FormRemoveFunction"><i class="fa fa-trash"></i></a>
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>परिचय पत्र नम्बर : </label>
+															<input type="text" name="children_identicard_number[]" class="form-control utf8val personalinfo2 cmnreset" style="width:58%" id="children_identicard_number" placeholder="परिचय पत्र नम्बर " value="'.$val->children_identicard_number.'"> 
+														</div>
+													</div>  
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>फर्केको : </label> 
+															<div class="radiosss width75 ">
+																<input type="radio" class="personalinfo2_checked cmnreset_checked" name="is_returned_child['.$key.']" value="1" '.(((isset($val->is_returned)) && $val->is_returned == "1") ? "checked" : "").'> <span>हो</span>
+																<input type="radio" class="personalinfo2_checked cmnreset_checked" name="is_returned_child['.$key.']" value="0" '.(((isset($val->is_returned)) && $val->is_returned == "0") ? "checked" : "").'> <span>होइन</span> 
+															</div>  
 														</div>
 													</div>
 												</div>
-												<div class="col-sm-6">
-													<div class="form-group">
-														<label>ठेगाना : </label>
-														<input type="text" name="children_address[]" class="form-control utf8val width75 personalinfo2 cmnreset" id="children_address" placeholder="ठेगाना" value="">
-													</div>
-												</div>
-												<div class="col-sm-6">
-													<div class="form-group">
-														<label>परिचय पत्र नम्बर : </label>
-														<input type="text" name="children_identicard_number[]" class="form-control personalinfo2 cmnreset" id="children_identicard_number" placeholder="परिचय पत्र नम्बर " value=""> 
-													</div>
-												</div>
-												<div class="col-sm-6">
-													<div class="form-group">
-														<label> संरक्षकको पुरा नाम : </label>
-														<input type="text" name="children_parent_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_parent_name" placeholder="संरक्षकको पुरा नाम " value="">
-													</div>
-												</div>
-												<div class="col-sm-6">
-													<div class="form-group">
-														<label>सम्बन्ध : </label>
-														<input type="text" name="children_relations[]" class="form-control utf8val personalinfo2 cmnreset width70" id="children_relations" placeholder="सम्बन्ध " value=""> 
-													</div>
-												</div>
-												<div class="col-sm-6">
-													<div class="form-group">
-														<label>फर्केको : </label>
-														<div class="radiosss width75 ">
-															<input type="radio" class="personalinfo2" cmnreset name="is_returned_child[0]" value="1"> <span>हो</span>
-															<input type="radio" class="personalinfo2" cmnreset name="is_returned_child[0]" value="0"> <span>होइन</span> 
-														</div>  
-													</div>
+											</div>'; 
+							}
+						}else{
+									$html .= '<div class="DeleteFunctionsssss childraj">
+									<div class="row MainForm">
+										<div class="col-sm-12">
+											<div class="form-group child_btn">
+												<label>पुरा नाम : </label>
+												<input type="text" name="children_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_name" style="width:80% !important" placeholder="पुरा नाम" value="">
+											</div>
+										</div> 
+										<div class="col-sm-6">
+											<div class="form-group child_btn">
+												<div class="flexxx">
+													<label>जन्म मिति  : </label>
+												</div>    
+													<input type="text" name="nepali_date_of_birthss[]" id="nepali-datepickerchild1" style="width:58%" class="form-control personalinfo2 nepdatesschild activessssss cmnreset" placeholder="जन्म मिति" autocomplete="off"> 
+													<input type="text" name="english_date_of_birthss[]"
+																					id="datepickerchild1"
+																					class="form-control personalinfo2 engdatesschild "
+																					placeholder="Date of Birth">
+													<input type="hidden" name="children_dob[]" id="dobsssschid">
+											</div>
+										</div>    
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label> उमेर : </label> 
+												<input type="text" name="children_age[]" class="form-control width75 personalinfo2 cmnreset" id="children_age1" placeholder="उमेर" value="" readonly>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label>लिंग : </label>
+												<div class="radiosss" style="width:59%">
+													<input type="radio" class="personalinfo2_checked cmnreset_checked" name="children_gender[0]" value="पुरुष"> <span>पुरुष</span>
+													<input type="radio" class="personalinfo2_checked cmnreset_checked" name="children_gender[0]" value="महिला"> <span>महिला</span>
+													<input type="radio" class="personalinfo2_checked cmnreset_checked" name="children_gender[0]" value="तेस्रोलिंगी"> <span>तेस्रोलिंगी</span>
 												</div>
 											</div>
-										</div>';
+										</div>
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label>ठेगाना : </label>
+												<input type="text" name="children_address[]" class="form-control utf8val width75 personalinfo2 cmnreset" id="children_address" placeholder="ठेगाना" value="">
+											</div>
+										</div>
+										<div class="col-sm-12">
+											<div class="form-group">
+												<label> संरक्षकको पुरा नाम : </label>
+												<input type="text" name="children_parent_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_parent_name" style="width:80%" placeholder="संरक्षकको पुरा नाम " value="">
+											</div>
+										</div>
+										<div class="col-sm-12">
+											<div class="form-group">
+												<label>सम्बन्ध : </label>
+												<input type="text" name="children_relations[]" class="form-control utf8val personalinfo2 cmnreset" style="width:80%" id="children_relations" placeholder="सम्बन्ध " value="">
+												<a class="btn btn-sm btn-danger FormRemoveFunction" id="FormRemoveFunction"><i class="fa fa-trash"></i></a>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label>परिचय पत्र नम्बर : </label>
+												<input type="text" name="children_identicard_number[]" class="form-control utf8val personalinfo2 cmnreset" style="width:58%" id="children_identicard_number" placeholder="परिचय पत्र नम्बर " value=""> 
+											</div>
+										</div>  
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label>फर्केको : </label>
+												<div class="radiosss width75 ">
+													<input type="radio" class="personalinfo2_checked cmnreset_checked" name="is_returned_child[0]" value="1"> <span>हो</span>
+													<input type="radio" class="personalinfo2_checked cmnreset_checked" name="is_returned_child[0]" value="0"> <span>होइन</span> 
+												</div>  
+											</div>
+										</div>
+									</div>
+								</div>';
 						}
 						$person->travel_info = $latest_travel_info;
 						$person->totalchildren = $totalchildren;
@@ -540,72 +552,78 @@ class Admin extends Auth_controller
 						);
 					}else{ 
 						$html = '<div class="DeleteFunctionsssss childraj">
-									<div class="row MainForm">
-										<div class="col-sm-6">
-											<div class="form-group child_btn">
-												<label>पुरा नाम : </label>
-												<input type="text" name="children_name[]" class="form-control utf8val width100 personalinfo2 cmnreset" id="children_name" placeholder="पुरा नाम" value="">
-											</div>
+								<div class="row MainForm">
+									<div class="col-sm-12">
+										<div class="form-group child_btn">
+											<label>पुरा नाम : </label>
+											<input type="text" name="children_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_name" style="width:80% !important" placeholder="पुरा नाम" value="">
 										</div>
-										<div class="col-sm-6">
-											<div class="form-group child_btn">
-												<div class="flexxx">
-													<label>जन्म मिति  : </label>
-												</div>    
-													<input type="text" name="nepali_date_of_birthss[]" id="nepali-datepickerchild1" class="form-control personalinfo nepdatesschild ndp-nepali-calendar activessssss" placeholder="जन्म मिति" autocomplete="off"> 
-											</div>
-										</div>    
-										<div class="col-sm-6">
-											<div class="form-group">
-												<label> उमेर : </label>
-												<input type="text" name="children_age[]" class="form-control width75 personalinfo2 cmnreset" id="children_age" placeholder="उमेर" value="">
-											</div>
+									</div> 
+									<div class="col-sm-6">
+										<div class="form-group child_btn">
+											<div class="flexxx">
+												<label>जन्म मिति  : </label>
+											</div>    
+												<input type="text" name="nepali_date_of_birthss[]" id="nepali-datepickerchild1" style="width:58%" class="form-control personalinfo2 nepdatesschild activessssss cmnreset" placeholder="जन्म मिति" autocomplete="off"> 
+												<input type="text" name="english_date_of_birthss[]"
+																				id="datepickerchild1"
+																				class="form-control personalinfo2 engdatesschild "
+																				placeholder="Date of Birth">
+												<input type="hidden" name="children_dob[]" id="dobsssschid">
 										</div>
-										<div class="col-sm-6">
-											<div class="form-group">
-												<label>लिंग : </label>
-												<div class="radiosss width75 ">
-													<input type="radio" class="personalinfo2 cmnreset" name="children_gender[0]" value="पुरुष"> <span>पुरुष</span>
-													<input type="radio" class="personalinfo2 cmnreset" name="children_gender[0]" value="महिला"> <span>महिला</span>
-													<input type="radio" class="personalinfo2 cmnreset" name="children_gender[0]" value="तेस्रोलिंगी"> <span>तेस्रोलिंगी</span>
-												</div>
-											</div>
+									</div>    
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label> उमेर : </label> 
+											<input type="text" name="children_age[]" class="form-control width75 personalinfo2 cmnreset" id="children_age1" placeholder="उमेर" value="" readonly>
 										</div>
-										<div class="col-sm-6">
-											<div class="form-group">
-												<label>ठेगाना : </label>
-												<input type="text" name="children_address[]" class="form-control utf8val width75 personalinfo2 cmnreset" id="children_address" placeholder="ठेगाना" value="">
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="form-group">
-												<label>परिचय पत्र नम्बर : </label>
-												<input type="text" name="children_identicard_number[]" class="form-control personalinfo2 cmnreset" id="children_identicard_number" placeholder="परिचय पत्र नम्बर " value=""> 
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="form-group">
-												<label> संरक्षकको पुरा नाम : </label>
-												<input type="text" name="children_parent_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_parent_name" placeholder="संरक्षकको पुरा नाम " value="">
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="form-group">
-												<label>सम्बन्ध : </label>
-												<input type="text" name="children_relations[]" class="form-control utf8val personalinfo2 cmnreset width70" id="children_relations" placeholder="सम्बन्ध " value=""> 
-											</div>
-										</div>
-										<div class="col-sm-6">
-													<div class="form-group">
-														<label>फर्केको : </label>
-														<div class="radiosss width75 ">
-															<input type="radio" class="personalinfo2" cmnreset name="is_returned_child[0]" value="1"> <span>हो</span>
-															<input type="radio" class="personalinfo2" cmnreset name="is_returned_child[0]" value="0"> <span>होइन</span> 
-														</div>  
-													</div>
-												</div>
 									</div>
-								</div>';
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label>लिंग : </label>
+											<div class="radiosss" style="width:59%">
+												<input type="radio" class="personalinfo2_checked cmnreset_checked" name="children_gender[0]" value="पुरुष"> <span>पुरुष</span>
+												<input type="radio" class="personalinfo2_checked cmnreset_checked" name="children_gender[0]" value="महिला"> <span>महिला</span>
+												<input type="radio" class="personalinfo2_checked cmnreset_checked" name="children_gender[0]" value="तेस्रोलिंगी"> <span>तेस्रोलिंगी</span>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label>ठेगाना : </label>
+											<input type="text" name="children_address[]" class="form-control utf8val width75 personalinfo2 cmnreset" id="children_address" placeholder="ठेगाना" value="">
+										</div>
+									</div>
+									<div class="col-sm-12">
+										<div class="form-group">
+											<label> संरक्षकको पुरा नाम : </label>
+											<input type="text" name="children_parent_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_parent_name" style="width:80%" placeholder="संरक्षकको पुरा नाम " value="">
+										</div>
+									</div>
+									<div class="col-sm-12">
+										<div class="form-group">
+											<label>सम्बन्ध : </label>
+											<input type="text" name="children_relations[]" class="form-control utf8val personalinfo2 cmnreset" style="width:80%" id="children_relations" placeholder="सम्बन्ध " value="">
+											<a class="btn btn-sm btn-danger FormRemoveFunction" id="FormRemoveFunction"><i class="fa fa-trash"></i></a>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label>परिचय पत्र नम्बर : </label>
+											<input type="text" name="children_identicard_number[]" class="form-control utf8val personalinfo2 cmnreset" style="width:58%" id="children_identicard_number" placeholder="परिचय पत्र नम्बर " value=""> 
+										</div>
+									</div>  
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label>फर्केको : </label>
+											<div class="radiosss width75 ">
+												<input type="radio" class="personalinfo2_checked cmnreset_checked" name="is_returned_child[0]" value="1"> <span>हो</span>
+												<input type="radio" class="personalinfo2_checked cmnreset_checked" name="is_returned_child[0]" value="0"> <span>होइन</span> 
+											</div>  
+										</div>
+									</div>
+								</div>
+							</div>';
 						$person->childrens = $html;
 						$person->totalchildren = $totalchildren;
 						$response = array(
@@ -624,72 +642,78 @@ class Admin extends Auth_controller
 						'data' => [],
 						'totalchildren' => $totalchildren,
 						'html' => '<div class="DeleteFunctionsssss childraj">
-										<div class="row MainForm">
-											<div class="col-sm-6">
-												<div class="form-group child_btn">
-													<label>पुरा नाम : </label>
-													<input type="text" name="children_name[]" class="form-control utf8val width100 personalinfo2 cmnreset" id="children_name" placeholder="पुरा नाम" value="">
-												</div>
-											</div>
-											<div class="col-sm-6">
-												<div class="form-group child_btn">
-													<div class="flexxx">
-														<label>जन्म मिति  : </label>
-													</div>    
-														<input type="text" name="nepali_date_of_birthss[]" id="nepali-datepickerchild1" class="form-control personalinfo nepdatesschild ndp-nepali-calendar activessssss" placeholder="जन्म मिति" autocomplete="off"> 
-												</div>
-											</div>    
-											<div class="col-sm-6">
-												<div class="form-group">
-													<label> उमेर : </label>
-													<input type="text" name="children_age[]" class="form-control width75 personalinfo2 cmnreset" id="children_age" placeholder="उमेर" value="">
-												</div>
-											</div>
-											<div class="col-sm-6">
-												<div class="form-group">
-													<label>लिंग : </label>
-													<div class="radiosss width75 ">
-														<input type="radio" class="personalinfo2 cmnreset" name="children_gender[0]" value="पुरुष"> <span>पुरुष</span>
-														<input type="radio" class="personalinfo2 cmnreset" name="children_gender[0]" value="महिला"> <span>महिला</span>
-														<input type="radio" class="personalinfo2 cmnreset" name="children_gender[0]" value="तेस्रोलिंगी"> <span>तेस्रोलिंगी</span>
-													</div>
-												</div>
-											</div>
-											<div class="col-sm-6">
-												<div class="form-group">
-													<label>ठेगाना : </label>
-													<input type="text" name="children_address[]" class="form-control utf8val width75 personalinfo2 cmnreset" id="children_address" placeholder="ठेगाना" value="">
-												</div>
-											</div>
-											<div class="col-sm-6">
-												<div class="form-group">
-													<label>परिचय पत्र नम्बर : </label>
-													<input type="text" name="children_identicard_number[]" class="form-control personalinfo2 cmnreset" id="children_identicard_number" placeholder="परिचय पत्र नम्बर " value=""> 
-												</div>
-											</div>
-											<div class="col-sm-6">
-												<div class="form-group">
-													<label> संरक्षकको पुरा नाम : </label>
-													<input type="text" name="children_parent_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_parent_name" placeholder="संरक्षकको पुरा नाम " value="">
-												</div>
-											</div>
-											<div class="col-sm-6">
-												<div class="form-group">
-													<label>सम्बन्ध : </label>
-													<input type="text" name="children_relations[]" class="form-control utf8val personalinfo2 cmnreset width70" id="children_relations" placeholder="सम्बन्ध " value=""> 
-												</div>
-											</div>
-											<div class="col-sm-6">
-													<div class="form-group">
-														<label>फर्केको : </label>
-														<div class="radiosss width75 ">
-															<input type="radio" class="personalinfo2" cmnreset name="is_returned_child[0]" value="1"> <span>हो</span>
-															<input type="radio" class="personalinfo2" cmnreset name="is_returned_child[0]" value="0"> <span>होइन</span> 
-														</div>  
-													</div>
-												</div>
-										</div>
-									</div>'
+						<div class="row MainForm">
+							<div class="col-sm-12">
+								<div class="form-group child_btn">
+									<label>पुरा नाम : </label>
+									<input type="text" name="children_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_name" style="width:80% !important" placeholder="पुरा नाम" value="">
+								</div>
+							</div> 
+							<div class="col-sm-6">
+								<div class="form-group child_btn">
+									<div class="flexxx">
+										<label>जन्म मिति  : </label>
+									</div>    
+										<input type="text" name="nepali_date_of_birthss[]" id="nepali-datepickerchild1" style="width:58%" class="form-control personalinfo2 nepdatesschild activessssss cmnreset" placeholder="जन्म मिति" autocomplete="off"> 
+										<input type="text" name="english_date_of_birthss[]"
+																		id="datepickerchild1"
+																		class="form-control personalinfo2 engdatesschild "
+																		placeholder="Date of Birth">
+										<input type="hidden" name="children_dob[]" id="dobsssschid">
+								</div>
+							</div>    
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label> उमेर : </label> 
+									<input type="text" name="children_age[]" class="form-control width75 personalinfo2 cmnreset" id="children_age1" placeholder="उमेर" value="" readonly>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label>लिंग : </label>
+									<div class="radiosss" style="width:59%">
+										<input type="radio" class="personalinfo2_checked cmnreset_checked" name="children_gender[0]" value="पुरुष"> <span>पुरुष</span>
+										<input type="radio" class="personalinfo2_checked cmnreset_checked" name="children_gender[0]" value="महिला"> <span>महिला</span>
+										<input type="radio" class="personalinfo2_checked cmnreset_checked" name="children_gender[0]" value="तेस्रोलिंगी"> <span>तेस्रोलिंगी</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label>ठेगाना : </label>
+									<input type="text" name="children_address[]" class="form-control utf8val width75 personalinfo2 cmnreset" id="children_address" placeholder="ठेगाना" value="">
+								</div>
+							</div>
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label> संरक्षकको पुरा नाम : </label>
+									<input type="text" name="children_parent_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_parent_name" style="width:80%" placeholder="संरक्षकको पुरा नाम " value="">
+								</div>
+							</div>
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label>सम्बन्ध : </label>
+									<input type="text" name="children_relations[]" class="form-control utf8val personalinfo2 cmnreset" style="width:80%" id="children_relations" placeholder="सम्बन्ध " value="">
+									<a class="btn btn-sm btn-danger FormRemoveFunction" id="FormRemoveFunction"><i class="fa fa-trash"></i></a>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label>परिचय पत्र नम्बर : </label>
+									<input type="text" name="children_identicard_number[]" class="form-control utf8val personalinfo2 cmnreset" style="width:58%" id="children_identicard_number" placeholder="परिचय पत्र नम्बर " value=""> 
+								</div>
+							</div>  
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label>फर्केको : </label>
+									<div class="radiosss width75 ">
+										<input type="radio" class="personalinfo2_checked cmnreset_checked" name="is_returned_child[0]" value="1"> <span>हो</span>
+										<input type="radio" class="personalinfo2_checked cmnreset_checked" name="is_returned_child[0]" value="0"> <span>होइन</span> 
+									</div>  
+								</div>
+							</div>
+						</div>
+					</div>'
 					);
 				}
 			}
