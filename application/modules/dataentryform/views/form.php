@@ -42,20 +42,34 @@
                                     <div id="AppendForm">
                                         <div class="row">
                                             <div class="col-sm-3">
+                                                <label>सम्पर्क नम्बर : <span class="required">*</span></label>
                                                 <div class="form-group">
-                                                    <select id="countryCode" name="country_code" required>
-                                                        <option value="">Select Country Code</option>
-                                                    </select>
-                                                    <label>सम्पर्क नम्बर : <span class="required">*</span></label>
-                                                    <input type="number" name="phone_number"
-                                                        class="form-control personalinfo" id="phone_number"
-                                                        placeholder="सम्पर्क नम्बर"
-                                                        value="<?php echo (((isset($detail->phone_number)) && $detail->phone_number != '') ? $detail->phone_number : '') ?>"
-                                                        required>
-                                                    <?php if (form_error('phone_number'))
-                                                        echo '<span class="field_validation">' . form_error('phone_number') . '</span>' ?>
+                                                    <div class="input-group">
+                                                        <div class="input-group-btn">
+                                                            <button type="button"
+                                                                class="btn btn-default dropdown-toggle codeValue"
+                                                                data-toggle="dropdown" aria-haspopup="true"
+                                                                aria-expanded="false">Select Country Code<span
+                                                                    class="caret"></span></button>
+                                                            <ul class="dropdown-menu" id="countryCode">
+                                                                <li>
+                                                                    <input type="text" id="countryCodeSearch"
+                                                                        placeholder="Search country code..."
+                                                                        class="form-control">
+                                                                </li>
+                                                            </ul>
+                                                        </div><!-- /btn-group -->
+                                                        <input type="number" name="phone_number"
+                                                            class="form-control personalinfo" id="phone_number"
+                                                            placeholder="सम्पर्क नम्बर"
+                                                            value="<?php echo (((isset($detail->phone_number)) && $detail->phone_number != '') ? $detail->phone_number : '') ?>"
+                                                            required>
+                                                        <?php if (form_error('phone_number'))
+                                                            echo '<span class="field_validation">' . form_error('phone_number') . '</span>' ?>
+                                                        </div>
                                                     </div>
                                                 </div>
+
                                                 <div class="col-sm-3">
                                                     <div class="form-group">
                                                         <label>पुरा नाम : <span class="required">*</span></label>

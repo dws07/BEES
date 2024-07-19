@@ -1281,3 +1281,27 @@ input:checked + .slider:before {
     padding-bottom: 20px;
   }
 }
+
+.country-option {
+  display: flex;
+  align-items: center;
+  padding: 5px; /* Adjust the padding as needed */
+}
+
+.flag-icon {
+  width: 20px !important; /* Adjust the width as needed */
+  height: auto !important; /* Maintain aspect ratio */
+  margin-right: 10px !important; /* Space between the image and text */
+}
+
+.dropdown-menu {
+  height: 150px;
+  overflow: scroll;
+}
+
+.country-option {
+  cursor: pointer;
+}
+.country-option:hover {
+  background: green;
+}
