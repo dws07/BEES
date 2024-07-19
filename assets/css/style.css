@@ -5,6 +5,7 @@
 
 .all_form input {
   font-family: "MyCustomFont";
+  font-size: 1.5rem;
 }
 
 li.page-item a {
