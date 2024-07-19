@@ -1,3 +1,12 @@
+@font-face {
+  font-family: "MyCustomFont";
+  src: url("../../Preeti.otf") format("truetype");
+}
+
+.all_form input {
+  font-family: "MyCustomFont";
+}
+
 li.page-item a {
   font-size: 12px !important;
   padding: 10px !important;
