@@ -20,7 +20,7 @@
 <script src="<?php echo base_url('assets/js/webcam/'); ?>webcam.min.js"></script>
 <script src="<?php echo base_url('assets/js/'); ?>nepali.datepicker.v4.0.4.min.js"></script>
 <script src="<?php echo base_url('assets/js/'); ?>toastify.min.js"></script>
-<script src="<?php echo base_url('assets/js/'); ?>dataTables.min.js"></script>
+<script src="<?php echo base_url('assets/js/'); ?>dataTables.min.js"></script> 
 
 
 <script>
@@ -228,7 +228,7 @@
                             var filepath = `<?php echo base_url(''); ?>`;
                             $('#viewImage').html(`<img id = "webcam" src = "` + filepath + resp.data.profile_image + `">`);
                             $("#viewImage").css("display", "block");
-                            initializeDatePickers();
+                            // initializeDatePickers();
 
                             if (resp.returned == 0) {
                                 //travel
@@ -271,8 +271,29 @@
                                     const personalinfo4_checked = document.querySelectorAll('.personalinfo4_checked');
                                     // $(personalinfo4_checked).prop('checked', false);
                                     $(personalinfo4_checked).removeAttr('checked');
+                                } 
+                                for (let i = 1; i <= resp.data.totalchildren; i++) { 
+                                    $( "#nepali-datepickerchild"+i ).nepaliDatePicker({
+                                        ndpYear: true,
+                                        ndpMonth: true,
+                                        ndpYearCount: 100,
+                                            onChange: function(value, ui) {
+                                                console.log(value.ad);
+                                                const AGe = document.querySelector('#children_age'+i);
+                                                // const BODDD = document.querySelector('#dobsssschid1');  
+                                                let today = new Date(),
+                                                dob = new Date(value.ad),
+                                                age = new Date(today - dob).getFullYear() - 1970;
+                                                console.log(age);
+                                                AGe.innerHTML = age;
+                                                AGe.value = age;
+                                                // BODDD.value = value.ad;
+                                            
+                                            },
+                                        }); 
                                 }
-                            } else {
+                            }else{
+                                initializeDatePickers();  
                                 $("#vehicle_detailssss").css("display", "none");
                                 const personalinfo4 = document.querySelectorAll('.personalinfo4');
                                 $(personalinfo4).val("");
@@ -301,8 +322,9 @@
                             $(all_fields_checked).removeAttr('checked');
                             $('#AppendForm2').html(resp.html);
                             $('#totalchildren').val(resp.totalchildren);
+                            initializeDatePickers();  
                         }
-                        initializeDatePickers();
+                         
                     }
                 });
             }
@@ -475,33 +497,38 @@
             $('#AppendForm2').append(
                 `<div class="DeleteFunctionsssss childraj">
                 <div class="row MainForm">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <div class="form-group child_btn">
                             <label>पुरा नाम : </label>
-                            <input type="text" name="children_name[]" class="form-control utf8val width100 personalinfo2 cmnreset" id="children_name" placeholder="पुरा नाम" value="">
+                            <input type="text" name="children_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_name" style="width:80% !important" placeholder="पुरा नाम" value="">
                         </div>
-                    </div>
+                    </div> 
                     <div class="col-sm-6">
                         <div class="form-group child_btn">
                             <div class="flexxx">
                                 <label>जन्म मिति  : </label>
                             </div>    
-                                <input type="text" name="nepali_date_of_birthss[]" id="nepali-datepickerchild`+ total_child + `" class="form-control personalinfo2 cmnreset nepdatesschild ndp-nepali-calendar activessssss" placeholder="जन्म मिति" autocomplete="off"> 
+                                <input type="text" name="nepali_date_of_birthss[]" id="nepali-datepickerchild`+total_child+`" style="width:58%" class="form-control personalinfo2 nepdatesschild activessssss cmnreset" placeholder="जन्म मिति" autocomplete="off"> 
+                                <input type="text" name="english_date_of_birthss[]"
+                                                                id="datepickerchild`+total_child+`"
+                                                                class="form-control personalinfo2 engdatesschild "
+                                                                placeholder="Date of Birth">
+                                <input type="hidden" name="children_dob[]" id="dobsssschid">
                         </div>
                     </div>    
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label> उमेर : </label>
-                            <input type="text" name="children_age[]" class="form-control width75 personalinfo2 cmnreset" id="children_age`+ total_child + `" placeholder="उमेर" value="" readonly>
+                            <label> उमेर : </label> 
+                            <input type="text" name="children_age[]" class="form-control width75 personalinfo2 cmnreset" id="children_age`+total_child+`" placeholder="उमेर" value="" readonly>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>लिंग : </label>
-                            <div class="radiosss width75 ">
-                                <input type="radio" class="personalinfo2 cmnreset" name="children_gender[`+ (total_child - 1) + `]" value="पुरुष"> <span>पुरुष</span>
-                                <input type="radio" class="personalinfo2 cmnreset" name="children_gender[`+ (total_child - 1) + `]" value="महिला"> <span>महिला</span>
-                                <input type="radio" class="personalinfo2 cmnreset" name="children_gender[`+ (total_child - 1) + `]" value="तेस्रोलिंगी"> <span>तेस्रोलिंगी</span>
+                            <div class="radiosss" style="width:59%">
+                                <input type="radio" class="personalinfo2_checked cmnreset_checked" name="children_gender[`+(total_child-1)+`]" value="पुरुष"> <span>पुरुष</span>
+                                <input type="radio" class="personalinfo2_checked cmnreset_checked" name="children_gender[`+(total_child-1)+`]" value="महिला"> <span>महिला</span>
+                                <input type="radio" class="personalinfo2_checked cmnreset_checked" name="children_gender[`+(total_child-1)+`]" value="तेस्रोलिंगी"> <span>तेस्रोलिंगी</span>
                             </div>
                         </div>
                     </div>
@@ -511,31 +538,31 @@
                             <input type="text" name="children_address[]" class="form-control utf8val width75 personalinfo2 cmnreset" id="children_address" placeholder="ठेगाना" value="">
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>परिचय पत्र नम्बर : </label>
-                            <input type="text" name="children_identicard_number[]" class="form-control personalinfo2 cmnreset" id="children_identicard_number" placeholder="परिचय पत्र नम्बर " value=""> 
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <div class="form-group">
                             <label> संरक्षकको पुरा नाम : </label>
-                            <input type="text" name="children_parent_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_parent_name" placeholder="संरक्षकको पुरा नाम " value="">
+                            <input type="text" name="children_parent_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_parent_name" style="width:80%" placeholder="संरक्षकको पुरा नाम " value="">
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <div class="form-group">
                             <label>सम्बन्ध : </label>
-                            <input type="text" name="children_relations[]" class="form-control utf8val personalinfo2 cmnreset width70" id="children_relations" placeholder="सम्बन्ध " value="">
+                            <input type="text" name="children_relations[]" class="form-control utf8val personalinfo2 cmnreset" style="width:80%" id="children_relations" placeholder="सम्बन्ध " value="">
                             <a class="btn btn-sm btn-danger FormRemoveFunction" id="FormRemoveFunction"><i class="fa fa-trash"></i></a>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
+                            <label>परिचय पत्र नम्बर : </label>
+                            <input type="text" name="children_identicard_number[]" class="form-control utf8val personalinfo2 cmnreset" style="width:58%" id="children_identicard_number" placeholder="परिचय पत्र नम्बर " value=""> 
+                        </div>
+                    </div>  
+                    <div class="col-sm-6">
+                        <div class="form-group">
                             <label>फर्केको : </label>
                             <div class="radiosss width75 ">
-                                <input type="radio" class="personalinfo2" name="is_returned_child[`+ (total_child - 1) + `]" value="1"> <span>हो</span>
-                                <input type="radio" class="personalinfo2" name="is_returned_child[`+ (total_child - 1) + `]" value="0"> <span>होइन</span> 
+                                <input type="radio" class="personalinfo2_checked cmnreset_checked" name="is_returned_child[`+(total_child-1)+`]" value="1"> <span>हो</span>
+                                <input type="radio" class="personalinfo2_checked cmnreset_checked" name="is_returned_child[`+(total_child-1)+`]" value="0"> <span>होइन</span> 
                             </div>  
                         </div>
                     </div>
@@ -1010,19 +1037,11 @@ if ($this->session->flashdata('success')) { ?>
         });
     });
     function initializeDatePickers() {
-        // $( ".nepdatesschild" ).nepaliDatePicker({
-        //     ndpYear: true,
-        //     ndpMonth: true,
-        //     ndpYearCount: 100, 
-        // });
-    }
-    initializeDatePickers();
-    $(function () {
-        $("#nepali-datepickerchild1").nepaliDatePicker({
-            ndpYear: true,
-            ndpMonth: true,
-            ndpYearCount: 100,
-            onChange: function (value, ui) {
+        $( "#nepali-datepickerchild1" ).nepaliDatePicker({
+        ndpYear: true,
+        ndpMonth: true,
+        ndpYearCount: 100,
+            onChange: function(value, ui) {
                 console.log(value.ad);
                 const AGe = document.querySelector('#children_age1');
                 // const BODDD = document.querySelector('#dobsssschid1');  
@@ -1036,7 +1055,8 @@ if ($this->session->flashdata('success')) { ?>
 
             },
         });
-    });
+    }
+    initializeDatePickers();   
 </script>
 <script>
     const Dateswitch = document.querySelector('#Switchsss');

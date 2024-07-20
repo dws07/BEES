@@ -38,7 +38,7 @@
 
             <form action="" method="post">
                 <div class="form-group has-feedback">
-                    <input type="text" name="username" class="form-control" placeholder="Username"
+                    <input type="text" name="username" class="form-control" id="unique-input-1" placeholder="Username"
                         value="<?php echo set_value('username'); ?>">
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                     <?php echo form_error('username'); ?>
@@ -78,7 +78,25 @@
 
     <script src="<?php echo base_url(); ?>assets/plugin/js/icheck.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/plugin/js/notify.js"></script>
+    <!-- <script src="https://unpkg.com/nepalify@0.5.0/umd/nepalify.production.min.js"></script> -->
     <script>
+        // console.log(nepalify.availableLayouts());
+        // var inputEl = nepalify.interceptElementById("unique-input-1");
+        // // console.log('raj',inputEl);
+        // // var textareaEl = nepalify.interceptElementById("unique-textarea-1");
+
+        // // Further options can be provided as a second argument
+        // // const options = {
+        // // layout: "traditional",
+        // // enable: false,
+        // // };
+        // // nepalify.interceptElementById("unique-input-2", options);
+
+        // // When the options are not provided, the following defaults are used
+        // const defaultOptions = {
+        // layout: "romanized",
+        // enable: true,
+        // };
     $(function() {
         $('input').iCheck({
             checkboxClass: 'icheckbox_square-blue',

@@ -59,6 +59,30 @@ class Crud_model extends CI_Model
         return $this->db->get()->result();
     }
 
+    function get_person_list_limit_group_by_travel($limit, $offset, $param) {
+        $subquery = "(SELECT MAX(id) AS max_id, person_id FROM travel_information GROUP BY person_id) t";
+        
+        $this->db->select("p.*, ti.gone_dirction as gone", False);
+        $this->db->from($subquery);
+        $this->db->join('personal_information p', "t.person_id = p.id");
+        $this->db->join('travel_information ti', "t.person_id = ti.person_id AND t.max_id = ti.id");
+        // $this->db->where('ti.status !=','2');
+        $this->db->where($param);
+        $this->db->order_by('ti.id', 'desc'); 
+        $this->db->limit($limit, $offset);
+        
+        return $this->db->get()->result();
+    }
+
+    function get_total_count_traveller_group_by_person($param){
+        $this->db->select('COUNT( DISTINCT ti.person_id ) as total');
+        $this->db->from('travel_information ti');
+        // $this->db->where('status !=','2');
+        $this->db->where($param);
+        $result = $this->db->get()->row();
+        return $result->total;
+    }
+
     function get_travel_detail_list_of_person($where) { 
         
         $this->db->select("*", False);
