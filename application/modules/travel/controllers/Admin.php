@@ -107,6 +107,30 @@ class Admin extends Auth_controller
 		$data['dataentryform'] = 'dataentryform-all';
 		$data = array_merge($this->data, $data);
 
+		if($this->input->post('print_to')){
+			// $this->load->view('list'); 
+
+			// var_dump($person_detail->profile_image );exit;
+			// $this->load->library('pdf');
+
+			$html = $this->load->view('print', $data, true); 
+			
+			// Load pdf library
+			$this->load->library('pdf');
+			
+			// Load HTML content
+			$this->dompdf->loadHtml($html);
+
+			// (Optional) Setup the paper size and orientation
+			$this->dompdf->setPaper('A4', 'landscape');
+        
+			// Render the HTML as PDF
+			$this->dompdf->render();
+			
+			// Output the generated PDF (1 = download and 0 = preview)
+			$this->dompdf->stream("welcome.pdf", array("Attachment"=>0));
+		}
+
 		$this->load->view('layouts/admin/index', $data);
 	} 
 
@@ -171,4 +195,24 @@ class Admin extends Auth_controller
 		header('Content-Type: application/json');
 		echo json_encode($response);
 	}
+
+	public function generate_pdf() {
+        // Load view into a variable
+        $html = $this->load->view('pdf_template', [], true);
+
+		$this->load->view('layouts/admin/index', $data, true);
+
+        // Initialize Dompdf
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $dompdf->stream("sample.pdf", array("Attachment" => 0));
+    }
 }

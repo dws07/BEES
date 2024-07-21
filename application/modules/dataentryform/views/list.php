@@ -44,7 +44,7 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table class="table table-bordered table-responsive">
+                    <table class="table table-bordered table-responsive" id="nepali_preeti">
                         <thead>
                             <tr>
                                 <th>क्र. स.</th>
@@ -69,17 +69,24 @@
                             foreach ($items as $key => $value) {  
                             ?>
                             <tr>
-                                <td><?php echo ($key+1); ?></td>
+                                <td><?php echo $this->crud_model->ent_to_nepali_num_convert($key+1); ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->name; ?></td>
-                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->phone_number; ?></td>
+                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><p id="no_preeti"><?php echo $this->crud_model->ent_to_nepali_num_convert($value->country_code) ?></p><?php echo $value->phone_number; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->nationality; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->identicard_type; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->identicard_number; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->date_of_birth; ?></td>
-                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->age; ?></td>
+                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $this->crud_model->ent_to_nepali_num_convert($value->age); ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->gender; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->address; ?></td>
-                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->marital_status; ?></td>
+                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>">
+                                <?php if($value->marital_status && $value->marital_status == 'अन्य'){ ?>
+                                    <p style="margin-left:1rem;"><?php echo $value->marital_status?$value->marital_status:'' ?></p>
+                                    <p style="margin-left:1rem;" id="nepali_preeti"><?php echo $value->marital_status_remarks?$value->marital_status_remarks:'' ?></p>
+                                <?php }else{ ?>
+                                    <p style="margin-left:1rem;"><?php echo $value->marital_status?$value->marital_status:'' ?></p>
+                                <?php } ?>     
+                                </td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->occupation; ?></td>
                                 <td>
                                 <?php

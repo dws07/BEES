@@ -14,13 +14,14 @@ class Admin extends Auth_controller
 		$this->table = 'personal_information';
 		$this->userId = $this->data['userId'];
 		$this->redirect = 'dataentryform/admin/';
-	}
-
+	} 
 	
 
 	public function all($page = '')
 	{ 
 
+		// $number = "1234567890";
+		// var_dump($this->crud_model->ent_to_nepali_num_convert($number));exit;
 		$like = [];
 		$param = [
 			'ti.status !=' => '2',
@@ -47,7 +48,7 @@ class Admin extends Auth_controller
 		$config['base_url'] = base_url($this->redirect.'all');
 		$config['total_rows'] = $total;
 		$config['uri_segment'] = 4;
-		$config['per_page'] = 1;
+		$config['per_page'] = 10;
 		//outside of flist that is <ul></ul>
 		$config['full_tag_open'] = '<ul class="pagination pagination-sm m-0 float-right">';
 
@@ -112,7 +113,7 @@ class Admin extends Auth_controller
 	public function upload_image() {
         $config['upload_path'] = './uploads/';
         $config['allowed_types'] = 'gif|jpg|png|jpeg';
-        $config['max_size'] = 5000;
+        $config['max_size'] = 500000;
         // $config['max_width'] = 1024;
         // $config['max_height'] = 768;
 
@@ -138,6 +139,7 @@ class Admin extends Auth_controller
 			// var_dump($this->input->post());exit;
 			$this->form_validation->set_rules('name', 'Name', 'required|trim');
 			$this->form_validation->set_rules('phone_number', 'सम्पर्क नम्बर', 'required|min_length[10]|max_length[10]');
+			$this->form_validation->set_rules('country_code', 'Country Code', 'required');
 			if ($this->form_validation->run()) {
 				$personal_data = array(
 					'nationality' => $this->input->post('nationality'),
@@ -154,7 +156,10 @@ class Admin extends Auth_controller
 					'marital_status_remarks' => $this->input->post('marital_status_remarks'),
 					'occupation' => $this->input->post('occupation'),
 					'profile_image' => $this->input->post('captured_image'),
-					'country_code' => $this->input->post('country_code'),
+					'captured_file' => $this->input->post('captured_file'),
+					'country_code' => $this->crud_model->ent_to_nepali_num_convert($number),
+					// $number = "1234567890";
+					// var_dump($this->crud_model->ent_to_nepali_num_convert($number));exit;$this->input->post('country_code'),
 					'remarks' => $this->input->post('remarks'),
 				);
 
@@ -194,6 +199,7 @@ class Admin extends Auth_controller
 				$children_identicard_number = $this->input->post('children_identicard_number');
 				$children_parent_name = $this->input->post('children_parent_name');
 				$children_relations = $this->input->post('children_relations');
+				$captured_image_child = $this->input->post('captured_image_child');
 				
 
 				$health_information = array(
@@ -257,6 +263,7 @@ class Admin extends Auth_controller
 										$children_data['children_identicard_number'] = $children_identicard_number[$i]; 
 										$children_data['children_parent_name'] = $children_parent_name[$i]; 
 										$children_data['children_relations'] = $children_relations[$i]; 
+										$children_data['captured_image'] = $captured_image_child[$i]; 
 										$children_data['is_returned'] = $isreturneed[$i];
 										$children_data['updated'] = date('Y-m-d');
 										$children_data['updated_by'] = $this->userId;
@@ -301,6 +308,7 @@ class Admin extends Auth_controller
 									$children_data['children_identicard_number'] = $children_identicard_number[$i]; 
 									$children_data['children_parent_name'] = $children_parent_name[$i]; 
 									$children_data['children_relations'] = $children_relations[$i];
+									$children_data['captured_image'] = $captured_image_child[$i]; 
 									$children_data['created'] = date('Y-m-d');
 									$children_data['created_by'] = $this->userId; 
 
@@ -372,8 +380,9 @@ class Admin extends Auth_controller
 				$data = $this->input->post(); 
 				
 				$contact = $data['conatct'];  
+				$country_code = $data['country_code'];  
 
-				$person = $this->crud_model->get_where_single('personal_information', array('phone_number' => $contact));
+				$person = $this->crud_model->get_where_single('personal_information', array('phone_number' => $contact,'country_code'=>$country_code));
 				$totalchildren = 1;
 				if ($person) {
 					$latest_travel_info = $this->crud_model->get_where_single_order_by('travel_information', array('is_returned'=>0,'person_id'=>$person->id), 'id', 'desc');
@@ -389,12 +398,13 @@ class Admin extends Auth_controller
 						if($childrens){ 
 							foreach($childrens as $key=>$val){
 								$totalchildren = $totalchildren + $key;
+								$chld_img = ($val->captured_image !== '' && $val->captured_image)?base_url('/').$val->captured_image:base_url('/uploads/Circle-icons-profile.svg.png');
 								$html .=  '<div class="DeleteFunctionsssss childraj">
 												<div class="row MainForm">
 													<div class="col-sm-12">
 														<div class="form-group child_btn">
 															<label>पुरा नाम : </label>
-															<input type="text" name="children_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_name" style="width:80% !important" placeholder="पुरा नाम" value="'.$val->children_name.'">
+															<input type="text" name="children_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_name'.($key+1).'" style="width:80% !important" placeholder="पुरा नाम" value="'.$val->children_name.'">
 														</div>
 													</div> 
 													<div class="col-sm-6">
@@ -429,26 +439,25 @@ class Admin extends Auth_controller
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label>ठेगाना : </label>
-															<input type="text" name="children_address[]" class="form-control utf8val width75 personalinfo2 cmnreset" id="children_address" placeholder="ठेगाना" value="'.$val->children_address.'">
+															<input type="text" name="children_address[]" class="form-control utf8val width75 personalinfo2 cmnreset" id="children_address'.($key+1).'" placeholder="ठेगाना" value="'.$val->children_address.'">
 														</div>
 													</div>
 													<div class="col-sm-12">
 														<div class="form-group">
 															<label> संरक्षकको पुरा नाम : </label>
-															<input type="text" name="children_parent_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_parent_name" style="width:80%" placeholder="संरक्षकको पुरा नाम " value="'.$val->children_parent_name.'">
+															<input type="text" name="children_parent_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_parent_name'.($key+1).'" style="width:80%" placeholder="संरक्षकको पुरा नाम " value="'.$val->children_parent_name.'">
 														</div>
 													</div>
 													<div class="col-sm-12">
 														<div class="form-group">
 															<label>सम्बन्ध : </label>
-															<input type="text" name="children_relations[]" class="form-control utf8val personalinfo2 cmnreset" style="width:80%" id="children_relations" placeholder="सम्बन्ध " value="'.$val->children_relations.'">
-															<a class="btn btn-sm btn-danger FormRemoveFunction" id="FormRemoveFunction"><i class="fa fa-trash"></i></a>
+															<input type="text" name="children_relations[]" class="form-control utf8val personalinfo2 cmnreset" style="width:80%" id="children_relations'.($key+1).'" placeholder="सम्बन्ध " value="'.$val->children_relations.'"> 
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label>परिचय पत्र नम्बर : </label>
-															<input type="text" name="children_identicard_number[]" class="form-control utf8val personalinfo2 cmnreset" style="width:58%" id="children_identicard_number" placeholder="परिचय पत्र नम्बर " value="'.$val->children_identicard_number.'"> 
+															<input type="text" name="children_identicard_number[]" class="form-control utf8val personalinfo2 cmnreset" style="width:58%" id="children_identicard_number'.($key+1).'" placeholder="परिचय पत्र नम्बर " value="'.$val->children_identicard_number.'"> 
 														</div>
 													</div>  
 													<div class="col-sm-6">
@@ -457,6 +466,21 @@ class Admin extends Auth_controller
 															<div class="radiosss width75 ">
 																<input type="radio" class="personalinfo2_checked cmnreset_checked" name="is_returned_child['.$key.']" value="1" '.(((isset($val->is_returned)) && $val->is_returned == "1") ? "checked" : "").'> <span>हो</span>
 																<input type="radio" class="personalinfo2_checked cmnreset_checked" name="is_returned_child['.$key.']" value="0" '.(((isset($val->is_returned)) && $val->is_returned == "0") ? "checked" : "").'> <span>होइन</span> 
+															</div>  
+														</div>
+													</div>
+													<div class="col-sm-12">
+														<div class="form-group"> 
+															<div id="camera_open'.($key+1).'" class="camera_open_hai" camera_count="'.($key+1).'">
+																<i class="fa fa-camera"></i>
+																<p>फोटो</p>
+																<input type="hidden" name="captured_image_child[]" id="captured_image'.($key+1).'" value="">
+															</div>
+															<div id="viewImage'.($key+1).'" class="chldimg">
+																<img id = "webcam" src = "'.$chld_img.'">
+															</div>
+															<div id="appendcam'.($key+1).'">
+
 															</div>  
 														</div>
 													</div>
@@ -469,7 +493,7 @@ class Admin extends Auth_controller
 										<div class="col-sm-12">
 											<div class="form-group child_btn">
 												<label>पुरा नाम : </label>
-												<input type="text" name="children_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_name" style="width:80% !important" placeholder="पुरा नाम" value="">
+												<input type="text" name="children_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_name1" style="width:80% !important" placeholder="पुरा नाम" value="">
 											</div>
 										</div> 
 										<div class="col-sm-6">
@@ -504,26 +528,25 @@ class Admin extends Auth_controller
 										<div class="col-sm-6">
 											<div class="form-group">
 												<label>ठेगाना : </label>
-												<input type="text" name="children_address[]" class="form-control utf8val width75 personalinfo2 cmnreset" id="children_address" placeholder="ठेगाना" value="">
+												<input type="text" name="children_address[]" class="form-control utf8val width75 personalinfo2 cmnreset" id="children_address1" placeholder="ठेगाना" value="">
 											</div>
 										</div>
 										<div class="col-sm-12">
 											<div class="form-group">
 												<label> संरक्षकको पुरा नाम : </label>
-												<input type="text" name="children_parent_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_parent_name" style="width:80%" placeholder="संरक्षकको पुरा नाम " value="">
+												<input type="text" name="children_parent_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_parent_name1" style="width:80%" placeholder="संरक्षकको पुरा नाम " value="">
 											</div>
 										</div>
 										<div class="col-sm-12">
 											<div class="form-group">
 												<label>सम्बन्ध : </label>
-												<input type="text" name="children_relations[]" class="form-control utf8val personalinfo2 cmnreset" style="width:80%" id="children_relations" placeholder="सम्बन्ध " value="">
-												<a class="btn btn-sm btn-danger FormRemoveFunction" id="FormRemoveFunction"><i class="fa fa-trash"></i></a>
+												<input type="text" name="children_relations[]" class="form-control utf8val personalinfo2 cmnreset" style="width:80%" id="children_relations1" placeholder="सम्बन्ध " value=""> 	
 											</div>
 										</div>
 										<div class="col-sm-6">
 											<div class="form-group">
 												<label>परिचय पत्र नम्बर : </label>
-												<input type="text" name="children_identicard_number[]" class="form-control utf8val personalinfo2 cmnreset" style="width:58%" id="children_identicard_number" placeholder="परिचय पत्र नम्बर " value=""> 
+												<input type="text" name="children_identicard_number[]" class="form-control utf8val personalinfo2 cmnreset" style="width:58%" id="children_identicard_number1" placeholder="परिचय पत्र नम्बर " value=""> 
 											</div>
 										</div>  
 										<div class="col-sm-6">
@@ -532,6 +555,19 @@ class Admin extends Auth_controller
 												<div class="radiosss width75 ">
 													<input type="radio" class="personalinfo2_checked cmnreset_checked" name="is_returned_child[0]" value="1"> <span>हो</span>
 													<input type="radio" class="personalinfo2_checked cmnreset_checked" name="is_returned_child[0]" value="0"> <span>होइन</span> 
+												</div>  
+											</div>
+										</div>
+										<div class="col-sm-12">
+											<div class="form-group"> 
+												<div id="camera_open1" class="camera_open_hai" camera_count="1">
+													<i class="fa fa-camera"></i>
+													<p>फोटो</p>
+													<input type="hidden" name="captured_image_child[]" id="captured_image1" value="">
+												</div>
+												<div id="viewImage1" class="chldimg"></div>
+												<div id="appendcam1">
+
 												</div>  
 											</div>
 										</div>
@@ -556,7 +592,7 @@ class Admin extends Auth_controller
 									<div class="col-sm-12">
 										<div class="form-group child_btn">
 											<label>पुरा नाम : </label>
-											<input type="text" name="children_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_name" style="width:80% !important" placeholder="पुरा नाम" value="">
+											<input type="text" name="children_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_name1" style="width:80% !important" placeholder="पुरा नाम" value="">
 										</div>
 									</div> 
 									<div class="col-sm-6">
@@ -591,26 +627,25 @@ class Admin extends Auth_controller
 									<div class="col-sm-6">
 										<div class="form-group">
 											<label>ठेगाना : </label>
-											<input type="text" name="children_address[]" class="form-control utf8val width75 personalinfo2 cmnreset" id="children_address" placeholder="ठेगाना" value="">
+											<input type="text" name="children_address[]" class="form-control utf8val width75 personalinfo2 cmnreset" id="children_address1" placeholder="ठेगाना" value="">
 										</div>
 									</div>
 									<div class="col-sm-12">
 										<div class="form-group">
 											<label> संरक्षकको पुरा नाम : </label>
-											<input type="text" name="children_parent_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_parent_name" style="width:80%" placeholder="संरक्षकको पुरा नाम " value="">
+											<input type="text" name="children_parent_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_parent_name1" style="width:80%" placeholder="संरक्षकको पुरा नाम " value="">
 										</div>
 									</div>
 									<div class="col-sm-12">
 										<div class="form-group">
 											<label>सम्बन्ध : </label>
-											<input type="text" name="children_relations[]" class="form-control utf8val personalinfo2 cmnreset" style="width:80%" id="children_relations" placeholder="सम्बन्ध " value="">
-											<a class="btn btn-sm btn-danger FormRemoveFunction" id="FormRemoveFunction"><i class="fa fa-trash"></i></a>
+											<input type="text" name="children_relations[]" class="form-control utf8val personalinfo2 cmnreset" style="width:80%" id="children_relations1" placeholder="सम्बन्ध " value=""> 
 										</div>
 									</div>
 									<div class="col-sm-6">
 										<div class="form-group">
 											<label>परिचय पत्र नम्बर : </label>
-											<input type="text" name="children_identicard_number[]" class="form-control utf8val personalinfo2 cmnreset" style="width:58%" id="children_identicard_number" placeholder="परिचय पत्र नम्बर " value=""> 
+											<input type="text" name="children_identicard_number[]" class="form-control utf8val personalinfo2 cmnreset" style="width:58%" id="children_identicard_number1" placeholder="परिचय पत्र नम्बर " value=""> 
 										</div>
 									</div>  
 									<div class="col-sm-6">
@@ -619,6 +654,19 @@ class Admin extends Auth_controller
 											<div class="radiosss width75 ">
 												<input type="radio" class="personalinfo2_checked cmnreset_checked" name="is_returned_child[0]" value="1"> <span>हो</span>
 												<input type="radio" class="personalinfo2_checked cmnreset_checked" name="is_returned_child[0]" value="0"> <span>होइन</span> 
+											</div>  
+										</div>
+									</div>
+									<div class="col-sm-12">
+										<div class="form-group"> 
+											<div id="camera_open1" class="camera_open_hai" camera_count="1">
+												<i class="fa fa-camera"></i>
+												<p>फोटो</p>
+												<input type="hidden" name="captured_image_child[]" id="captured_image1" value="">
+											</div>
+											<div id="viewImage1" class="chldimg"></div>
+											<div id="appendcam1">
+
 											</div>  
 										</div>
 									</div>
@@ -646,7 +694,7 @@ class Admin extends Auth_controller
 							<div class="col-sm-12">
 								<div class="form-group child_btn">
 									<label>पुरा नाम : </label>
-									<input type="text" name="children_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_name" style="width:80% !important" placeholder="पुरा नाम" value="">
+									<input type="text" name="children_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_name1" style="width:80% !important" placeholder="पुरा नाम" value="">
 								</div>
 							</div> 
 							<div class="col-sm-6">
@@ -681,26 +729,25 @@ class Admin extends Auth_controller
 							<div class="col-sm-6">
 								<div class="form-group">
 									<label>ठेगाना : </label>
-									<input type="text" name="children_address[]" class="form-control utf8val width75 personalinfo2 cmnreset" id="children_address" placeholder="ठेगाना" value="">
+									<input type="text" name="children_address[]" class="form-control utf8val width75 personalinfo2 cmnreset" id="children_address1" placeholder="ठेगाना" value="">
 								</div>
 							</div>
 							<div class="col-sm-12">
 								<div class="form-group">
 									<label> संरक्षकको पुरा नाम : </label>
-									<input type="text" name="children_parent_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_parent_name" style="width:80%" placeholder="संरक्षकको पुरा नाम " value="">
+									<input type="text" name="children_parent_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_parent_name1" style="width:80%" placeholder="संरक्षकको पुरा नाम " value="">
 								</div>
 							</div>
 							<div class="col-sm-12">
 								<div class="form-group">
 									<label>सम्बन्ध : </label>
-									<input type="text" name="children_relations[]" class="form-control utf8val personalinfo2 cmnreset" style="width:80%" id="children_relations" placeholder="सम्बन्ध " value="">
-									<a class="btn btn-sm btn-danger FormRemoveFunction" id="FormRemoveFunction"><i class="fa fa-trash"></i></a>
+									<input type="text" name="children_relations[]" class="form-control utf8val personalinfo2 cmnreset" style="width:80%" id="children_relations1" placeholder="सम्बन्ध " value=""> 
 								</div>
 							</div>
 							<div class="col-sm-6">
 								<div class="form-group">
 									<label>परिचय पत्र नम्बर : </label>
-									<input type="text" name="children_identicard_number[]" class="form-control utf8val personalinfo2 cmnreset" style="width:58%" id="children_identicard_number" placeholder="परिचय पत्र नम्बर " value=""> 
+									<input type="text" name="children_identicard_number[]" class="form-control utf8val personalinfo2 cmnreset" style="width:58%" id="children_identicard_number1" placeholder="परिचय पत्र नम्बर " value=""> 
 								</div>
 							</div>  
 							<div class="col-sm-6">
@@ -709,6 +756,19 @@ class Admin extends Auth_controller
 									<div class="radiosss width75 ">
 										<input type="radio" class="personalinfo2_checked cmnreset_checked" name="is_returned_child[0]" value="1"> <span>हो</span>
 										<input type="radio" class="personalinfo2_checked cmnreset_checked" name="is_returned_child[0]" value="0"> <span>होइन</span> 
+									</div>  
+								</div>
+							</div>
+							<div class="col-sm-12">
+								<div class="form-group"> 
+									<div id="camera_open1" class="camera_open_hai" camera_count="1">
+										<i class="fa fa-camera"></i>
+										<p>फोटो</p>
+										<input type="hidden" name="captured_image_child[]" id="captured_image1" value="">
+									</div>
+									<div id="viewImage1" class="chldimg"></div>
+									<div id="appendcam1">
+
 									</div>  
 								</div>
 							</div>

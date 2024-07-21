@@ -1,6 +1,229 @@
 @font-face {
-  font-family: "MyCustomFont";
-  src: url("../../Preeti.otf") format("truetype");
+  font-family: 'Preeti';
+  src: url("/assets/webfonts/nepali/preeti.TTF") format('truetype');
+}
+#name {
+  font-family: 'Preeti', sans-serif;
+}
+#phone_number {
+  font-family: 'Preeti', sans-serif;
+}
+#nationality {
+  font-family: 'Preeti', sans-serif;
+}
+#identicard_number {
+  font-family: 'Preeti', sans-serif;
+}
+#address {
+  font-family: 'Preeti', sans-serif;
+}
+#occupation {
+  font-family: 'Preeti', sans-serif;
+}
+#marital_status_remarks {
+  font-family: 'Preeti', sans-serif;
+}
+#travel_start_country {
+  font-family: 'Preeti', sans-serif;
+}
+#entry_adress {
+  font-family: 'Preeti', sans-serif;
+}
+#entry_address2 {
+  font-family: 'Preeti', sans-serif;
+}
+#travel_destination {
+  font-family: 'Preeti', sans-serif;
+}
+#travel_deuration {
+  font-family: 'Preeti', sans-serif;
+}
+#traveler_proporty {
+  font-family: 'Preeti', sans-serif;
+}
+#vehicle_number {
+  font-family: 'Preeti', sans-serif;
+}
+#drivers_name {
+  font-family: 'Preeti', sans-serif;
+}
+#driving_licence {
+  font-family: 'Preeti', sans-serif;
+}
+#drivers_number {
+  font-family: 'Preeti', sans-serif;
+}
+#property_information {
+  font-family: 'Preeti', sans-serif;
+}
+#pasengers {
+  font-family: 'Preeti', sans-serif;
+}
+#remarks {
+  font-family: 'Preeti', sans-serif;
+}
+#health_status {
+  font-family: 'Preeti', sans-serif;
+}
+#health_result {
+  font-family: 'Preeti', sans-serif;
+} 
+
+#children_name1 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_name2 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_name3 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_name4 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_name5 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_name6 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_name7 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_name8 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_name9 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_name10 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_address1 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_address2 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_address3 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_address4 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_address5 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_address6 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_address7 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_address8 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_address9 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_address10 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_parent_name1 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_parent_name2 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_parent_name3 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_parent_name4 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_parent_name5 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_parent_name6 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_parent_name7 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_parent_name8 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_parent_name9 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_parent_name10 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_relations1 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_relations2 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_relations3 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_relations4 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_relations5 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_relations6 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_relations7 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_relations8 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_relations9 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_relations10 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_identicard_number1 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_identicard_number2 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_identicard_number3 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_identicard_number4 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_identicard_number5 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_identicard_number6 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_identicard_number7 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_identicard_number8 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_identicard_number9 {
+  font-family: 'Preeti', sans-serif;
+}
+#children_identicard_number10 {
+  font-family: 'Preeti', sans-serif;
+}
+#nepali_preeti {
+  font-family: 'Preeti', sans-serif;
+}
+#no_preeti {
+  font-family: sans-serif !important;
 }
 
 .all_form input {
@@ -655,10 +878,10 @@ body::-webkit-scrollbar-thumb {
   width: 100%;
   min-height: 50px;
 } */
-.content {
+/* .content {
   height: 100vh;
-  /* min-height: calc(100vh-200px); */
-}
+  min-height: calc(100vh-200px);
+} */
 
 .VehicleDetails {
   border-right: 1px solid #ddd;
@@ -841,7 +1064,35 @@ body::-webkit-scrollbar-thumb {
   position: relative;
   overflow: hidden;
 }
+.CameraBoxChild {
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  bottom: 0;
+  right: 0px;
+  background: rgba(0, 0, 0, 0.9);
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  z-index:999;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.CameraBoxChild .inside {
+  width: 480px;
+  /* height: 500px; */
+  background-color: #fff;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
 #my_camera {
+  overflow: hidden;
+  background-color: #000;
+}
+#my_camera_child {
   overflow: hidden;
   background-color: #000;
 }
@@ -910,7 +1161,21 @@ body::-webkit-scrollbar-thumb {
   background-color: #fff;
   display: none;
 }
+#results_child {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+  background-color: #fff;
+  display: none;
+}
 #results img {
+  width: 100%;
+  height: 285px;
+}
+#results_child img {
   width: 100%;
   height: 285px;
 }

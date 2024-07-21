@@ -219,22 +219,22 @@
                     </li>
                 <?php } ?>
                 <?php
-                $check_district = $this->crud_model->get_module_for_role('district');
-                if ($check_district == true) {
-                    ?>
-                    <li class=" <?php echo isset($district) ? 'active' : ''; ?>">
+                // $check_district = $this->crud_model->get_module_for_role('district');
+                // if ($check_district == true) {
+                //     ?>
+                    <!-- <li class=" <?php //echo isset($district) ? 'active' : ''; ?>"> -->
 
                         <?php
-                        $check_district_all = $this->crud_model->get_module_function_for_role('district', 'all');
-                        if ($check_district_all == true) {
+                        // $check_district_all = $this->crud_model->get_module_function_for_role('district', 'all');
+                        // if ($check_district_all == true) {
                             ?>
-                            <a href="<?php echo base_url('district/admin/all'); ?>">
+                            <!-- <a href="<?php //echo base_url('district/admin/all'); ?>"> -->
                                 <!-- <i class="fa fa-edit"></i> -->
-                                <span>जिल्ला</span>
-                            </a>
-                        <?php } ?>
-                    </li>
-                <?php } ?>
+                                <!-- <span>जिल्ला</span> -->
+                            <!-- </a> -->
+                        <?php //} ?>
+                    <!-- </li> -->
+                <?php //} ?>
                 <?php
                 $check_user_role = $this->crud_model->get_module_for_role('user_role');
                 if ($check_user_role == true) {

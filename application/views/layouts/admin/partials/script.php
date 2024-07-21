@@ -21,7 +21,68 @@
 <script src="<?php echo base_url('assets/js/'); ?>nepali.datepicker.v4.0.4.min.js"></script>
 <script src="<?php echo base_url('assets/js/'); ?>toastify.min.js"></script>
 <script src="<?php echo base_url('assets/js/'); ?>dataTables.min.js"></script> 
+<script>
+        const preetiMap = {
+            //for small letter 
+            'a': 'ब', 'b': 'द', 'c': 'अ', 'd': 'म', 'e': 'भ', 'f': 'ा', 'g': 'न', 'h': 'ज',
+            'i': 'ष', 'j': 'न', 'k': 'प', 'l': 'ग', 'm': 'थ', 'n': 'त', 'o': 'च', 'p': 'ट', 
+            'q': 'ष', 'r': 'य', 's': 'व', 't': 'ल', 'u': 'ग', 'v': 'ख', 'w': 'घ', 'x': 'श',
+            'y': 'फ', 'z': 'श',
+            //for capital letter
+            'A': 'ब्', 'B': 'द्य', 'C': 'ऋ', 'D': 'म्', 'E': 'भ्', 'F': 'ँ', 'G': 'न्', 'H': 'ज्', 
+            'I': ' क्ष् ', 'J': ' व् ', 'K': ' प् ', 'L': ' ी ', 'M': ' ः ', 'N': ' ल् ', 'O': ' इ ', 'P': ' ए ', 
+            'Q': ' त्त ', 'R': ' च् ', 'S': ' क् ', 'T': ' त् ', 'U': ' ग् ', 'V': ' ख् ', 'W': ' ध् ', 'X': ' ह् ', 
+            'Y': ' थ् ', 'Z': ' श्',
+            //numbers
+            '1': ' ज्ञ', '2': ' द्द ', '3': 'घ', '4': ' द्ध', '5': 'छ', '6': 'ट', '7': 'ठ', '8': 'ड',
+            '9': 'ढ', '0': 'ण',
 
+            //special characteres
+            '~': '',
+            '`': '',
+            '!': '',
+            '@': '',
+            '#': '',
+            '$': '',
+            '%': '',
+            '^': '',
+            '&': '',
+            '*': '',
+            '(': '',
+            ')': '',
+            '_': '',
+            '-': '',
+            '+': '',
+            '=': '',
+            '|': '', 
+            '\\': '्',
+            '}': '',
+            ']': 'े',
+            '{': '',
+            '[': '',
+            '"': 'ू',
+            "'": 'ु',
+            ':': '',
+            ';': '',
+            '?': '',
+            '/': 'र',
+            '>': '',
+            '.': '',
+            '<': '', 
+            ',': '',  
+        };
+
+        // document.addEventListener('DOMContentLoaded', (event) => {
+        //     const preetiInput = document.getElementById('preetiInput');
+
+        //     preetiInput.addEventListener('keydown', function (e) {
+        //         if (preetiMap[e.key]) {
+        //             e.preventDefault();
+        //             preetiInput.value += preetiMap[e.key];
+        //         }
+        //     });
+        // });
+    </script>
 
 <script>
     // GLOBAL SCOPE VARIABLE
@@ -35,8 +96,164 @@
         // Log clicked item details
         console.log('Item clicked with value:', value);
         console.log('Item clicked with HTML:', html);
+        $('#country_code').val(value);
     }
     $(document).ready(function () {
+        //open camera
+        $(document).off('click','.camera_open_hai').on('click', '.camera_open_hai', function(){
+            var camera_count = $(this).attr('camera_count');
+            var default_img = "<?php echo base_url(); ?>assets/img/backgrouns_blabk.png",
+            // alert(camera_count);
+            $html = `<div class="CameraBoxChild" id="cmbx`+camera_count+`">
+                        <div class="inside">
+                            <div id="my_camera_child"></div>
+                            <input type="hidden" name="captured_image_data_child" id="captured_image_data_child">
+                            <div id="results_child" style="display:none;">
+                                <div id="Capture_image_child">
+                                    <img src="`+default_img+`" alt="Image">
+                                </div>
+                                <div class="actionss">
+                                    <button type="button" id="svSnap" camera_count="`+camera_count+`">
+                                        Save
+                                    </button>
+                                    <button type="button" id="refresh_camera" camera_count="`+camera_count+`">
+                                        refresh
+                                    </button>
+                                    <button type="button" id="webcamclose1" camera_count="`+camera_count+`">
+                                        exit
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="actionss">
+                                <button type="button" id="captureSnapChild" camera_count="`+camera_count+`">
+                                    Capture
+                                </button>
+                                <button type="button" id="webcamclose">
+                                    exit
+                                </button>
+                            </div>
+                        </div>
+                    </div>`; 
+                    // console.log('rajesh'); 
+                $('#appendcam'+camera_count).html($html);    
+                configure(); 
+        })
+
+        //refresh camera
+        $(document).off('click','#refresh_camera').on('click', '#refresh_camera', function(){
+            Webcam.reset();
+            var camera_count = $(this).attr('camera_count');
+            var default_img = "<?php echo base_url(); ?>assets/img/backgrouns_blabk.png",
+            // alert(camera_count);
+            $html = `<div class="CameraBoxChild" id="cmbx`+camera_count+`">
+                        <div class="inside">
+                            <div id="my_camera_child"></div>
+                            <input type="hidden" name="captured_image_data_child" id="captured_image_data_child">
+                            <div id="results_child" style="display:none;">
+                                <div id="Capture_image_child">
+                                    <img src="`+default_img+`" alt="Image">
+                                </div>
+                                <div class="actionss">
+                                    <button type="button" id="svSnap" camera_count="`+camera_count+`">
+                                        Save
+                                    </button>
+                                    <button type="button" id="refresh_camera" camera_count="`+camera_count+`">
+                                        refresh
+                                    </button>
+                                    <button type="button" id="webcamclose1" camera_count="`+camera_count+`">
+                                        exit
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="actionss">
+                                <button type="button" id="captureSnapChild" camera_count="`+camera_count+`">
+                                    Capture
+                                </button>
+                                <button type="button" id="webcamclose">
+                                    exit
+                                </button>
+                            </div>
+                        </div>
+                    </div>`; 
+                    // console.log('rajesh'); 
+                $('#viewImage'+camera_count).html('');
+                $('#appendcam'+camera_count).html($html);    
+                configure(); 
+        })
+
+        function configure() {
+            // alert(camera_count);
+            Webcam.set({
+                width: 440,
+                height: 260,
+                image_format: 'png',
+                jpeg_quailaty: 90
+            });
+            Webcam.attach('#my_camera_child');
+        } 
+
+        //close camera
+        $(document).off('click','#webcamclose').on('click','#webcamclose',function(){
+            Webcam.reset();
+            $('.CameraBoxChild').remove();
+        }) 
+        //close camera1
+        $(document).off('click','#webcamclose1').on('click','#webcamclose1',function(){
+            Webcam.reset();
+            var camera_count = $(this).attr('camera_count');
+            $('.CameraBoxChild').remove();
+            $('#viewImage'+camera_count).html('');
+        }) 
+
+        //capture image
+        $(document).off('click','#captureSnapChild').on('click','#captureSnapChild',function(){
+            var camera_count = $(this).attr('camera_count');
+            const Resultsss = document.querySelector('#results_child');
+            Resultsss.style.display = "block";
+            Webcam.snap(function (data_uri) {
+                const Result = document.getElementById('Capture_image_child');
+                const viewImage = document.getElementById('viewImage'+camera_count);
+                Result.innerHTML = '<img id = "webcam" src = "' + data_uri + '">';
+                viewImage.innerHTML = '<img id = "webcam" src = "' + data_uri + '">';
+                $("#captured_image_data_child").val(data_uri);
+            });
+        })  
+        
+
+        //save snap 
+        $(document).off('click','#svSnap').on('click','#svSnap',function(){
+            var camera_count = $(this).attr('camera_count');
+            var base64data = $("#captured_image_data_child").val();
+            $.ajax({
+                type: "POST",
+                // dataType: "json",
+                url: "<?php echo base_url(); ?>dataentryform/admin/saveSnaps/",
+                data: { image: base64data },
+                success: function (data) {
+                    // alert("Saved");
+                    $("#captured_image"+camera_count).val(data);
+                    Webcam.reset();
+                    $('.CameraBoxChild').remove();
+                    // const cameraBox = document.querySelector('.CameraBox');
+                    // const Resultsss = document.querySelector('#results');
+                    // const viewimage = document.querySelector('#viewImage');
+                    // Resultsss.style.display = "none";
+                    // cameraBox.style.display = "none";
+                    // viewimage.style.display = "block";
+                    Toastify({
+
+                        text: 'Snap Saved',
+
+                        duration: 6000,
+
+                        style: {
+                            background: "linear-gradient(to right, red, yellow)",
+                        }
+
+                    }).showToast();
+                }
+            })
+        }) 
 
         function isValidUTF8(str) {
             try {
@@ -47,29 +264,47 @@
             }
         }
 
-        $(document).off('change', '.utf8val').on('change', '.utf8val', function (e) {
-            var input = $(this).val();
-            if (isValidUTF8(input)) {
-                // alert('invalid');
-                // console.log("The string is valid UTF-8.");
-                $(this).val('');
-                Toastify({
+        // $(document).off('change', '.utf8val').on('change', '.utf8val', function (e) {
+        //     var input = $(this).val(); 
+        //     alert(input);
+        //     const fontFamily = window.getComputedStyle(input).fontFamily;
+        //     console.log(fontFamily);
+        //     if (fontFamily.includes('Preeti')) {
+        //         alert('Preeti font is applied!');
+        //     } else {
+        //         Toastify({
 
-                    text: "नेपालीमा लेख्नुहोस्",
+        //             text: "नेपालीमा लेख्नुहोस्",
 
-                    duration: 6000,
+        //             duration: 6000,
 
-                    style: {
-                        background: "linear-gradient(to right, red, yellow)",
-                    }
+        //             style: {
+        //                 background: "linear-gradient(to right, red, yellow)",
+        //             }
 
-                }).showToast();
-            }
-            // else {
-            //     alert('valid');
-            //     console.log("The string is not valid UTF-8.");
-            // }
-        })
+        //         }).showToast();
+        //     }
+        //     // if (isValidUTF8(input)) {
+        //     //     // alert('invalid');
+        //     //     // console.log("The string is valid UTF-8.");
+        //     //     $(this).val('');
+        //     //     Toastify({
+
+        //     //         text: "नेपालीमा लेख्नुहोस्",
+
+        //     //         duration: 6000,
+
+        //     //         style: {
+        //     //             background: "linear-gradient(to right, red, yellow)",
+        //     //         }
+
+        //     //     }).showToast();
+        //     // }
+        //     // else {
+        //     //     alert('valid');
+        //     //     console.log("The string is not valid UTF-8.");
+        //     // }
+        // })
 
 
 
@@ -139,8 +374,8 @@
                 var reader = new FileReader();
 
                 reader.onload = function (e) {
-                    const viewImage = document.getElementById('viewImage');
-                    viewImage.innerHTML = '<img id = "webcam" src = "' + e.target.result + '">';
+                    const viewImage = document.getElementById('viewFile');
+                    viewImage.innerHTML = '<p class="fleupled">फाईल अपलोड पूर्ण भयो !!!</p>';
                     viewImage.style.display = "block";
                 }
 
@@ -156,7 +391,7 @@
                     contentType: false,
                     processData: false,
                     success: function (response) {
-                        $("#captured_image").val(response);
+                        $("#captured_file").val(response);
                     },
                     error: function (xhr, status, error) {
                         Toastify({
@@ -177,6 +412,23 @@
 
         $(document).off('change', '#phone_number').on('change', '#phone_number', function (e) {
             var contact = $(this).val();
+            var country_code = $('#country_code').val();
+            // alert(country_code);
+            if(!country_code || country_code == ''){
+                $('#phone_number').val('');
+                Toastify({
+
+                    text: 'Please select Country Code First',
+
+                    duration: 6000,
+
+                    style: {
+                        background: "linear-gradient(to right, red, yellow)",
+                    }
+
+                    }).showToast();
+                    return false;
+            }
             // alert(contact.toString().length);
             if (10 < contact.toString().length || contact.toString().length < 10) {
                 $('#phone_number').val('');
@@ -191,6 +443,7 @@
                     }
 
                 }).showToast();
+                return false;
             } else {
                 $.ajax({
                     url: '<?php echo base_url('dataentryform/admin/getDetailFromContact'); ?>',
@@ -198,6 +451,7 @@
                     dataType: "json",
                     data: {
                         "conatct": contact,
+                        "country_code": country_code,
                     },
                     success: function (resp) {
                         $(".field_validation").css("display", "none");
@@ -227,6 +481,8 @@
                             $('#remarks').val(resp.data.remarks);
                             var filepath = `<?php echo base_url(''); ?>`;
                             $('#viewImage').html(`<img id = "webcam" src = "` + filepath + resp.data.profile_image + `">`);
+                            $('#captured_file').val(resp.data.captured_file);
+                            $('#viewFile').html(`<a href="` + filepath + resp.data.captured_file + `" target="_blank">फाईल हेर्नुहोस </a>`);
                             $("#viewImage").css("display", "block");
                             // initializeDatePickers();
 
@@ -255,14 +511,14 @@
                                     $("#vehicle_detailssss").css("display", "block");
                                     jQuery('input:radio[name="vehicle_information"]').filter(`[value="` + resp.data.vehicle_info.vehicle_information + `"]`).attr('checked', true);
                                     jQuery('input:radio[name="types_of_vehicle"]').filter(`[value="` + resp.data.vehicle_info.types_of_vehicle + `"]`).attr('checked', true);
-                                    $('#vehicle_number').val(resp.data.travel_info.vehicle_number);
-                                    $('#drivers_name').val(resp.data.travel_info.drivers_name);
-                                    $('#driving_licence').val(resp.data.travel_info.driving_licence);
-                                    $('#drivers_number').val(resp.data.travel_info.drivers_number);
+                                    $('#vehicle_number').val(resp.data.vehicle_info.vehicle_number);
+                                    $('#drivers_name').val(resp.data.vehicle_info.drivers_name);
+                                    $('#driving_licence').val(resp.data.vehicle_info.driving_licence);
+                                    $('#drivers_number').val(resp.data.vehicle_info.drivers_number);
                                     jQuery('input:radio[name="use_of_vehicle"]').filter(`[value="` + resp.data.vehicle_info.use_of_vehicle + `"]`).attr('checked', true);
                                     jQuery('input:radio[name="heavy_vehicle_type"]').filter(`[value="` + resp.data.vehicle_info.heavy_vehicle_type + `"]`).attr('checked', true);
-                                    $('#property_information').val(resp.data.travel_info.property_information);
-                                    $('#pasengers').val(resp.data.travel_info.pasengers);
+                                    $('#property_information').val(resp.data.vehicle_info.property_information);
+                                    $('#pasengers').val(resp.data.vehicle_info.pasengers);
                                     jQuery('input:radio[name="is_returned_vehicle"]').filter(`[value="` + resp.data.vehicle_info.is_returned + `"]`).attr('checked', true);
                                 } else {
                                     $("#vehicle_detailssss").css("display", "none");
@@ -500,7 +756,7 @@
                     <div class="col-sm-12">
                         <div class="form-group child_btn">
                             <label>पुरा नाम : </label>
-                            <input type="text" name="children_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_name" style="width:80% !important" placeholder="पुरा नाम" value="">
+                            <input type="text" name="children_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_name`+total_child+`" style="width:80% !important" placeholder="पुरा नाम" value="">
                         </div>
                     </div> 
                     <div class="col-sm-6">
@@ -535,26 +791,25 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>ठेगाना : </label>
-                            <input type="text" name="children_address[]" class="form-control utf8val width75 personalinfo2 cmnreset" id="children_address" placeholder="ठेगाना" value="">
+                            <input type="text" name="children_address[]" class="form-control utf8val width75 personalinfo2 cmnreset" id="children_address`+total_child+`" placeholder="ठेगाना" value="">
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label> संरक्षकको पुरा नाम : </label>
-                            <input type="text" name="children_parent_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_parent_name" style="width:80%" placeholder="संरक्षकको पुरा नाम " value="">
+                            <input type="text" name="children_parent_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_parent_name`+total_child+`" style="width:80%" placeholder="संरक्षकको पुरा नाम " value="">
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label>सम्बन्ध : </label>
-                            <input type="text" name="children_relations[]" class="form-control utf8val personalinfo2 cmnreset" style="width:80%" id="children_relations" placeholder="सम्बन्ध " value="">
-                            <a class="btn btn-sm btn-danger FormRemoveFunction" id="FormRemoveFunction"><i class="fa fa-trash"></i></a>
+                            <input type="text" name="children_relations[]" class="form-control utf8val personalinfo2 cmnreset" style="width:80%" id="children_relations`+total_child+`" placeholder="सम्बन्ध " value=""> 
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>परिचय पत्र नम्बर : </label>
-                            <input type="text" name="children_identicard_number[]" class="form-control utf8val personalinfo2 cmnreset" style="width:58%" id="children_identicard_number" placeholder="परिचय पत्र नम्बर " value=""> 
+                            <input type="text" name="children_identicard_number[]" class="form-control utf8val personalinfo2 cmnreset" style="width:58%" id="children_identicard_number`+total_child+`" placeholder="परिचय पत्र नम्बर " value=""> 
                         </div>
                     </div>  
                     <div class="col-sm-6">
@@ -564,6 +819,20 @@
                                 <input type="radio" class="personalinfo2_checked cmnreset_checked" name="is_returned_child[`+(total_child-1)+`]" value="1"> <span>हो</span>
                                 <input type="radio" class="personalinfo2_checked cmnreset_checked" name="is_returned_child[`+(total_child-1)+`]" value="0"> <span>होइन</span> 
                             </div>  
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group"> 
+                            <div id="camera_open`+total_child+`" class="camera_open_hai" camera_count="`+total_child+`">
+                                <i class="fa fa-camera"></i>
+                                <p>फोटो</p>
+                                <input type="hidden" name="captured_image_child[]" id="captured_image`+total_child+`" value="">
+                            </div>
+                            <div id="viewImage`+total_child+`" class="chldimg"></div>
+                            <div id="appendcam`+total_child+`">
+
+                            </div> 
+                            <a class="btn btn-sm btn-danger FormRemoveFunction" id="FormRemoveFunction"><i class="fa fa-trash"></i></a>
                         </div>
                     </div>
                 </div>
@@ -1035,28 +1304,29 @@ if ($this->session->flashdata('success')) { ?>
 
             },
         });
-    });
-    function initializeDatePickers() {
-        $( "#nepali-datepickerchild1" ).nepaliDatePicker({
-        ndpYear: true,
-        ndpMonth: true,
-        ndpYearCount: 100,
-            onChange: function(value, ui) {
-                console.log(value.ad);
-                const AGe = document.querySelector('#children_age1');
-                // const BODDD = document.querySelector('#dobsssschid1');  
-                let today = new Date(),
-                    dob = new Date(value.ad),
-                    age = new Date(today - dob).getFullYear() - 1970;
-                console.log(age);
-                AGe.innerHTML = age;
-                AGe.value = age;
-                // BODDD.value = value.ad;
+    }); 
+      
+  function initializeDatePickers() {
+    $( "#nepali-datepickerchild1" ).nepaliDatePicker({
+            ndpYear: true,
+            ndpMonth: true,
+            ndpYearCount: 100,
+                onChange: function(value, ui) {
+                    console.log(value.ad);
+                    const AGe = document.querySelector('#children_age1');
+                    // const BODDD = document.querySelector('#dobsssschid1');  
+                    let today = new Date(),
+                        dob = new Date(value.ad),
+                        age = new Date(today - dob).getFullYear() - 1970;
+                    console.log(age);
+                    AGe.innerHTML = age;
+                    AGe.value = age;
+                    // BODDD.value = value.ad;
 
-            },
-        });
-    }
-    initializeDatePickers();   
+                },
+            });
+    };
+    initializeDatePickers();
 </script>
 <script>
     const Dateswitch = document.querySelector('#Switchsss');
@@ -1249,7 +1519,7 @@ if ($this->session->flashdata('success')) { ?>
             url: "<?php echo base_url(); ?>dataentryform/admin/saveSnaps/",
             data: { image: base64data },
             success: function (data) {
-                alert("Saved");
+                // alert("Saved");
                 $("#captured_image").val(data);
                 Webcam.reset();
                 const cameraBox = document.querySelector('.CameraBox');
@@ -1258,11 +1528,21 @@ if ($this->session->flashdata('success')) { ?>
                 Resultsss.style.display = "none";
                 cameraBox.style.display = "none";
                 viewimage.style.display = "block";
+                Toastify({
+
+                    text: 'Snap Saved',
+
+                    duration: 6000,
+
+                    style: {
+                        background: "linear-gradient(to right, red, yellow)",
+                    }
+
+                }).showToast();
             }
         })
 
 
-    }
-
+    } 
 
 </script>

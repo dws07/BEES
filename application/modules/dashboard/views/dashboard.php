@@ -101,7 +101,7 @@ function ent_to_nepali_num_convert($number)
                 <div class="col-sm-12">
 				<div class="DBox">
 				<div class="box-body">
-                    <table class="table table-bordered" >
+                    <table class="table table-bordered" id="nepali_preeti" >
                         <thead>
                             <tr>
                                 <th>पुरा नाम</th>
@@ -120,7 +120,7 @@ function ent_to_nepali_num_convert($number)
                                 <td>
                                     <?php echo $value->gender?> 
                                 </td>
-                                <td><?php echo $value->phone_number; ?></td>
+                                <td><p id="no_preeti"><?php echo $this->crud_model->ent_to_nepali_num_convert($value->country_code) ?></p><?php echo $value->phone_number; ?></td>
                                 <td>
                                     <?php echo $value->gone ?> 
                                 </td>

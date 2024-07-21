@@ -17,6 +17,15 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/toastify.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/dataTables.dataTables.min.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>jquery-ui.css">
+    <!-- <style>
+        @font-face {
+            font-family: 'Preeti';
+            src: url("<?php echo base_url() ?>/assets/webfonts/nepali/preeti.TTF") format('truetype');
+        }
+        #name {
+            font-family: 'Preeti', sans-serif;
+        }
+    </style> -->
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">

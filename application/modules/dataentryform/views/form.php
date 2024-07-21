@@ -17,6 +17,24 @@
         border: 1px solid #ddd;
         color: #f04848;
     }
+    .chldimg img {
+        width: 33%;
+        border: 1px solid #ddd;
+        border-radius: 15px;
+        float: right;
+    }
+
+    .chldimg {
+        background: #ffff;
+        /* border: 1px solid #ddd; */
+        /* width: 35%; */
+        /* float: left; */
+    }
+
+    .camera_open_hai {
+        font-size: 20px;
+        font-weight: bold;
+    }
 </style>
 <section class="content">
     <div class="row">
@@ -58,9 +76,12 @@
                                                                         class="form-control">
                                                                 </li>
                                                             </ul>
+                                                            <input type="hidden" name="country_code" id="country_code" value="">
+                                                            <?php if (form_error('country_code'))
+                                                            echo '<span class="field_validation">' . form_error('country_code') . '</span>' ?>
                                                         </div><!-- /btn-group -->
-                                                        <input type="number" name="phone_number"
-                                                            class="form-control personalinfo" id="phone_number"
+                                                        <input type="text" name="phone_number"
+                                                            class="form-control utf8val personalinfo" id="phone_number"
                                                             placeholder="सम्पर्क नम्बर"
                                                             value="<?php echo (((isset($detail->phone_number)) && $detail->phone_number != '') ? $detail->phone_number : '') ?>"
                                                             required>
@@ -131,7 +152,7 @@
                                                 <div class="form-group">
                                                     <label>परिचय पत्र नम्बर : <span class="required">*</span></label>
                                                     <input type="text" name="identicard_number"
-                                                        class="form-control personalinfo cmnreset"
+                                                        class="form-control utf8val personalinfo cmnreset"
                                                         id="identicard_number" placeholder="परिचय पत्र नम्बर"
                                                         value="<?php echo (((isset($detail->identicard_number)) && $detail->identicard_number != '') ? $detail->identicard_number : '') ?>"
                                                         required>
@@ -263,12 +284,12 @@
                                             </div>
                                             <div class="col-sm-5">
                                                 <div class="form-group">
-                                                    <label>फर्केको समय : <span class="required">*</span></label>
+                                                    <label>फर्केको समय : </label>
                                                     <input type="time" name="exit_time"
                                                         class="form-control personalinfo1 cmnreset" id="exit_time"
                                                         placeholder="प्रबेश समय"
                                                         value="<?php echo (((isset($detail->exit_time)) && $detail->exit_time != '') ? $detail->exit_time : '') ?>"
-                                                        required>
+                                                        >
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
@@ -386,7 +407,7 @@
                                                         <div class="form-group child_btn">
                                                             <label>पुरा नाम : </label>
                                                             <input type="text" name="children_name[]"
-                                                                class="form-control utf8val personalinfo2 cmnreset" id="children_name"
+                                                                class="form-control utf8val personalinfo2 cmnreset" id="children_name1"
                                                                 placeholder="पुरा नाम" style="width:80% !important"
                                                                 value="<?php echo (((isset($detail->children_name)) && $detail->children_name != '') ? $detail->children_name : '') ?>">
                                                         </div>
@@ -444,7 +465,7 @@
                                                             <label>ठेगाना : </label>
                                                             <input type="text" name="children_address[]"
                                                                 class="form-control utf8val width75 personalinfo2 cmnreset"
-                                                                id="children_address" placeholder="ठेगाना"
+                                                                id="children_address1" placeholder="ठेगाना"
                                                                 value="<?php echo (((isset($detail->children_address)) && $detail->children_address != '') ? $detail->children_address : '') ?>">
                                                         </div>
                                                     </div>
@@ -453,7 +474,7 @@
                                                             <label> संरक्षकको पुरा नाम : </label>
                                                             <input type="text" name="children_parent_name[]"
                                                                 class=" form-control utf8val personalinfo2 cmnreset"
-                                                                id="children_parent_name"
+                                                                id="children_parent_name1"
                                                                 placeholder="संरक्षकको पुरा नाम " style="width:80%"
                                                                 value="<?php echo (((isset($detail->children_parent_name)) && $detail->children_parent_name != '') ? $detail->children_parent_name : '') ?>">
                                                         </div>
@@ -463,7 +484,7 @@
                                                             <label>सम्बन्ध : </label>
                                                             <input type="text" name="children_relations[]"
                                                                 class="form-control utf8val personalinfo2 cmnreset" style="width:80%"
-                                                                id="children_relations" placeholder="सम्बन्ध "
+                                                                id="children_relations1" placeholder="सम्बन्ध "
                                                                 value="<?php echo (((isset($detail->children_relations)) && $detail->children_relations != '') ? $detail->children_relations : '') ?>">
                                                         </div>
                                                     </div>
@@ -472,7 +493,7 @@
                                                             <label>परिचय पत्र नम्बर : </label>
                                                             <input type="text" name="children_identicard_number[]"
                                                                 class="form-control utf8val personalinfo2 cmnreset"
-                                                                id="children_identicard_number"
+                                                                id="children_identicard_number1"
                                                                 placeholder="परिचय पत्र नम्बर " style="width:58%"
                                                                 value="<?php echo (((isset($detail->children_identicard_number)) && $detail->children_identicard_number != '') ? $detail->children_identicard_number : '') ?>">
                                                         </div>
@@ -486,6 +507,19 @@
                                                                 <input type="radio" class="personalinfo2_checked cmnreset"
                                                                     name="is_returned_child[0]" value="0" <?php echo (((isset($detail->is_returned_child)) && $detail->is_returned_child == '0') ? 'checked' : '') ?>> <span>होइन</span>
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group"> 
+                                                            <div id="camera_open1" class="camera_open_hai" camera_count="1">
+                                                                <i class="fa fa-camera"></i>
+                                                                <p>फोटो</p>
+                                                                <input type="hidden" name="captured_image_child[]" id="captured_image1" value="">
+                                                            </div>
+                                                            <div id="viewImage1" class="chldimg"></div>
+                                                            <div id="appendcam1">
+
+                                                            </div> 
                                                         </div>
                                                     </div>
                                                 </div>
@@ -627,8 +661,8 @@
                                                         <div class="form-group">
                                                             <label class="width50">चालकको सम्पर्क नम्बर : <span
                                                                     class="required">*</span></label>
-                                                            <input type="number" name="drivers_number"
-                                                                class="form-control personalinfo4 cmnreset"
+                                                            <input type="text" name="drivers_number"
+                                                                class="form-control personalinfo4 utf8val cmnreset"
                                                                 id="drivers_number" placeholder="चालकको सम्पर्क नम्बर"
                                                                 value="<?php echo (((isset($detail->drivers_number)) && $detail->drivers_number != '') ? $detail->drivers_number : '') ?>">
                                                         </div>
@@ -696,8 +730,8 @@
                                                         <div class="form-group">
                                                             <label>सार्बजनिक सवारी साधन मा कुल यात्री संख्या (चालक सहित)
                                                                 : </label>
-                                                            <input type="number" name="pasengers"
-                                                                class="form-control width100 personalinfo4 cmnreset"
+                                                            <input type="text" name="pasengers"
+                                                                class="form-control width100 personalinfo4 utf8val cmnreset"
                                                                 id="pasengers"
                                                                 placeholder="सार्बजनिक सवारी साधन मा कुल यात्री संख्या (चालक सहित)"
                                                                 value="<?php echo (((isset($detail->pasengers)) && $detail->pasengers != '') ? $detail->pasengers : '') ?>">
@@ -760,9 +794,9 @@
                                     </div>
                                     <div class="divider"></div>
                                     <div class="media_uploader_child">
-                                        <div id="viewImage"></div>
+                                        
                                         <div class="form-group">
-                                            <div id="camera_open" onclick="Camera_open();">
+                                            <div id="camera_open">
                                                 <label for="document_upload"> <i class="fa fa-file-photo-o">
                                                     </i></label>
                                                 <p>Upload
@@ -771,6 +805,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div id="viewFile"></div>
                                 </div>
                             </div>
                         </div>
@@ -780,6 +815,7 @@
                             <div class="col-md-12">
                                 <div class="form-group align-right" style=text-align:end>
                                     <input type="hidden" name="captured_image" id="captured_image" value="">
+                                    <input type="hidden" name="captured_file" id="captured_file" value="">
                                     <input type="submit" name="submit" class=" form-control btn btn-sm btn-primary"
                                         value="सेभ गर्नुहोस" id="sbmt">
                                     <input type="hidden" name="id" class="form-control btn btn-sm btn-primary"
