@@ -75,8 +75,8 @@
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->nationality; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->identicard_type; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->identicard_number; ?></td>
-                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->date_of_birth; ?></td>
-                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $this->crud_model->ent_to_nepali_num_convert($value->age); ?></td>
+                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>" id="no_preeti"><?php echo $this->crud_model->ent_to_nepali_num_convert($value->nepali_date_of_birth); ?></td>
+                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>" id="no_preeti"><?php echo $this->crud_model->ent_to_nepali_num_convert($value->age); ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->gender; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->address; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>">
