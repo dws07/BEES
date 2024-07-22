@@ -60,7 +60,7 @@ function ent_to_nepali_num_convert($number)
                             </li>
                             <li> <span><?php echo isset($total_data_gone_direction->india_gone_children) ? ent_to_nepali_num_convert($total_data_gone_direction->india_gone_children) : 0; ?></span>
                                 <span>बालबालिका</span>
-                            </li> 
+                            </li>
                             <li> <span><?php echo isset($total_data_gone_direction->india_gone_vehicle) ? ent_to_nepali_num_convert($total_data_gone_direction->india_gone_vehicle) : 0; ?></span>
                                 <span>सवारीसाधनहरु</span>
                             </li>
@@ -91,7 +91,7 @@ function ent_to_nepali_num_convert($number)
                             </li>
                             <li> <span><?php echo isset($total_data_gone_direction->nepal_gone_children) ? ent_to_nepali_num_convert($total_data_gone_direction->nepal_gone_children) : 0; ?></span>
                                 <span>बालबालिका</span>
-                            </li> 
+                            </li>
                             <li> <span><?php echo isset($total_data_gone_direction->nepal_gone_vehicle) ? ent_to_nepali_num_convert($total_data_gone_direction->nepal_gone_vehicle) : 0; ?></span>
                                 <span>सवारीसाधनहरु</span>
                             </li>
@@ -172,13 +172,15 @@ function ent_to_nepali_num_convert($number)
                             style="border-right: 1px solid #ddd">
                             <div class="ChartBox">
                                 <div id="chartContainer1" style="height: 300px; width: 100%;"></div>
-                                <h2 class="text-center">नेपाल देखि भारत जाने कुल यात्रुहरुको संख्या</h2>
+                                <!-- <h2 class="text-center">नेपाल देखि भारत जाने कुल यात्रुहरुको संख्या</h2> -->
+                                <h2 class="text-center">नेपाल निकास</h2>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-12 col-lg-6 col-xs-12 col-xl-12">
                             <div class="ChartBox">
                                 <div id="chartContainer2" style="height: 300px; width: 100%;"></div>
-                                <h2 class="text-center">नेपाल आउने कुल यात्रुहरुको संख्या</h2>
+                                <!-- <h2 class="text-center">नेपाल आउने कुल यात्रुहरुको संख्या</h2> -->
+                                <h2 class="text-center">नेपाल प्रवेश</h2>
                             </div>
                         </div>
                     </div>
@@ -247,7 +249,7 @@ function ent_to_nepali_num_convert($number)
 
 
 <script>
-    window.onload = function () { 
+    window.onload = function () {
 
         function toggleDataSeries(e) {
             if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
