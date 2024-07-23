@@ -17,6 +17,24 @@
         border: 1px solid #ddd;
         color: #f04848;
     }
+    .chldimg img {
+        width: 33%;
+        border: 1px solid #ddd;
+        border-radius: 15px;
+        float: right;
+    }
+
+    .chldimg {
+        background: #ffff;
+        /* border: 1px solid #ddd; */
+        /* width: 35%; */
+        /* float: left; */
+    }
+
+    .camera_open_hai {
+        font-size: 20px;
+        font-weight: bold;
+    }
 </style>
 <section class="content">
     <div class="row">
@@ -58,9 +76,12 @@
                                                                         class="form-control">
                                                                 </li>
                                                             </ul>
+                                                            <input type="hidden" name="country_code" id="country_code" value="">
+                                                            <?php if (form_error('country_code'))
+                                                            echo '<span class="field_validation">' . form_error('country_code') . '</span>' ?>
                                                         </div><!-- /btn-group -->
-                                                        <input type="number" name="phone_number"
-                                                            class="form-control personalinfo" id="phone_number"
+                                                        <input type="text" name="phone_number"
+                                                            class="form-control utf8val personalinfo" id="phone_number"
                                                             placeholder="सम्पर्क नम्बर"
                                                             value="<?php echo (((isset($detail->phone_number)) && $detail->phone_number != '') ? $detail->phone_number : '') ?>"
                                                             required>
@@ -131,7 +152,7 @@
                                                 <div class="form-group">
                                                     <label>परिचय पत्र नम्बर : <span class="required">*</span></label>
                                                     <input type="text" name="identicard_number"
-                                                        class="form-control personalinfo cmnreset"
+                                                        class="form-control utf8val personalinfo cmnreset"
                                                         id="identicard_number" placeholder="परिचय पत्र नम्बर"
                                                         value="<?php echo (((isset($detail->identicard_number)) && $detail->identicard_number != '') ? $detail->identicard_number : '') ?>"
                                                         required>
@@ -234,7 +255,7 @@
                                                     <label>यात्रा प्रारम्भ गरेको मुलुक : <span
                                                             class="required">*</span></label>
                                                     <input type="text" name="travel_start_country"
-                                                        class="form-control personalinfo1 width70"
+                                                        class="form-control utf8val personalinfo1 width70 cmnreset"
                                                         id="travel_start_country"
                                                         placeholder="यात्रा प्रारम्भ गरेको मुलुक"
                                                         value="<?php echo (((isset($detail->travel_start_country)) && $detail->travel_start_country != '') ? $detail->travel_start_country : '') ?>"
@@ -255,7 +276,7 @@
                                                 <div class="form-group">
                                                     <label>प्रवेश समय : <span class="required">*</span></label>
                                                     <input type="time" name="entry_time"
-                                                        class="form-control personalinfo1" id="entry_time"
+                                                        class="form-control personalinfo1 cmnreset" id="entry_time"
                                                         placeholder="प्रबेश समय" style="width:47%"
                                                         value="<?php echo (((isset($detail->entry_time)) && $detail->entry_time != '') ? $detail->entry_time : '') ?>"
                                                         required>
@@ -263,12 +284,12 @@
                                             </div>
                                             <div class="col-sm-5">
                                                 <div class="form-group">
-                                                    <label>फर्केको समय : <span class="required">*</span></label>
+                                                    <label>फर्केको समय : </label>
                                                     <input type="time" name="exit_time"
-                                                        class="form-control personalinfo1" id="exit_time"
+                                                        class="form-control personalinfo1 cmnreset" id="exit_time"
                                                         placeholder="प्रबेश समय"
                                                         value="<?php echo (((isset($detail->exit_time)) && $detail->exit_time != '') ? $detail->exit_time : '') ?>"
-                                                        required>
+                                                        >
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
@@ -276,7 +297,7 @@
                                                     <label>प्रबेश बिन्दू (सिमा निरीक्षण कक्ष / प्रबेश स्थाल) : <span
                                                             class="required">*</span></label>
                                                     <input type="text" name="entry_address2"
-                                                        class="form-control personalinfo1" id="entry_address2"
+                                                        class="form-control utf8val personalinfo1 cmnreset" id="entry_address2"
                                                         placeholder="प्रबेश बिन्दू"
                                                         value="<?php echo (((isset($detail->entry_address2)) && $detail->entry_address2 != '') ? $detail->entry_address2 : '') ?>"
                                                         required>
@@ -286,7 +307,7 @@
                                                 <div class="form-group">
                                                     <label> यात्रा गन्तब्य : <span class="required">*</span></label>
                                                     <input type="text" name="travel_destination"
-                                                        class="form-control personalinfo1 width70"
+                                                        class="form-control utf8val personalinfo1 width70 cmnreset"
                                                         id="travel_destination" placeholder="यात्रा गन्तब्य"
                                                         value="<?php echo (((isset($detail->travel_destination)) && $detail->travel_destination != '') ? $detail->travel_destination : '') ?>"
                                                         required>
@@ -297,7 +318,7 @@
                                                     <label>यात्राको अबधि ( गन्तव्यमा अपेक्षित रहने अबधि) : <span
                                                             class="required">*</span></label>
                                                     <input type="text" name="travel_deuration"
-                                                        class="form-control personalinfo1" id="travel_deuration"
+                                                        class="form-control utf8val personalinfo1 cmnreset" id="travel_deuration"
                                                         placeholder="यात्राको अबधि"
                                                         value="<?php echo (((isset($detail->travel_deuration)) && $detail->travel_deuration != '') ? $detail->travel_deuration : '') ?>"
                                                         required>
@@ -307,21 +328,21 @@
                                                 <div class="form-group">
                                                     <label>यात्रा को उदेश्य : <span class="required">*</span></label>
                                                     <div class="radiosss">
-                                                        <input type="radio" class="personalinfo1" name="travel_porpose"
+                                                        <input type="radio" class="personalinfo1_checked cmnreset_checked" name="travel_porpose"
                                                             value="पर्यटन" <?php echo (((isset($detail->travel_porpose)) && $detail->travel_porpose == 'पर्यटन') ? 'checked' : '') ?>
                                                             required> <span>पर्यटन</span>
-                                                        <input type="radio" class="personalinfo1" name="travel_porpose"
+                                                        <input type="radio" class="personalinfo1_checked cmnreset_checked" name="travel_porpose"
                                                             value="व्यापार" <?php echo (((isset($detail->travel_porpose)) && $detail->travel_porpose == 'व्यापार') ? 'checked' : '') ?>>
                                                         <span>व्यापार</span>
-                                                        <input type="radio" class="personalinfo1" name="travel_porpose"
+                                                        <input type="radio" class="personalinfo1_checked cmnreset_checked" name="travel_porpose"
                                                             value="व्यक्तिगत_काम" <?php echo (((isset($detail->travel_porpose)) && $detail->travel_porpose == 'व्यक्तिगत_काम') ? 'checked' : '') ?>> <span>व्यक्तिगत काम</span>
-                                                        <input type="radio" class="personalinfo1" name="travel_porpose"
+                                                        <input type="radio" class="personalinfo1_checked cmnreset_checked" name="travel_porpose"
                                                             value="उपचार" <?php echo (((isset($detail->travel_porpose)) && $detail->travel_porpose == 'उपचार') ? 'checked' : '') ?>>
                                                         <span>उपचार</span>
-                                                        <input type="radio" class="personalinfo1" name="travel_porpose"
+                                                        <input type="radio" class="personalinfo1_checked cmnreset_checked" name="travel_porpose"
                                                             value="ट्रान्जिट" <?php echo (((isset($detail->travel_porpose)) && $detail->travel_porpose == 'ट्रान्जिट') ? 'checked' : '') ?>>
                                                         <span>ट्रान्जिट</span>
-                                                        <input type="radio" class="personalinfo1" name="travel_porpose"
+                                                        <input type="radio" class="personalinfo1_checked cmnreset_checked" name="travel_porpose"
                                                             value="अन्य" <?php echo (((isset($detail->travel_porpose)) && $detail->travel_porpose == 'अन्य') ? 'checked' : '') ?>>
                                                         <span>अन्य</span>
                                                     </div>
@@ -331,7 +352,7 @@
                                                 <div class="form-group">
                                                     <label>सामानको विवरण (यदि लानु छ भने) : </label>
                                                     <input type="text" name="traveler_proporty"
-                                                        class="form-control personalinfo width70" id="traveler_proporty"
+                                                        class="form-control utf8val personalinfo width70 cmnreset" id="traveler_proporty"
                                                         placeholder="सामानको विवरण "
                                                         value="<?php echo (((isset($detail->traveler_proporty)) && $detail->traveler_proporty != '') ? $detail->traveler_proporty : '') ?>">
                                                 </div>
@@ -341,13 +362,13 @@
                                                     <label> यात्राको किसिम : <span class="required">*</span></label>
                                                     <div class="radiosss width60 ">
                                                         <span>
-                                                            <input id="Paidalll" type="radio" class="personalinfo1"
+                                                            <input id="Paidalll" type="radio" class="personalinfo1_checked cmnreset_checked"
                                                                 name="travel_type" value="पैदल" <?php echo (((isset($detail->travel_type)) && $detail->travel_type == 'पैदल') ? 'checked' : '') ?>
                                                                 required>
                                                             <span>पैदल</span>
                                                         </span>
                                                         <span>
-                                                            <input id="Gaddi" type="radio" class="personalinfo1"
+                                                            <input id="Gaddi" type="radio" class="personalinfo1_checked cmnreset_checked"
                                                                 name="travel_type" value="गाडी" <?php echo (((isset($detail->travel_type)) && $detail->travel_type == 'गाडी') ? 'checked' : '') ?>>
                                                             <span>गाडी</span>
                                                         </span>
@@ -358,7 +379,7 @@
                                                 <div class="form-group">
                                                     <label>दिशा तर्फ: <span class="required">*</span></label>
                                                     <select name="gone_dirction" id="gone_dirction"
-                                                        class="form-control">
+                                                        class="form-control personalinfo1_checked cmnreset_checked">
                                                         <option value="" required>दिशा तर्फ</option>
                                                         <option value="नेपाल" <?php echo (((isset($detail->gone_dirction)) && $detail->gone_dirction == 'नेपाल') ? 'selected' : '') ?>>नेपाल
                                                             तर्फ</option>
@@ -391,7 +412,7 @@
                                                         <div class="form-group child_btn">
                                                             <label>पुरा नाम : </label>
                                                             <input type="text" name="children_name[]"
-                                                                class="form-control  personalinfo2" id="children_name"
+                                                                class="form-control utf8val personalinfo2 cmnreset" id="children_name1"
                                                                 placeholder="पुरा नाम" style="width:80% !important"
                                                                 value="<?php echo (((isset($detail->children_name)) && $detail->children_name != '') ? $detail->children_name : '') ?>">
                                                         </div>
@@ -401,19 +422,19 @@
                                                             <div class="flexxx">
                                                                 <label>जन्म मिति : </label>
                                                                 <!-- Switch BS to AD
-                                                        <label class="switch">
-                                                            <input id="Switchssschild"  type="checkbox">
-                                                            <span class="slider round"></span>
-                                                        </label> -->
+                                                                    <label class="switch">
+                                                                        <input id="Switchssschild"  type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label> -->
                                                             </div>
                                                             <input type="text" style="width:58%"
                                                                 name="nepali_date_of_birthss[]"
-                                                                id="nepali-datepickerchild"
-                                                                class="form-control personalinfo nepdatesschild activessssss"
+                                                                id="nepali-datepickerchild1"
+                                                                class="form-control personalinfo2 nepdatesschild activessssss cmnreset"
                                                                 placeholder="जन्म मिति" />
                                                             <input type="text" name="english_date_of_birthss[]"
-                                                                id="datepickerchild"
-                                                                class="form-control personalinfo engdatesschild "
+                                                                id="datepickerchild1"
+                                                                class="form-control personalinfo2 engdatesschild cmnreset"
                                                                 placeholder="Date of Birth">
                                                             <input type="hidden" name="children_dob[]" id="dobsssschid">
                                                         </div>
@@ -422,9 +443,11 @@
                                                         <div class="form-group">
                                                             <label> उमेर : </label>
                                                             <input type="text" name="children_age[]"
-                                                                class="form-control width75 personalinfo2"
-                                                                id="children_age" placeholder="उमेर"
-                                                                value="<?php echo (((isset($detail->children_age)) && $detail->children_age != '') ? $detail->children_age : '') ?>">
+                                                                class="form-control width75 personalinfo2 cmnreset"
+                                                                id="children_age1" placeholder="उमेर"
+                                                                value="<?php echo (((isset($detail->children_age)) && $detail->children_age != '') ? $detail->children_age : '') ?>"
+                                                                readonly
+                                                                >
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
@@ -432,17 +455,17 @@
                                                             <label>लिंग : </label>
                                                             <div class="radiosss" style="width:59%">
                                                                 <span>
-                                                                    <input type="radio" class="personalinfo2"
+                                                                    <input type="radio" class="personalinfo2_checked cmnreset_checked"
                                                                         name="children_gender[0]" value="पुरुष" <?php echo (((isset($detail->children_gender)) && $detail->children_gender == 'पुरुष') ? 'checked' : '') ?>>
                                                                     <span>पुरुष</span>
                                                                 </span>
                                                                 <span>
-                                                                    <input type="radio" class="personalinfo2"
+                                                                    <input type="radio" class="personalinfo2_checked cmnreset_checked"
                                                                         name="children_gender[0]" value="महिला" <?php echo (((isset($detail->children_gender)) && $detail->children_gender == 'महिला') ? 'checked' : '') ?>>
                                                                     <span>महिला</span>
                                                                 </span>
                                                                 <span>
-                                                                    <input type="radio" class="personalinfo2"
+                                                                    <input type="radio" class="personalinfo2_checked cmnreset_checked"
                                                                         name="children_gender[0]" value="तेस्रोलिंगी"
                                                                         <?php echo (((isset($detail->children_gender)) && $detail->children_gender == 'तेस्रोलिंगी') ? 'checked' : '') ?>> <span>तेस्रोलिंगी</span>
                                                                 </span>
@@ -453,8 +476,8 @@
                                                         <div class="form-group">
                                                             <label>ठेगाना : </label>
                                                             <input type="text" name="children_address[]"
-                                                                class="form-control utf8val width75 personalinfo2"
-                                                                id="children_address" placeholder="ठेगाना"
+                                                                class="form-control utf8val width75 personalinfo2 cmnreset"
+                                                                id="children_address1" placeholder="ठेगाना"
                                                                 value="<?php echo (((isset($detail->children_address)) && $detail->children_address != '') ? $detail->children_address : '') ?>">
                                                         </div>
                                                     </div>
@@ -462,8 +485,8 @@
                                                         <div class="form-group">
                                                             <label> संरक्षकको पुरा नाम : </label>
                                                             <input type="text" name="children_parent_name[]"
-                                                                class=" form-control utf8val personalinfo2"
-                                                                id="children_parent_name"
+                                                                class=" form-control utf8val personalinfo2 cmnreset"
+                                                                id="children_parent_name1"
                                                                 placeholder="संरक्षकको पुरा नाम " style="width:80%"
                                                                 value="<?php echo (((isset($detail->children_parent_name)) && $detail->children_parent_name != '') ? $detail->children_parent_name : '') ?>">
                                                         </div>
@@ -472,8 +495,8 @@
                                                         <div class="form-group">
                                                             <label>सम्बन्ध : </label>
                                                             <input type="text" name="children_relations[]"
-                                                                class="form-control personalinfo2 " style="width:80%"
-                                                                id="children_relations" placeholder="सम्बन्ध "
+                                                                class="form-control utf8val personalinfo2 cmnreset" style="width:80%"
+                                                                id="children_relations1" placeholder="सम्बन्ध "
                                                                 value="<?php echo (((isset($detail->children_relations)) && $detail->children_relations != '') ? $detail->children_relations : '') ?>">
                                                         </div>
                                                     </div>
@@ -481,8 +504,8 @@
                                                         <div class="form-group">
                                                             <label>परिचय पत्र नम्बर : </label>
                                                             <input type="text" name="children_identicard_number[]"
-                                                                class="form-control personalinfo2"
-                                                                id="children_identicard_number"
+                                                                class="form-control utf8val personalinfo2 cmnreset"
+                                                                id="children_identicard_number1"
                                                                 placeholder="परिचय पत्र नम्बर " style="width:58%"
                                                                 value="<?php echo (((isset($detail->children_identicard_number)) && $detail->children_identicard_number != '') ? $detail->children_identicard_number : '') ?>">
                                                         </div>
@@ -491,11 +514,24 @@
                                                         <div class="form-group">
                                                             <label>फर्केको : </label>
                                                             <div class="radiosss width75 ">
-                                                                <input type="radio" class="personalinfo2_checked"
+                                                                <input type="radio" class="personalinfo2_checked cmnreset"
                                                                     name="is_returned_child[0]" value="1" <?php echo (((isset($detail->is_returned_child)) && $detail->is_returned_child == '1') ? 'checked' : '') ?>> <span>हो</span>
-                                                                <input type="radio" class="personalinfo2_checked"
+                                                                <input type="radio" class="personalinfo2_checked cmnreset"
                                                                     name="is_returned_child[0]" value="0" <?php echo (((isset($detail->is_returned_child)) && $detail->is_returned_child == '0') ? 'checked' : '') ?>> <span>होइन</span>
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group"> 
+                                                            <div id="camera_open1" class="camera_open_hai" camera_count="1">
+                                                                <i class="fa fa-camera"></i>
+                                                                <p>फोटो</p>
+                                                                <input type="hidden" name="captured_image_child[]" id="captured_image1" value="">
+                                                            </div>
+                                                            <div id="viewImage1" class="chldimg"></div>
+                                                            <div id="appendcam1">
+
+                                                            </div> 
                                                         </div>
                                                     </div>
                                                 </div>
@@ -607,7 +643,7 @@
                                                             <label class="width50">सवारी साधनको नम्बर : <span
                                                                     class="required">*</span></label>
                                                             <input type="text" name="vehicle_number"
-                                                                class="form-control personalinfo4 cmnreset"
+                                                                class="form-control utf8val personalinfo4 cmnreset"
                                                                 id="vehicle_number" placeholder="सवारी साधनको नम्बर"
                                                                 value="<?php echo (((isset($detail->vehicle_number)) && $detail->vehicle_number != '') ? $detail->vehicle_number : '') ?>">
                                                         </div>
@@ -637,8 +673,8 @@
                                                         <div class="form-group">
                                                             <label class="width50">चालकको सम्पर्क नम्बर : <span
                                                                     class="required">*</span></label>
-                                                            <input type="number" name="drivers_number"
-                                                                class="form-control personalinfo4 cmnreset"
+                                                            <input type="text" name="drivers_number"
+                                                                class="form-control personalinfo4 utf8val cmnreset"
                                                                 id="drivers_number" placeholder="चालकको सम्पर्क नम्बर"
                                                                 value="<?php echo (((isset($detail->drivers_number)) && $detail->drivers_number != '') ? $detail->drivers_number : '') ?>">
                                                         </div>
@@ -706,8 +742,8 @@
                                                         <div class="form-group">
                                                             <label>सार्बजनिक सवारी साधन मा कुल यात्री संख्या (चालक सहित)
                                                                 : </label>
-                                                            <input type="number" name="pasengers"
-                                                                class="form-control width100 personalinfo4 cmnreset"
+                                                            <input type="text" name="pasengers"
+                                                                class="form-control width100 personalinfo4 utf8val cmnreset"
                                                                 id="pasengers"
                                                                 placeholder="सार्बजनिक सवारी साधन मा कुल यात्री संख्या (चालक सहित)"
                                                                 value="<?php echo (((isset($detail->pasengers)) && $detail->pasengers != '') ? $detail->pasengers : '') ?>">
@@ -770,9 +806,9 @@
                                     </div>
                                     <div class="divider"></div>
                                     <div class="media_uploader_child">
-                                        <div id="viewImage"></div>
+                                        
                                         <div class="form-group">
-                                            <div id="camera_open" onclick="Camera_open();">
+                                            <div id="camera_open">
                                                 <label for="document_upload"> <i class="fa fa-file-photo-o">
                                                     </i></label>
                                                 <p>Upload
@@ -781,6 +817,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div id="viewFile"></div>
                                 </div>
                             </div>
                         </div>
@@ -790,6 +827,7 @@
                             <div class="col-md-12">
                                 <div class="form-group align-right" style=text-align:end>
                                     <input type="hidden" name="captured_image" id="captured_image" value="">
+                                    <input type="hidden" name="captured_file" id="captured_file" value="">
                                     <input type="submit" name="submit" class=" form-control btn btn-sm btn-primary"
                                         value="सेभ गर्नुहोस" id="sbmt">
                                     <input type="hidden" name="id" class="form-control btn btn-sm btn-primary"

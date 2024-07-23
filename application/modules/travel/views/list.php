@@ -34,84 +34,99 @@
     .profilt {
         border-bottom: 1px solid #ddd;
     }
+     
 </style>
 <section class="content">
     <div class="row">
-        <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6">
-            <div class="card">
-            <div class="imgprofile">
-                <img src="<?php echo ($person_detail->profile_image !== '' && $person_detail->profile_image)?base_url('/').$person_detail->profile_image:base_url('/uploads/Circle-icons-profile.svg.png');?>" alt="image">
-                <h3><?php echo $person_detail->name?$person_detail->name:'' ?></h3>
-            </div>
+        <div class="col-md-6">
+            <div class="card"> 
+                <form class="all_form" id="submit" method="post" action enctype="multipart/form-data">
+                    <input type="submit" value="print" name="print_to" />    
+                </form>
+                <div class="imgprofile">
+                    <img src="<?php echo ($person_detail->profile_image !== '' && $person_detail->profile_image)?base_url('/').$person_detail->profile_image:base_url('/uploads/Circle-icons-profile.svg.png');?>" alt="image">
+                    <h3 id="nepali_preeti"><?php echo $person_detail->name?$person_detail->name:'' ?></h3>
+                </div>
             </div>
         </div>
-        <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6">
-        <div class="profiledetail">
-            <div class="row">
-                <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
-                    <span class="label">सम्पर्क नम्बर :</span>
-                    <p style="margin-left:1rem;"><?php echo $person_detail->phone_number?$person_detail->phone_number:'' ?></p>
-                </div>
-                <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
-                    <span class="label">राष्ट्रियता :</span>
-                    <p style="margin-left:1rem;"><?php echo $person_detail->nationality?$person_detail->nationality:'' ?></p>
-                </div>
-                <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
-                    <span class="label">जन्म मिति :</span>
-                    <p style="margin-left:1rem;"><?php echo $person_detail->nepali_date_of_birth?$person_detail->nepali_date_of_birth:'' ?></p>
-                </div>
-                <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
-                    <span class="label">उमेर :</span>
-                    <p style="margin-left:1rem;"><?php echo $person_detail->age?$person_detail->age:'' ?></p>
-                </div>
-                <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
-                    <span class="label">लिंग :</span>
-                    <p style="margin-left:1rem;"><?php echo $person_detail->gender?$person_detail->gender:'' ?></p>
-                </div>
-                <div class="col-md-12 col-sm-12 col-xs-12 col-xl-12">
-                <hr style="border-top:1px solid #ddd" />
-                </div>
-                <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
-                    <span class="label">ठेगाना :</span>
-                    <p style="margin-left:1rem;"><?php echo $person_detail->address?$person_detail->address:'' ?></p>
-                </div>
-                <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
-                    <span class="label">परिचय पत्र किसिम :</span>
-                    <p style="margin-left:1rem;"><?php echo $person_detail->identicard_type?$person_detail->identicard_type:'' ?></p>
-                </div>
-                <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
-                    <span class="label">परिचय पत्र नम्बर :</span>
-                    <p style="margin-left:1rem;"><?php echo $person_detail->identicard_number?$person_detail->identicard_number:'' ?></p>
-                </div>
-                <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
-                    <span class="label">वैवाहिक स्थिति :</span>
-                    <p style="margin-left:1rem;"><?php echo $person_detail->marital_status?$person_detail->marital_status:'' ?></p>
-                </div>
-                <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
-                    <span class="label">पेशा / ब्यबसायी :</span>
-                    <p style="margin-left:1rem;"><?php echo $person_detail->occupation?$person_detail->occupation:'' ?></p>
-                </div>
+        <div class="col-md-6">
+            <div class="profiledetail">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
+                        <span class="label">सम्पर्क नम्बर :</span>
+                        <p style="margin-left:1rem;"><?php echo $this->crud_model->ent_to_nepali_num_convert($person_detail->country_code)?></p><p style="margin-left:1rem;"  id="nepali_preeti"><?php echo $person_detail->phone_number?$person_detail->phone_number:'' ?></p>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
+                        <span class="label">राष्ट्रियता :</span>
+                        <p style="margin-left:1rem;" id="nepali_preeti"><?php echo $person_detail->nationality?$person_detail->nationality:'' ?></p>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
+                        <span class="label">जन्म मिति :</span>
+                        <p style="margin-left:1rem;"><?php echo $person_detail->nepali_date_of_birth?$this->crud_model->ent_to_nepali_num_convert($person_detail->nepali_date_of_birth):'' ?></p>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
+                        <span class="label">उमेर :</span>
+                        <p style="margin-left:1rem;"><?php echo $person_detail->age?$this->crud_model->ent_to_nepali_num_convert($person_detail->age):'' ?></p>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
+                        <span class="label">लिंग :</span>
+                        <p style="margin-left:1rem;"><?php echo $person_detail->gender?$person_detail->gender:'' ?></p>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-xl-12">
+                    <hr style="border-top:1px solid #ddd" />
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
+                        <span class="label">ठेगाना :</span>
+                        <p style="margin-left:1rem;" id="nepali_preeti"><?php echo $person_detail->address?$person_detail->address:'' ?></p>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
+                        <span class="label">परिचय पत्र किसिम :</span>
+                        <p style="margin-left:1rem;"><?php echo $person_detail->identicard_type?$person_detail->identicard_type:'' ?></p>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
+                        <span class="label">परिचय पत्र नम्बर :</span>
+                        <p style="margin-left:1rem;" id="nepali_preeti"><?php echo $person_detail->identicard_number?$person_detail->identicard_number:'' ?></p>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
+                        <span class="label">वैवाहिक स्थिति :</span>
+                        <?php if($person_detail->marital_status && $person_detail->marital_status == 'अन्य'){ ?>
+                            <p style="margin-left:1rem;"><?php echo $person_detail->marital_status?$person_detail->marital_status:'' ?></p>
+                            <p style="margin-left:1rem;" id="nepali_preeti"><?php echo $person_detail->marital_status_remarks?$person_detail->marital_status_remarks:'' ?></p>
+                        <?php }else{ ?>
+                            <p style="margin-left:1rem;"><?php echo $person_detail->marital_status?$person_detail->marital_status:'' ?></p>
+                        <?php } ?>
+                        
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
+                        <span class="label">पेशा / ब्यबसायी :</span>
+                        <p style="margin-left:1rem;" id="nepali_preeti"><?php echo $person_detail->occupation?$person_detail->occupation:'' ?></p>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
+                        <span class="label">फाईल :</span>
+                        <a href="<?php echo base_url().$person_detail->captured_file; ?>" target="_blank" style="font-size: 30px;"><i class="fa fa-file-photo-o">
+                                                    </i></a>
+                    </div>
 
-                    <!-- <div class="col-md-6" style="border-right: 1px solid #ddd;">
-                        <div class="detaillist">
-                                            <p><level>सम्पर्क नम्बर :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
-                                            <p><level>राष्ट्रियता :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
-                                            <p><level>जन्म मिति :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
-                                            <p><level>उमेर :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
-                                            <p><level>लिंग :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
-                        </div> 
-                     </div>
-                    <div class="col-md-6">
-                        <div class="detaillist">
-                                            <p><level>ठेगाना :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p> 
-                                            <p><level>परिचय पत्र किसिम :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
-                                            <p><level>परिचय पत्र नम्बर  :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
-                                            <p><level>वैवाहिक स्थिति :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
-                                            <p><level>पेशा / ब्यबसायी:</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
-                            </div>
-                        </div> -->
-            </div> 
-        </div>
+                        <!-- <div class="col-md-6" style="border-right: 1px solid #ddd;">
+                            <div class="detaillist">
+                                                <p><level>सम्पर्क नम्बर :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
+                                                <p><level>राष्ट्रियता :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
+                                                <p><level>जन्म मिति :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
+                                                <p><level>उमेर :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
+                                                <p><level>लिंग :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
+                            </div> 
+                        </div>
+                        <div class="col-md-6">
+                            <div class="detaillist">
+                                                <p><level>ठेगाना :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p> 
+                                                <p><level>परिचय पत्र किसिम :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
+                                                <p><level>परिचय पत्र नम्बर  :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
+                                                <p><level>वैवाहिक स्थिति :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
+                                                <p><level>पेशा / ब्यबसायी:</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
+                                </div>
+                            </div> -->
+                </div> 
+            </div>
         </div>
         <div class="col-md-12">
             <div class="box">
@@ -123,7 +138,7 @@
                     </div>  
                 </div>    
                 <!-- /.box-header -->
-                <div class="box-body">
+                <div class="box-body" id="nepali_preeti">
                     <table class="table table-bordered" id="MyTable">
                         <thead>
                             <tr>
@@ -147,16 +162,16 @@
                             foreach ($travel_lit as $key => $value) {  
                             ?>
                             <tr>
-                                <td><?php echo ($key+1); ?></td>
+                                <td><?php echo $this->crud_model->ent_to_nepali_num_convert($key+1); ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->travel_start_country; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->entry_adress; ?></td>
-                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->entry_time; ?></td>
+                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>" id="no_preeti"><?php echo $value->entry_time; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->travel_destination; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->travel_deuration; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->gone_dirction; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->travel_porpose; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->travel_type; ?></td>
-                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->childrens_list?count($value->childrens_list):0; ?></td>
+                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->childrens_list?$this->crud_model->ent_to_nepali_num_convert(count($value->childrens_list)):0; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo ($value->is_returned && $value->is_returned == 1)?'हो':'होइन'; ?></td>
                                 <td>
                                 <?php
@@ -234,11 +249,11 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <th>प्रवेश समय</th>
-                                                                        <td><?php echo $value->entry_time; ?></td>
+                                                                        <td id="no_preeti"><?php echo $value->entry_time; ?></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <th>फर्केको समय</th>
-                                                                        <td>
+                                                                        <td id="no_preeti">
                                                                             <?php echo $value->exit_time; ?>
                                                                             
                                                                         </td>
@@ -320,7 +335,7 @@
                                                                             <td><?php echo $value->vehicle_info->pasengers; ?></td>
                                                                         </tr>
                                                                         <tr>
-                                                                            <th>फर्केको हो?</th>
+                                                                            <th>फर्केको</th>
                                                                             <td><?php echo (isset($value->vehicle_info->is_returned) && $value->vehicle_info->is_returned == '1')?"हो":"होइन"; ?></td>
                                                                         </tr>
                                                                     </table>
@@ -338,11 +353,11 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <th>जन्म मिति</th>
-                                                                            <td><?php echo $child_val->nepali_dob_children; ?></td>
+                                                                            <td id="no_preeti"><?php echo $this->crud_model->ent_to_nepali_num_convert($child_val->nepali_dob_children); ?></td>
                                                                         </tr>
                                                                         <tr>
                                                                             <th>उमेर</th>
-                                                                            <td><?php echo $child_val->children_age; ?></td>
+                                                                            <td id="no_preeti"><?php echo $this->crud_model->ent_to_nepali_num_convert($child_val->children_age); ?></td>
                                                                         </tr>
                                                                         <tr>
                                                                             <th>लिंग</th>
@@ -368,7 +383,11 @@
                                                                             <td><?php echo $child_val->children_relations; ?></td>
                                                                         </tr>
                                                                         <tr>
-                                                                            <th>फर्केको हो?</th>
+                                                                            <th>फोटो</th>
+                                                                            <td><div class="chldimgrpt"><img src = "<?php echo base_url().$child_val->captured_image ?>"></div></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>फर्केको</th>
                                                                             <td><?php echo (isset($child_va->is_returned) && $child_val->is_returned == '1')?"हो":"होइन"; ?></td>
                                                                         </tr>
                                                                     </table>

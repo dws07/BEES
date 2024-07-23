@@ -1,10 +1,50 @@
+<style>
+    .input-group.input-group-sm.hidden-xs {
+        display: flex;
+        flex-direction: row;
+    }
+    .box-tools {
+        right: 38px !important;
+    }
+    .input-group.input-group-sm.hidden-xs label {
+        font-size: 12px;
+    }
+</style>
+<?php 
+    $session_form_data = $this->session->userdata('form_data');
+    // echo "<pre>";
+    // var_dump($session_form_data['fromdate']);
+?>
 <section class="content">
     <div class="row">
         <div class="col-md-12">
             <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title"> 
+                            <a class="btn btn-sm btn-primary"> यात्रीहरुको सुची</a> 
+                    </h3>
+                    <div class="box-tools">
+                        <form action="" method="post">
+                            <div class="input-group input-group-sm hidden-xs">
+                                <label>From date</label>
+                                <input type="date" name="fromdate" class="form-control pull-right"
+                                    placeholder="Search"
+                                    value="<?php echo isset($session_form_data['fromdate'])?$session_form_data['fromdate']:'' ?>">
+                                <label>To date</label>
+                                <input type="date" name="todate" class="form-control pull-right"
+                                    placeholder="Search"
+                                    value="<?php echo isset($session_form_data['todate'])?$session_form_data['todate']:'' ?>">
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table class="table table-bordered" id="MyTable">
+                    <table class="table table-bordered table-responsive" id="nepali_preeti">
                         <thead>
                             <tr>
                                 <th>क्र. स.</th>
@@ -21,25 +61,32 @@
                                 <th>पेशा / ब्यबसायी</th>
                                 <th>कार्य</th>
                             </tr>
-                        </thead>
+                        </thead> 
                         <tbody>
                             <?php
-                            if ($roles) {
+                            if ($items) {
                                 $i = 1;
-                            foreach ($roles as $key => $value) {  
+                            foreach ($items as $key => $value) {  
                             ?>
                             <tr>
-                                <td><?php echo ($key+1); ?></td>
+                                <td><?php echo $this->crud_model->ent_to_nepali_num_convert($key+1); ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->name; ?></td>
-                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->phone_number; ?></td>
+                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><p id="no_preeti"><?php echo $this->crud_model->ent_to_nepali_num_convert($value->country_code) ?></p><?php echo $value->phone_number; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->nationality; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->identicard_type; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->identicard_number; ?></td>
-                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->date_of_birth; ?></td>
-                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->age; ?></td>
+                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>" id="no_preeti"><?php echo $this->crud_model->ent_to_nepali_num_convert($value->nepali_date_of_birth); ?></td>
+                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>" id="no_preeti"><?php echo $this->crud_model->ent_to_nepali_num_convert($value->age); ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->gender; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->address; ?></td>
-                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->marital_status; ?></td>
+                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>">
+                                <?php if($value->marital_status && $value->marital_status == 'अन्य'){ ?>
+                                    <p style="margin-left:1rem;"><?php echo $value->marital_status?$value->marital_status:'' ?></p>
+                                    <p style="margin-left:1rem;" id="nepali_preeti"><?php echo $value->marital_status_remarks?$value->marital_status_remarks:'' ?></p>
+                                <?php }else{ ?>
+                                    <p style="margin-left:1rem;"><?php echo $value->marital_status?$value->marital_status:'' ?></p>
+                                <?php } ?>     
+                                </td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->occupation; ?></td>
                                 <td>
                                 <?php
@@ -98,14 +145,16 @@
                             <?php } ?>
                         </tbody>
                     </table>
-                    <?php if ($roles) { ?>
-                    <div class="box-footer clearfix">
-                        <?php //echo $pagination; ?>
-                    </div>
+                    <!-- /.box-body -->
+                    <?php if ($items) { ?>
+                        <div class="box-footer clearfix">
+                            <?php echo $pagination; ?>
+                        </div>
                     <?php } ?>
                 </div>
             </div>
         </div>
     </div>
+    </div>
+    </div>
 </section>
-

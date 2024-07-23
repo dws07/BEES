@@ -99,40 +99,39 @@ function ent_to_nepali_num_convert($number)
                     </div>
                 </div>
                 <div class="col-sm-12">
-                    <div class="DBox">
-                        <div class="box-body">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>पुरा नाम</th>
-                                        <th>लिंग</th>
-                                        <th>सम्पर्क नम्बर</th>
-                                        <th>दिशा तर्फ</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    if ($roles) {
-                                        foreach ($roles as $key => $value) {
-                                            ?>
-                                            <tr>
-                                                <td class="ViewDataBTN"><?php echo $value->name; ?></td>
-                                                <td>
-                                                    <?php echo $value->gender ?>
-                                                </td>
-                                                <td><?php echo $value->phone_number; ?></td>
-                                                <td>
-                                                    <?php echo $value->gone_dirction ?>
-                                                </td>
-                                                <td>
-                                                    <a href="<?php echo base_url('travel/admin/all/' . $value->id); ?>"
-                                                        class="btn btn-flat margin ViewDataBTN"
+				<div class="DBox">
+				<div class="box-body">
+                    <table class="table table-bordered" id="nepali_preeti" >
+                        <thead>
+                            <tr>
+                                <th>पुरा नाम</th>
+                                <th>लिंग</th>
+                                <th>सम्पर्क नम्बर</th>
+                                <th>दिशा तर्फ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            if ($roles) { 
+                            foreach ($roles as $key => $value) { 
+                            ?>
+                            <tr>
+                                <td class="ViewDataBTN"><?php echo $value->name; ?></td>
+                                <td>
+                                    <?php echo $value->gender?> 
+                                </td>
+                                <td><p id="no_preeti"><?php echo $this->crud_model->ent_to_nepali_num_convert($value->country_code) ?></p><?php echo $value->phone_number; ?></td>
+                                <td>
+                                    <?php echo $value->gone ?> 
+                                </td>
+                                <td>
+                                    <a href="<?php echo base_url('travel/admin/all/'.$value->id); ?>" class="btn btn-flat margin ViewDataBTN"
                                                         style="background-color : #053775; color:#fff">
-                                                        <i class="fa fa-eye"></i>
-                                                    </a>
-
-                                                </td>
-                                            </tr>
+                                        <i class="fa fa-eye"></i>
+                                    </a> 
+                                   
+                                </td>
+                            </tr>
 
 
                                         <?php } ?>
