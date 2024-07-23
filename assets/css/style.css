@@ -1570,6 +1570,34 @@ input:checked + .slider:before {
   color: #fff !important;
 }
 
+.camera_open_hai {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.camera_open_hai p {
+  margin-top: 10px;
+}
+.chldimg {
+  background-color: transparent !important;
+}
+.children-photo {
+  /* display: flex !important;
+  align-items: center !important;
+  justify-content: center !important; */
+  border: 1px dashed #ccc;
+  padding: 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.children-photo:hover {
+  background-color: #053775;
+  color: #fff;
+}
+
 /* responsive */
 @media only screen and (max-width: 767px) {
   /* Your CSS rules here */

@@ -454,21 +454,14 @@
                                                         <div class="form-group">
                                                             <label>लिंग : </label>
                                                             <div class="radiosss" style="width:59%">
-                                                                <span>
-                                                                    <input type="radio" class="personalinfo2_checked cmnreset_checked"
-                                                                        name="children_gender[0]" value="पुरुष" <?php echo (((isset($detail->children_gender)) && $detail->children_gender == 'पुरुष') ? 'checked' : '') ?>>
-                                                                    <span>पुरुष</span>
-                                                                </span>
-                                                                <span>
-                                                                    <input type="radio" class="personalinfo2_checked cmnreset_checked"
-                                                                        name="children_gender[0]" value="महिला" <?php echo (((isset($detail->children_gender)) && $detail->children_gender == 'महिला') ? 'checked' : '') ?>>
-                                                                    <span>महिला</span>
-                                                                </span>
-                                                                <span>
-                                                                    <input type="radio" class="personalinfo2_checked cmnreset_checked"
-                                                                        name="children_gender[0]" value="तेस्रोलिंगी"
-                                                                        <?php echo (((isset($detail->children_gender)) && $detail->children_gender == 'तेस्रोलिंगी') ? 'checked' : '') ?>> <span>तेस्रोलिंगी</span>
-                                                                </span>
+                                                                <input type="radio" class="personalinfo2"
+                                                                    name="children_gender[0]" value="पुरुष" <?php echo (((isset($detail->children_gender)) && $detail->children_gender == 'पुरुष') ? 'checked' : '') ?>>
+                                                                <span>पुरुष</span>
+                                                                <input type="radio" class="personalinfo2"
+                                                                    name="children_gender[0]" value="महिला" <?php echo (((isset($detail->children_gender)) && $detail->children_gender == 'महिला') ? 'checked' : '') ?>>
+                                                                <span>महिला</span>
+                                                                <input type="radio" class="personalinfo2"
+                                                                    name="children_gender[0]" value="तेस्रोलिंगी" <?php echo (((isset($detail->children_gender)) && $detail->children_gender == 'तेस्रोलिंगी') ? 'checked' : '') ?>> <span>तेस्रोलिंगी</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -522,7 +515,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-12">
-                                                        <div class="form-group"> 
+                                                        <div class="form-group children-photo"> 
                                                             <div id="camera_open1" class="camera_open_hai" camera_count="1">
                                                                 <i class="fa fa-camera"></i>
                                                                 <p>फोटो</p>
