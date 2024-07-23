@@ -243,7 +243,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-lg-6 col-xl-6 col-md-12 col-sm-12 col-xs-12">
                                 <div class="EntryBox ndssss">
                                     <div class="Titleofbox">
                                         <span>यात्रा विवरण</span>
@@ -365,13 +365,18 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group" style="gap: 15rem;">
                                                     <label> यात्राको किसिम : <span class="required">*</span></label>
-                                                    <div class="radiosss width60">
-                                                        <input id="Paidalll" type="radio" class="personalinfo1_checked cmnreset_checked"
-                                                            name="travel_type" value="पैदल" <?php echo (((isset($detail->travel_type)) && $detail->travel_type == 'पैदल') ? 'checked' : '') ?> required>
-                                                        <span>पैदल</span>
-                                                        <input id="Gaddi" type="radio" class="personalinfo1_checked cmnreset_checked"
-                                                            name="travel_type" value="गाडी" <?php echo (((isset($detail->travel_type)) && $detail->travel_type == 'गाडी') ? 'checked' : '') ?>>
-                                                        <span>गाडी</span>
+                                                    <div class="radiosss width60 ">
+                                                        <span>
+                                                            <input id="Paidalll" type="radio" class="personalinfo1_checked cmnreset_checked"
+                                                                name="travel_type" value="पैदल" <?php echo (((isset($detail->travel_type)) && $detail->travel_type == 'पैदल') ? 'checked' : '') ?>
+                                                                required>
+                                                            <span>पैदल</span>
+                                                        </span>
+                                                        <span>
+                                                            <input id="Gaddi" type="radio" class="personalinfo1_checked cmnreset_checked"
+                                                                name="travel_type" value="गाडी" <?php echo (((isset($detail->travel_type)) && $detail->travel_type == 'गाडी') ? 'checked' : '') ?>>
+                                                            <span>गाडी</span>
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -392,7 +397,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-lg-6 col-xl-6 col-md-12 col-sm-12 col-xs-12">
                                 <div class="EntryBox ndssss">
                                     <div class="Titleofbox">
                                         <span>बालबालिका</span>
@@ -456,13 +461,13 @@
                                                         <div class="form-group">
                                                             <label>लिंग : </label>
                                                             <div class="radiosss" style="width:59%">
-                                                                <input type="radio" class="personalinfo2_checked cmnreset_checked"
+                                                                <input type="radio" class="personalinfo2"
                                                                     name="children_gender[0]" value="पुरुष" <?php echo (((isset($detail->children_gender)) && $detail->children_gender == 'पुरुष') ? 'checked' : '') ?>>
                                                                 <span>पुरुष</span>
-                                                                <input type="radio" class="personalinfo2_checked cmnreset_checked"
+                                                                <input type="radio" class="personalinfo2"
                                                                     name="children_gender[0]" value="महिला" <?php echo (((isset($detail->children_gender)) && $detail->children_gender == 'महिला') ? 'checked' : '') ?>>
                                                                 <span>महिला</span>
-                                                                <input type="radio" class="personalinfo2_checked cmnreset_checked"
+                                                                <input type="radio" class="personalinfo2"
                                                                     name="children_gender[0]" value="तेस्रोलिंगी" <?php echo (((isset($detail->children_gender)) && $detail->children_gender == 'तेस्रोलिंगी') ? 'checked' : '') ?>> <span>तेस्रोलिंगी</span>
                                                             </div>
                                                         </div>
@@ -517,7 +522,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-12">
-                                                        <div class="form-group"> 
+                                                        <div class="form-group children-photo"> 
                                                             <div id="camera_open1" class="camera_open_hai" camera_count="1">
                                                                 <i class="fa fa-camera"></i>
                                                                 <p>फोटो</p>

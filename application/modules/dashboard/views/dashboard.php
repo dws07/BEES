@@ -125,7 +125,8 @@ function ent_to_nepali_num_convert($number)
                                     <?php echo $value->gone ?> 
                                 </td>
                                 <td>
-                                    <a href="<?php echo base_url('travel/admin/all/'.$value->id); ?>" class="btn bg-green btn-flat margin ViewDataBTN">
+                                    <a href="<?php echo base_url('travel/admin/all/'.$value->id); ?>" class="btn btn-flat margin ViewDataBTN"
+                                                        style="background-color : #053775; color:#fff">
                                         <i class="fa fa-eye"></i>
                                     </a> 
                                    
@@ -147,8 +148,8 @@ function ent_to_nepali_num_convert($number)
                                     <?php echo $pagination; ?>
                                 </div>
                             <?php } ?>
-                            <a class="btn btn-success pull-right"
-                                href="<?php echo base_url('dataentryform/admin/all'); ?>">View More</a>
+                            <a style="background-color : #053775; color:#fff" class="btn btn-success pull-right"
+                                href="<?php echo base_url('dataentryform/admin/all') ?>">View More</a>
                         </div>
                     </div>
                 </div>
@@ -171,7 +172,7 @@ function ent_to_nepali_num_convert($number)
                         <div class="col-md-6 col-sm-12 col-lg-6 col-xs-12 col-xl-12"
                             style="border-right: 1px solid #ddd">
                             <div class="ChartBox">
-                                <div id="chartContainer1" style="height: 300px; width: 100%;"></div>
+                                <div id="chartContainer1" style="min-height: 300px; width: 100%;"></div>
                                 <!-- <h2 class="text-center">नेपाल देखि भारत जाने कुल यात्रुहरुको संख्या</h2> -->
                                 <h2 class="text-center">नेपाल निकास</h2>
                             </div>

@@ -1046,7 +1046,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 #add_function {
-  color: #053775 !mportant;
+  color: #053775 !important;
 }
 
 .profileesss {
@@ -1059,6 +1059,17 @@ body::-webkit-scrollbar-thumb {
 }
 .logiii {
   border-radius: 20px !important;
+  height: 40px;
+}
+.logiii:hover {
+  border: 1px solid #053775;
+  background-color: #fff;
+  color: #053775;
+  transition: 1s;
+}
+.login-box-body span {
+  font-size: 1.5rem;
+  margin-top: 4px;
 }
 .displayNoness {
   display: none;
@@ -1483,10 +1494,10 @@ input:checked + .slider:before {
 }
 .media_uploader .media_uploader_child {
   min-height: 200px;
-  min-width: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
 .media_uploader_child:hover {
@@ -1560,6 +1571,34 @@ input:checked + .slider:before {
   color: #fff !important;
 }
 
+.camera_open_hai {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.camera_open_hai p {
+  margin-top: 10px;
+}
+.chldimg {
+  background-color: transparent !important;
+}
+.children-photo {
+  /* display: flex !important;
+  align-items: center !important;
+  justify-content: center !important; */
+  border: 1px dashed #ccc;
+  padding: 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.children-photo:hover {
+  background-color: #053775;
+  color: #fff;
+}
+
 /* responsive */
 @media only screen and (max-width: 767px) {
   /* Your CSS rules here */
@@ -1601,10 +1640,12 @@ input:checked + .slider:before {
   overflow: scroll;
 }
 
+.active {
+  background: green;
+}
 .country-option {
   cursor: pointer;
 }
 .country-option:hover {
   background: green;
 }
-
