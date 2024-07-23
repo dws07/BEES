@@ -35,6 +35,10 @@
         font-size: 20px;
         font-weight: bold;
     }
+    .swtchcld {
+        position: absolute;
+        bottom: -20px;
+    }
 </style>
 <section class="content">
     <div class="row">
@@ -67,7 +71,7 @@
                                                             <button type="button"
                                                                 class="btn btn-default dropdown-toggle codeValue"
                                                                 data-toggle="dropdown" aria-haspopup="true"
-                                                                aria-expanded="false">Select Country Code<span
+                                                                aria-expanded="false"><?php echo $this->crud_model->ent_to_nepali_num_convert('+977'); ?><span
                                                                     class="caret"></span></button>
                                                             <ul class="dropdown-menu" id="countryCode">
                                                                 <li>
@@ -76,12 +80,12 @@
                                                                         class="form-control">
                                                                 </li>
                                                             </ul>
-                                                            <input type="hidden" name="country_code" id="country_code" value="">
+                                                            <input type="hidden" name="country_code" id="country_code" value="+977">
                                                             <?php if (form_error('country_code'))
                                                             echo '<span class="field_validation">' . form_error('country_code') . '</span>' ?>
                                                         </div><!-- /btn-group -->
                                                         <input type="text" name="phone_number"
-                                                            class="form-control utf8val personalinfo" id="phone_number"
+                                                            class="form-control utf8val personalinfo phone_number_class" id="phone_number"
                                                             placeholder="सम्पर्क नम्बर"
                                                             value="<?php echo (((isset($detail->phone_number)) && $detail->phone_number != '') ? $detail->phone_number : '') ?>"
                                                             required>
@@ -162,16 +166,17 @@
                                                 <div class="form-group">
                                                     <div class="flexxx">
                                                         <label>जन्म मिति : </label>
-                                                        <!-- Switch BS to AD
+                                                        Switch BS to AD
                                                     <label class="switch">
                                                         <input id="Switchsss"  type="checkbox">
                                                         <span class="slider round"></span>
-                                                    </label> -->
+                                                    </label>
                                                     </div>
                                                     <input type="text" name="nepali_date_of_birth"
                                                         id="nepali-datepicker"
                                                         class="form-control dobnep personalinfo cmnreset nepdatess activessssss"
-                                                        placeholder="जन्म मिति" />
+                                                        placeholder="जन्म मिति"
+                                                        value="" />
                                                     <input type="text" name="english_date_of_birth" id="datepicker"
                                                         class="form-control personalinfo cmnreset engdatess "
                                                         placeholder="Date of Birth">
@@ -416,22 +421,24 @@
                                                         <div class="form-group child_btn">
                                                             <div class="flexxx">
                                                                 <label>जन्म मिति : </label>
-                                                                <!-- Switch BS to AD
+                                                                <div class="swtchcld">
+                                                                    Switch
                                                                     <label class="switch">
-                                                                        <input id="Switchssschild"  type="checkbox">
+                                                                        <input id="Switchssschild1"  type="checkbox">
                                                                         <span class="slider round"></span>
-                                                                    </label> -->
+                                                                    </label>
+                                                                </div>    
                                                             </div>
                                                             <input type="text" style="width:58%"
                                                                 name="nepali_date_of_birthss[]"
                                                                 id="nepali-datepickerchild1"
                                                                 class="form-control personalinfo2 nepdatesschild activessssss cmnreset"
-                                                                placeholder="जन्म मिति" />
-                                                            <input type="text" name="english_date_of_birthss[]"
+                                                                placeholder="जन्म मिति" value=""/>
+                                                            <input type="text" style="width:58%" name="english_date_of_birthss[]"
                                                                 id="datepickerchild1"
                                                                 class="form-control personalinfo2 engdatesschild cmnreset"
-                                                                placeholder="Date of Birth">
-                                                            <input type="hidden" name="children_dob[]" id="dobsssschid">
+                                                                placeholder="Date of Birth" value=""/>
+                                                            <input type="hidden" name="children_dob[]" id="dobsssschid1">
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">

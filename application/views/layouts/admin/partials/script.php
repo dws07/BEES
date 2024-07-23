@@ -20,71 +20,45 @@
 <script src="<?php echo base_url('assets/js/webcam/'); ?>webcam.min.js"></script>
 <script src="<?php echo base_url('assets/js/'); ?>nepali.datepicker.v4.0.4.min.js"></script>
 <script src="<?php echo base_url('assets/js/'); ?>toastify.min.js"></script>
-<script src="<?php echo base_url('assets/js/'); ?>dataTables.min.js"></script> 
-<script>
-        const preetiMap = {
-            //for small letter 
-            'a': 'ब', 'b': 'द', 'c': 'अ', 'd': 'म', 'e': 'भ', 'f': 'ा', 'g': 'न', 'h': 'ज',
-            'i': 'ष', 'j': 'न', 'k': 'प', 'l': 'ग', 'm': 'थ', 'n': 'त', 'o': 'च', 'p': 'ट', 
-            'q': 'ष', 'r': 'य', 's': 'व', 't': 'ल', 'u': 'ग', 'v': 'ख', 'w': 'घ', 'x': 'श',
-            'y': 'फ', 'z': 'श',
-            //for capital letter
-            'A': 'ब्', 'B': 'द्य', 'C': 'ऋ', 'D': 'म्', 'E': 'भ्', 'F': 'ँ', 'G': 'न्', 'H': 'ज्', 
-            'I': ' क्ष् ', 'J': ' व् ', 'K': ' प् ', 'L': ' ी ', 'M': ' ः ', 'N': ' ल् ', 'O': ' इ ', 'P': ' ए ', 
-            'Q': ' त्त ', 'R': ' च् ', 'S': ' क् ', 'T': ' त् ', 'U': ' ग् ', 'V': ' ख् ', 'W': ' ध् ', 'X': ' ह् ', 
-            'Y': ' थ् ', 'Z': ' श्',
-            //numbers
-            '1': ' ज्ञ', '2': ' द्द ', '3': 'घ', '4': ' द्ध', '5': 'छ', '6': 'ट', '7': 'ठ', '8': 'ड',
-            '9': 'ढ', '0': 'ण',
-
-            //special characteres
-            '~': '',
-            '`': '',
-            '!': '',
-            '@': '',
-            '#': '',
-            '$': '',
-            '%': '',
-            '^': '',
-            '&': '',
-            '*': '',
-            '(': '',
-            ')': '',
-            '_': '',
-            '-': '',
-            '+': '',
-            '=': '',
-            '|': '', 
-            '\\': '्',
-            '}': '',
-            ']': 'े',
-            '{': '',
-            '[': '',
-            '"': 'ू',
-            "'": 'ु',
-            ':': '',
-            ';': '',
-            '?': '',
-            '/': 'र',
-            '>': '',
-            '.': '',
-            '<': '', 
-            ',': '',  
-        };
-
-        // document.addEventListener('DOMContentLoaded', (event) => {
-        //     const preetiInput = document.getElementById('preetiInput');
-
-        //     preetiInput.addEventListener('keydown', function (e) {
-        //         if (preetiMap[e.key]) {
-        //             e.preventDefault();
-        //             preetiInput.value += preetiMap[e.key];
-        //         }
-        //     });
-        // });
-    </script>
+<script src="<?php echo base_url('assets/js/'); ?>dataTables.min.js"></script>  
+<script src="https://unpkg.com/nepalify@0.5.0/umd/nepalify.production.min.js"></script> 
 
 <script>
+
+    // roman font
+    // console.log(nepalify.availableLayouts());
+    //personal roman
+    var phone_number = nepalify.interceptElementById("phone_number");
+    var name = nepalify.interceptElementById("name");
+    var nationality = nepalify.interceptElementById("nationality");
+    var identicard_number = nepalify.interceptElementById("identicard_number");
+    var address = nepalify.interceptElementById("address");
+    var marital_status_remarks = nepalify.interceptElementById("marital_status_remarks");
+    var occupation = nepalify.interceptElementById("occupation");
+
+    //travel roman
+    var travel_start_country = nepalify.interceptElementById("travel_start_country");
+    var entry_adress = nepalify.interceptElementById("entry_adress");
+    var entry_address2 = nepalify.interceptElementById("entry_address2");
+    var travel_destination = nepalify.interceptElementById("travel_destination");
+    var travel_deuration = nepalify.interceptElementById("travel_deuration");
+    var traveler_proporty = nepalify.interceptElementById("traveler_proporty"); 
+
+    //health roman
+    var health_status = nepalify.interceptElementById("health_status");
+    var health_result = nepalify.interceptElementById("health_result");
+
+    //vehicle roman
+    var vehicle_number = nepalify.interceptElementById("vehicle_number");
+    var drivers_name = nepalify.interceptElementById("drivers_name");
+    var driving_licence = nepalify.interceptElementById("driving_licence");
+    var drivers_number = nepalify.interceptElementById("drivers_number");
+    var property_information = nepalify.interceptElementById("property_information");
+    var pasengers = nepalify.interceptElementById("pasengers"); 
+    
+    var remarks = nepalify.interceptElementById("remarks"); 
+
+
     // GLOBAL SCOPE VARIABLE
     function handleItemClick(value, html) {
         var $button = $('.btn.btn-default.dropdown-toggle.codeValue');
@@ -346,7 +320,8 @@
         function appendCountry(data) {
             data.forEach(function (country) {
                 if (country.idd && country.idd.root && country.idd.suffixes && country.flags) {
-                    var code = country.idd.root + country.idd.suffixes[0];
+                    let code = country.idd.root + country.idd.suffixes[0];
+                    code = ent_to_nepali_num_convert(code);
                     var countryName = country.name.native;
                     var shortName = country.cca3;
                     var flagUrl = country.flags.svg; // You can use other flag URLs provided by the API
@@ -363,7 +338,26 @@
                 }
             });
 
-        }
+        };
+
+        function ent_to_nepali_num_convert(number) {
+            const eng_number = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "-"];
+            const nep_number = ["०", "१", "२", "३", "४", "५", "६", "७", "८", "९", "+", "-"];
+            
+            let result = '';
+            
+            for (let i = 0; i < number.length; i++) {
+                const char = number[i];
+                const index = eng_number.indexOf(char);
+                if (index !== -1) {
+                    result += nep_number[index];
+                } else {
+                    result += char;
+                }
+            }
+            
+            return result;
+        };
 
 
         $('#document_upload').on('change', function () {
@@ -410,8 +404,8 @@
             }
         });
 
-        $(document).off('change', '#phone_number').on('change', '#phone_number', function (e) {
-            var contact = $(this).val();
+        $(document).off('blur', '#phone_number').on('blur', '#phone_number', function (e) {
+            var contact = $(this).val(); 
             var country_code = $('#country_code').val();
             // alert(country_code);
             if(!country_code || country_code == ''){
@@ -465,7 +459,12 @@
                             $('#countryCode').val(resp.data.country_code);
                             $('#identicard_number').val(resp.data.identicard_number);
                             $('#dobssss').val(resp.data.date_of_birth);
-                            $('.dobnep').val(resp.data.nepali_date_of_birth);
+                            var arr1 = resp.data.date_of_birth.split('-');
+                            // console.log(arr1);
+                            $('#datepicker').val(arr1[1]+'/'+arr1[2]+'/'+arr1[0]);
+
+                            $('#nepali-datepicker').val(resp.data.nepali_date_of_birth); 
+                            // $('#datepicker').val(resp.data.date_of_birth);
                             $('#age').val(resp.data.age);
                             $('#address').val(resp.data.address);
                             jQuery('input:radio[name="marital_status"]').filter(`[value="` + resp.data.marital_status + `"]`).attr('checked', true);
@@ -547,6 +546,12 @@
                                             
                                             },
                                         }); 
+
+                                        var children_name1 = nepalify.interceptElementById("children_name"+i);
+                                        var children_address1 = nepalify.interceptElementById("children_address"+i);
+                                        var children_parent_name1 = nepalify.interceptElementById("children_parent_name"+i);
+                                        var children_relations1 = nepalify.interceptElementById("children_relations"+i);
+                                        var children_identicard_number1 = nepalify.interceptElementById("children_identicard_number"+i);
                                 }
                             }else{
                                 initializeDatePickers();  
@@ -763,13 +768,21 @@
                         <div class="form-group child_btn">
                             <div class="flexxx">
                                 <label>जन्म मिति  : </label>
+                                <div class="swtchcld">
+                                    Switch
+                                    <label class="switch">
+                                        <input id="Switchssschild`+total_child+`"  type="checkbox">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div> 
                             </div>    
                                 <input type="text" name="nepali_date_of_birthss[]" id="nepali-datepickerchild`+total_child+`" style="width:58%" class="form-control personalinfo2 nepdatesschild activessssss cmnreset" placeholder="जन्म मिति" autocomplete="off"> 
                                 <input type="text" name="english_date_of_birthss[]"
                                                                 id="datepickerchild`+total_child+`"
+                                                                style="width:58%"
                                                                 class="form-control personalinfo2 engdatesschild "
                                                                 placeholder="Date of Birth">
-                                <input type="hidden" name="children_dob[]" id="dobsssschid">
+                                <input type="hidden" name="children_dob[]" id="dobsssschid`+total_child+`">
                         </div>
                     </div>    
                     <div class="col-sm-6">
@@ -838,25 +851,89 @@
                 </div>
             </div>
             `
-            );
-            $("#nepali-datepickerchild" + total_child).nepaliDatePicker({
-                ndpYear: true,
-                ndpMonth: true,
-                ndpYearCount: 100,
-                onChange: function (value, ui) {
+            ); 
+
+            $( "#nepali-datepickerchild"+total_child).nepaliDatePicker({
+            ndpYear: true,
+            ndpMonth: true,
+            ndpYearCount: 100,
+                onChange: function(value, ui) {
                     console.log(value.ad);
-                    const AGe = document.querySelector('#children_age' + total_child);
-                    // const BODDD = document.querySelector('#dobsssschid1');  
+                    const AGe = document.querySelector('#children_age'+total_child);
+                    const BODDD = document.querySelector('#dobsssschid'+total_child);  
+                    const BODDDEng = document.querySelector('#datepickerchild'+total_child);  
                     let today = new Date(),
                         dob = new Date(value.ad),
                         age = new Date(today - dob).getFullYear() - 1970;
                     console.log(age);
                     AGe.innerHTML = age;
+                    age = ent_to_nepali_num_convert(''+age);
                     AGe.value = age;
-                    // BODDD.value = value.ad;
+                    BODDD.value = value.ad;
+                    var arr1 = value.ad.split('-');
+                    // console.log(arr1);
+                    BODDDEng.value = arr1[1]+'/'+arr1[2]+'/'+arr1[0];
 
                 },
             });
+            
+            $("#datepickerchild"+total_child).datepicker({
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+                onSelect: function (value, ui) {
+                    const AGe = document.querySelector('#children_age'+total_child);
+                    const BODDD = document.querySelector('#dobsssschid'+total_child);
+                    const BODDDNep = document.querySelector('#nepali-datepickerchild'+total_child);
+                    let today = new Date(),
+                        dob = new Date(value),
+                        age = new Date(today - dob).getFullYear() - 1970;
+                    AGe.innerHTML = age;
+                    age = ent_to_nepali_num_convert(''+age);
+                    AGe.value = age;
+                    BODDD.value = value;
+
+                    var arr1 = value.split('/');
+                    var nep_date = NepaliFunctions.AD2BS({year: arr1[2], month: arr1[0], day: arr1[1]})
+                    
+                    var nep_date_converted = nep_date.year+'-'+nep_date.month+'-'+nep_date.day
+                    BODDDNep.value = nep_date_converted; 
+                },
+                maxDate: '+0d',
+                yearRange: '1920:2026',
+                changeMonth: true,
+                changeYear: true
+            }); 
+
+            var children_name1 = nepalify.interceptElementById("children_name"+total_child);
+            var children_address1 = nepalify.interceptElementById("children_address"+total_child);
+            var children_parent_name1 = nepalify.interceptElementById("children_parent_name"+total_child);
+            var children_relations1 = nepalify.interceptElementById("children_relations"+total_child);
+            var children_identicard_number1 = nepalify.interceptElementById("children_identicard_number"+total_child);
+
+            const Dateswitchchild = document.querySelector('#Switchssschild'+total_child);
+                Dateswitchchild.addEventListener('click', (event) => {
+                Dateswitchchild.classList.toggle("actchild");
+                let added_class = '';
+                added_class = Dateswitchchild.className;
+                // const ACTChILD = document.querySelector('.actchild');
+                ACTChILD = false;
+                if(added_class){
+                    ACTChILD = document.querySelector('.'+added_class);
+                }
+                
+                // console.log(ACTChILD);
+                const endatechild = document.querySelector('#datepickerchild'+total_child);
+                const nepdatechild = document.querySelector('#nepali-datepickerchild'+total_child);
+                if (ACTChILD) {
+                    endatechild.classList.add("activessssss")
+                    nepdatechild.classList.remove("activessssss")
+                }
+                else {
+                    endatechild.classList.remove("activessssss")
+                    nepdatechild.classList.add("activessssss")
+                }
+            }); 
         });
         $(document).off('click', '#FormAddFunction3').on('click', '#FormAddFunction3', function (e) {
             e.preventDefault();
@@ -1291,44 +1368,106 @@ if ($this->session->flashdata('success')) { ?>
             ndpMonth: true,
             ndpYearCount: 162,
             onChange: function (value, ui) {
-                console.log(value.ad);
+                // console.log(value.ad);
                 const AGe = document.querySelector('#age');
                 const BODDD = document.querySelector('#dobssss');
+                const BODDDEng = document.querySelector('#datepicker');
                 let today = new Date(),
                     dob = new Date(value.ad),
                     age = new Date(today - dob).getFullYear() - 1970;
                 console.log(age);
                 AGe.innerHTML = age;
+                age = ent_to_nepali_num_convert(''+age);
                 AGe.value = age;
                 BODDD.value = value.ad;
+                var arr1 = value.ad.split('-');
+                // console.log(arr1);
+                BODDDEng.value = arr1[1]+'/'+arr1[2]+'/'+arr1[0];
 
             },
         });
     }); 
       
   function initializeDatePickers() {
-    $( "#nepali-datepickerchild1" ).nepaliDatePicker({
+        $( "#nepali-datepickerchild1" ).nepaliDatePicker({
             ndpYear: true,
             ndpMonth: true,
             ndpYearCount: 100,
                 onChange: function(value, ui) {
                     console.log(value.ad);
                     const AGe = document.querySelector('#children_age1');
-                    // const BODDD = document.querySelector('#dobsssschid1');  
+                    const BODDD = document.querySelector('#dobsssschid1');  
+                    const BODDDEng = document.querySelector('#datepickerchild1');  
                     let today = new Date(),
                         dob = new Date(value.ad),
                         age = new Date(today - dob).getFullYear() - 1970;
                     console.log(age);
                     AGe.innerHTML = age;
+                    age = ent_to_nepali_num_convert(''+age);
                     AGe.value = age;
-                    // BODDD.value = value.ad;
+                    BODDD.value = value.ad;
+                    var arr1 = value.ad.split('-');
+                    // console.log(arr1);
+                    BODDDEng.value = arr1[1]+'/'+arr1[2]+'/'+arr1[0];
 
                 },
             });
+
+            $("#datepickerchild1").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+                onSelect: function (value, ui) {
+                    const AGe = document.querySelector('#children_age1');
+                    const BODDD = document.querySelector('#dobsssschid1');
+                    const BODDDNep = document.querySelector('#nepali-datepickerchild1');
+                    let today = new Date(),
+                        dob = new Date(value),
+                        age = new Date(today - dob).getFullYear() - 1970;
+                    AGe.innerHTML = age;
+                    age = ent_to_nepali_num_convert(''+age);
+                    AGe.value = age;
+                    BODDD.value = value;
+
+                    var arr1 = value.split('/');
+                    var nep_date = NepaliFunctions.AD2BS({year: arr1[2], month: arr1[0], day: arr1[1]})
+                    
+                    var nep_date_converted = nep_date.year+'-'+nep_date.month+'-'+nep_date.day
+                    BODDDNep.value = nep_date_converted; 
+                },
+                maxDate: '+0d',
+                yearRange: '1920:2026',
+                changeMonth: true,
+                changeYear: true
+            }); 
+            
+            //children roman
+            var children_name1 = nepalify.interceptElementById("children_name1");
+            var children_address1 = nepalify.interceptElementById("children_address1");
+            var children_parent_name1 = nepalify.interceptElementById("children_parent_name1");
+            var children_relations1 = nepalify.interceptElementById("children_relations1");
+            var children_identicard_number1 = nepalify.interceptElementById("children_identicard_number1");
     };
     initializeDatePickers();
 </script>
 <script>
+    function ent_to_nepali_num_convert(number) { 
+            const eng_number = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "-"];
+            const nep_number = ["०", "१", "२", "३", "४", "५", "६", "७", "८", "९", "+", "-"];
+            
+            let result = '';
+            
+            for (let i = 0; i < number.length; i++) {
+                const char = number[i];
+                const index = eng_number.indexOf(char);
+                if (index !== -1) {
+                    result += nep_number[index];
+                } else {
+                    result += char;
+                }
+            } 
+            return result;
+        };
     const Dateswitch = document.querySelector('#Switchsss');
     Dateswitch.addEventListener('click', (event) => {
         Dateswitch.classList.toggle("act");
@@ -1345,14 +1484,53 @@ if ($this->session->flashdata('success')) { ?>
             endate.classList.remove("activessssss")
             nepdate.classList.add("activessssss")
         }
-    })
+    });
 
-    const Dateswitchchild = document.querySelector('#Switchssschild');
-    Dateswitchchild.addEventListener('click', (event) => {
-        Dateswitch.classList.toggle("actchild");
-        const ACTChILD = document.querySelector('.actchild');
-        const endatechild = document.querySelector('.engdatesschild');
-        const nepdatechild = document.querySelector('.nepdatesschild');
+    $("#datepicker").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            onSelect: function (value, ui) {
+                var arr1 = value.split('/');
+                var nep_date = NepaliFunctions.AD2BS({year: arr1[2], month: arr1[0], day: arr1[1]})
+                
+                var nep_date_converted = nep_date.year+'-'+nep_date.month+'-'+nep_date.day
+                // console.log(nep_date_converted);
+                const AGe = document.querySelector('#age');
+                const BODDD = document.querySelector('#dobssss');
+                const BODDDNep = document.querySelector('#nepali-datepicker');
+                let today = new Date(),
+                    dob = new Date(value),
+                    age = new Date(today - dob).getFullYear() - 1970;
+                // console.log(age);
+                AGe.innerHTML = age;
+                age = ent_to_nepali_num_convert(''+age);
+                // console.log(age);
+                AGe.value = age;
+                BODDD.value = value;
+                BODDDNep.value = nep_date_converted;
+
+            },
+            maxDate: '+0d',
+            yearRange: '1920:2026',
+            changeMonth: true,
+            changeYear: true
+        });
+
+    const Dateswitchchild = document.querySelector('#Switchssschild1');
+        Dateswitchchild.addEventListener('click', (event) => {
+        Dateswitchchild.classList.toggle("actchild");
+        let added_class = '';
+        added_class = Dateswitchchild.className;
+        // const ACTChILD = document.querySelector('.actchild');
+        ACTChILD = false;
+        if(added_class){
+            ACTChILD = document.querySelector('.'+added_class);
+        }
+        
+        // console.log(ACTChILD);
+        const endatechild = document.querySelector('#datepickerchild1');
+        const nepdatechild = document.querySelector('#nepali-datepickerchild1');
         if (ACTChILD) {
             endatechild.classList.add("activessssss")
             nepdatechild.classList.remove("activessssss")
@@ -1361,111 +1539,7 @@ if ($this->session->flashdata('success')) { ?>
             endatechild.classList.remove("activessssss")
             nepdatechild.classList.add("activessssss")
         }
-    })
-
-    const ApnedBTN = document.querySelector('#FormAddFunction2');
-    ApnedBTN.addEventListener('click', (e) => {
-        const Dateswitchchildmultiple = document.querySelectorAll('.Switchssschild');
-        if (Dateswitchchildmultiple) {
-            for (let index = 0; index < Dateswitchchildmultiple.length; index++) {
-                const element = Dateswitchchildmultiple[index];
-
-            }
-        }
-
-        // Dateswitchchildmultiple.forEach(element => {
-        //     element.addEventListener('click',(event)=>{
-        //         event.target.classList.toggle("actchildss");
-        //         const ACTChILD = document.querySelectorAll('.actchildss'); 
-        //         console.log(ACTChILD);
-        //         const endatechildmultiple = document.querySelectorAll('.engdatesschildmultiple');   
-        //         const nepdatechildmultiple = document.querySelectorAll('.nepdatesschildmultiple');
-        //         cosole.log(endatechildmultiple);
-        //         console.log(nepdatechildmultiple);
-        //         if(ACTChILD) {
-        //             endatechildmultiple.classList.add("activessssss") 
-        //             nepdatechildmultiple.classList.remove("activessssss") 
-        //         }
-        //         else{
-        //             endatechildmultiple.classList.remove("activessssss") 
-        //             nepdatechildmultiple.classList.add("activessssss") 
-        //         }
-        //     });
-        // });
-
-        // Dateswitchchildmultiple.foreach((elm)=>{
-        //     cosole.log(elm);
-        //     elm.addEventListener('click',(event)=>{
-        //         console.log("Heree");
-        //         elm.classList.toggle("actchildss") ;
-        //         const ACTChILD = document.querySelector('.actchildss'); 
-        //         const endatechildmultiple = document.querySelectorAll('.engdatesschildmultiple');   
-        //         const nepdatechildmultiple = document.querySelectorAll('.nepdatesschildmultiple');
-        //         cosole.log(endatechildmultiple);
-        //         console.log(nepdatechildmultiple);
-        //         if(ACTChILD) {
-        //             endatechildmultiple.classList.add("activessssss") 
-        //             nepdatechildmultiple.classList.remove("activessssss") 
-        //         }
-        //         else{
-        //             endatechildmultiple.classList.remove("activessssss") 
-        //             nepdatechildmultiple.classList.add("activessssss") 
-        //         }
-        //     });
-        // });
-
-    })
-
-
-
-    $(function () {
-        $("#datepicker").datepicker({
-            changeMonth: true,
-            changeYear: true,
-            showButtonPanel: true,
-            onSelect: function (value, ui) {
-                // console.log(value);
-                const AGe = document.querySelector('#age');
-                const BODDD = document.querySelector('#dobssss');
-                let today = new Date(),
-                    dob = new Date(value),
-                    age = new Date(today - dob).getFullYear() - 1970;
-                console.log(age);
-                AGe.innerHTML = age;
-                AGe.value = age;
-                BODDD.value = value;
-
-            },
-            maxDate: '+0d',
-            yearRange: '1920:2010',
-            changeMonth: true,
-            changeYear: true
-        });
-    });
-
-
-    $(function () {
-        $(".engdatesschild").datepicker({
-            changeMonth: true,
-            changeYear: true,
-            showButtonPanel: true,
-            onSelect: function (value, ui) {
-                const AGe = document.querySelector('#children_age');
-                const BODDD = document.querySelector('#dobsssschid');
-                let today = new Date(),
-                    dob = new Date(value),
-                    age = new Date(today - dob).getFullYear() - 1970;
-                AGe.innerHTML = age;
-                AGe.value = age;
-                BODDD.value = value.ad;
-
-            },
-            // maxDate: '+0d',
-            // yearRange: '1920:2010',
-            // changeMonth: true,
-            // changeYear: true
-        });
-    });
+    }); 
 
     //   webcam
     function configure() {

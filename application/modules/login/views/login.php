@@ -78,6 +78,195 @@
 
     <script src="<?php echo base_url(); ?>assets/plugin/js/icheck.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/plugin/js/notify.js"></script>
+
+    <!-- <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const textInput = document.getElementById('textInput');
+
+            const nepaliMap = {
+                            //for small letter 
+                            'a': 'ब', 'b': 'द', 'c': 'अ', 'd': 'म', 'e': 'भ', 'f': 'ा', 'g': 'न', 'h': 'ज',
+                            'i': 'ष', 'j': 'न', 'k': 'प', 'l': 'ग', 'm': 'थ', 'n': 'त', 'o': 'च', 'p': 'ट', 
+                            'q': 'ष', 'r': 'य', 's': 'व', 't': 'ल', 'u': 'ग', 'v': 'ख', 'w': 'घ', 'x': 'श',
+                            'y': 'फ', 'z': 'श',
+                            //for capital letter
+                            'A': 'ब्', 'B': 'द्य', 'C': 'ऋ', 'D': 'म्', 'E': 'भ्', 'F': 'ँ', 'G': 'न्', 'H': 'ज्', 
+                            'I': ' क्ष् ', 'J': ' व् ', 'K': ' प् ', 'L': ' ी ', 'M': ' ः ', 'N': ' ल् ', 'O': ' इ ', 'P': ' ए ', 
+                            'Q': ' त्त ', 'R': ' च् ', 'S': ' क् ', 'T': ' त् ', 'U': ' ग् ', 'V': ' ख् ', 'W': ' ध् ', 'X': ' ह् ', 
+                            'Y': ' थ् ', 'Z': ' श्',
+                            //numbers
+                            '1': ' ज्ञ', '2': ' द्द ', '3': 'घ', '4': ' द्ध', '5': 'छ', '6': 'ट', '7': 'ठ', '8': 'ड',
+                            '9': 'ढ', '0': 'ण',
+
+                            //special characteres
+                            '~': '',
+                            '`': '',
+                            '!': '',
+                            '@': '',
+                            '#': '',
+                            '$': '',
+                            '%': '',
+                            '^': '',
+                            '&': '',
+                            '*': '',
+                            '(': '',
+                            ')': '',
+                            '_': '',
+                            '-': '',
+                            '+': '',
+                            '=': '',
+                            '|': '', 
+                            '\\': '्',
+                            '}': '',
+                            ']': 'े',
+                            '{': '',
+                            '[': '',
+                            '"': 'ू',
+                            "'": 'ु',
+                            ':': '',
+                            ';': '',
+                            '?': '',
+                            '/': 'र',
+                            '>': '',
+                            '.': '',
+                            '<': '', 
+                            ',': '',  
+                        };
+
+            const nepaliAltMap = {
+                '0170': 'ङ', 
+            };
+
+            let numberSequence = '';
+            let altPressed = false;
+
+            textInput.addEventListener('keydown', function(event) {
+                if (event.altKey) {
+                    altPressed = true;
+
+                    if (!isNaN(event.key) && event.key !== ' ') {
+                        numberSequence += event.key;
+                        event.preventDefault(); // Prevent default behavior for numbers
+                    }
+
+                    // Check for Enter key and process the number sequence
+                    if (event.key === 'Enter') {
+                        if (nepaliAltMap.hasOwnProperty(numberSequence)) {
+                            const nepaliChar = nepaliAltMap[numberSequence];
+                            insertCharacterAtCursor(textInput, nepaliChar);
+                        }
+                        numberSequence = '';
+                        event.preventDefault(); // Prevent default behavior for Enter
+                    }
+                } else {
+                    altPressed = false;
+                    numberSequence = '';
+                    const key = event.key.toLowerCase();
+                    if (nepaliMap.hasOwnProperty(key)) {
+                        event.preventDefault(); // Prevent default behavior for mapped keys
+                        const nepaliChar = nepaliMap[key];
+                        insertCharacterAtCursor(textInput, nepaliChar);
+                    }
+                }
+            });
+
+            textInput.addEventListener('keyup', function(event) {
+                if (event.key === 'Alt') {
+                    altPressed = false;
+                    numberSequence = '';
+                }
+            });
+
+            function insertCharacterAtCursor(input, char) {
+                const start = input.selectionStart;
+                const end = input.selectionEnd;
+                const text = input.value;
+                input.value = text.slice(0, start) + char + text.slice(end);
+                input.setSelectionRange(start + char.length, start + char.length);
+            }
+        });
+    </script> -->
+    <!-- <script>
+        const preetiMap = {
+            //for small letter 
+            'a': 'ब', 'b': 'द', 'c': 'अ', 'd': 'म', 'e': 'भ', 'f': 'ा', 'g': 'न', 'h': 'ज',
+            'i': 'ष', 'j': 'न', 'k': 'प', 'l': 'ग', 'm': 'थ', 'n': 'त', 'o': 'च', 'p': 'ट', 
+            'q': 'ष', 'r': 'य', 's': 'व', 't': 'ल', 'u': 'ग', 'v': 'ख', 'w': 'घ', 'x': 'श',
+            'y': 'फ', 'z': 'श',
+            //for capital letter
+            'A': 'ब्', 'B': 'द्य', 'C': 'ऋ', 'D': 'म्', 'E': 'भ्', 'F': 'ँ', 'G': 'न्', 'H': 'ज्', 
+            'I': ' क्ष् ', 'J': ' व् ', 'K': ' प् ', 'L': ' ी ', 'M': ' ः ', 'N': ' ल् ', 'O': ' इ ', 'P': ' ए ', 
+            'Q': ' त्त ', 'R': ' च् ', 'S': ' क् ', 'T': ' त् ', 'U': ' ग् ', 'V': ' ख् ', 'W': ' ध् ', 'X': ' ह् ', 
+            'Y': ' थ् ', 'Z': ' श्',
+            //numbers
+            '1': ' ज्ञ', '2': ' द्द ', '3': 'घ', '4': ' द्ध', '5': 'छ', '6': 'ट', '7': 'ठ', '8': 'ड',
+            '9': 'ढ', '0': 'ण',
+
+            //special characteres
+            '~': '',
+            '`': '',
+            '!': '',
+            '@': '',
+            '#': '',
+            '$': '',
+            '%': '',
+            '^': '',
+            '&': '',
+            '*': '',
+            '(': '',
+            ')': '',
+            '_': '',
+            '-': '',
+            '+': '',
+            '=': '',
+            '|': '', 
+            '\\': '्',
+            '}': '',
+            ']': 'े',
+            '{': '',
+            '[': '',
+            '"': 'ू',
+            "'": 'ु',
+            ':': '',
+            ';': '',
+            '?': '',
+            '/': 'र',
+            '>': '',
+            '.': '',
+            '<': '', 
+            ',': '',  
+        };
+
+        const nepaliAltMap = {
+                'a': 'अल्ट123',
+                '1234': 'अल्ट1234',
+                // Add more mappings for Alt+Number combinations as needed
+            };
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const preetiInput = document.getElementById('preetiInput');
+            
+
+            preetiInput.addEventListener('keydown', function (e) { 
+                e.preventDefault();
+                if (e.altKey){
+                    e.preventDefault();
+                    // alert('hi');
+                    console.log(e);
+                    if (nepaliAltMap[e.key]) {
+                        alert(nepaliAltMap[e.key]);
+                        e.preventDefault();
+                        preetiInput.value += nepaliAltMap[e.key];
+                    }
+                }else{
+                    if (preetiMap[e.key]) {
+                        e.preventDefault();
+                        preetiInput.value += preetiMap[e.key];
+                    }
+                } 
+            });
+        });
+    </script> -->
     <!-- <script src="https://unpkg.com/nepalify@0.5.0/umd/nepalify.production.min.js"></script> -->
     <script>
         // console.log(nepalify.availableLayouts());
