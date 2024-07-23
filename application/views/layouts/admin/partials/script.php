@@ -20,112 +20,114 @@
 <script src="<?php echo base_url('assets/js/webcam/'); ?>webcam.min.js"></script>
 <script src="<?php echo base_url('assets/js/'); ?>nepali.datepicker.v4.0.4.min.js"></script>
 <script src="<?php echo base_url('assets/js/'); ?>toastify.min.js"></script>
-<script src="<?php echo base_url('assets/js/'); ?>dataTables.min.js"></script> 
+<script src="<?php echo base_url('assets/js/'); ?>dataTables.min.js"></script>
 <script>
-        const preetiMap = {
-            //for small letter 
-            'a': 'ब', 'b': 'द', 'c': 'अ', 'd': 'म', 'e': 'भ', 'f': 'ा', 'g': 'न', 'h': 'ज',
-            'i': 'ष', 'j': 'न', 'k': 'प', 'l': 'ग', 'm': 'थ', 'n': 'त', 'o': 'च', 'p': 'ट', 
-            'q': 'ष', 'r': 'य', 's': 'व', 't': 'ल', 'u': 'ग', 'v': 'ख', 'w': 'घ', 'x': 'श',
-            'y': 'फ', 'z': 'श',
-            //for capital letter
-            'A': 'ब्', 'B': 'द्य', 'C': 'ऋ', 'D': 'म्', 'E': 'भ्', 'F': 'ँ', 'G': 'न्', 'H': 'ज्', 
-            'I': ' क्ष् ', 'J': ' व् ', 'K': ' प् ', 'L': ' ी ', 'M': ' ः ', 'N': ' ल् ', 'O': ' इ ', 'P': ' ए ', 
-            'Q': ' त्त ', 'R': ' च् ', 'S': ' क् ', 'T': ' त् ', 'U': ' ग् ', 'V': ' ख् ', 'W': ' ध् ', 'X': ' ह् ', 
-            'Y': ' थ् ', 'Z': ' श्',
-            //numbers
-            '1': ' ज्ञ', '2': ' द्द ', '3': 'घ', '4': ' द्ध', '5': 'छ', '6': 'ट', '7': 'ठ', '8': 'ड',
-            '9': 'ढ', '0': 'ण',
+    const preetiMap = {
+        //for small letter 
+        'a': 'ब', 'b': 'द', 'c': 'अ', 'd': 'म', 'e': 'भ', 'f': 'ा', 'g': 'न', 'h': 'ज',
+        'i': 'ष', 'j': 'न', 'k': 'प', 'l': 'ग', 'm': 'थ', 'n': 'त', 'o': 'च', 'p': 'ट',
+        'q': 'ष', 'r': 'य', 's': 'व', 't': 'ल', 'u': 'ग', 'v': 'ख', 'w': 'घ', 'x': 'श',
+        'y': 'फ', 'z': 'श',
+        //for capital letter
+        'A': 'ब्', 'B': 'द्य', 'C': 'ऋ', 'D': 'म्', 'E': 'भ्', 'F': 'ँ', 'G': 'न्', 'H': 'ज्',
+        'I': ' क्ष् ', 'J': ' व् ', 'K': ' प् ', 'L': ' ी ', 'M': ' ः ', 'N': ' ल् ', 'O': ' इ ', 'P': ' ए ',
+        'Q': ' त्त ', 'R': ' च् ', 'S': ' क् ', 'T': ' त् ', 'U': ' ग् ', 'V': ' ख् ', 'W': ' ध् ', 'X': ' ह् ',
+        'Y': ' थ् ', 'Z': ' श्',
+        //numbers
+        '1': ' ज्ञ', '2': ' द्द ', '3': 'घ', '4': ' द्ध', '5': 'छ', '6': 'ट', '7': 'ठ', '8': 'ड',
+        '9': 'ढ', '0': 'ण',
 
-            //special characteres
-            '~': '',
-            '`': '',
-            '!': '',
-            '@': '',
-            '#': '',
-            '$': '',
-            '%': '',
-            '^': '',
-            '&': '',
-            '*': '',
-            '(': '',
-            ')': '',
-            '_': '',
-            '-': '',
-            '+': '',
-            '=': '',
-            '|': '', 
-            '\\': '्',
-            '}': '',
-            ']': 'े',
-            '{': '',
-            '[': '',
-            '"': 'ू',
-            "'": 'ु',
-            ':': '',
-            ';': '',
-            '?': '',
-            '/': 'र',
-            '>': '',
-            '.': '',
-            '<': '', 
-            ',': '',  
-        };
+        //special characteres
+        '~': '',
+        '`': '',
+        '!': '',
+        '@': '',
+        '#': '',
+        '$': '',
+        '%': '',
+        '^': '',
+        '&': '',
+        '*': '',
+        '(': '',
+        ')': '',
+        '_': '',
+        '-': '',
+        '+': '',
+        '=': '',
+        '|': '',
+        '\\': '्',
+        '}': '',
+        ']': 'े',
+        '{': '',
+        '[': '',
+        '"': 'ू',
+        "'": 'ु',
+        ':': '',
+        ';': '',
+        '?': '',
+        '/': 'र',
+        '>': '',
+        '.': '',
+        '<': '',
+        ',': '',
+    };
 
-        // document.addEventListener('DOMContentLoaded', (event) => {
-        //     const preetiInput = document.getElementById('preetiInput');
+    // document.addEventListener('DOMContentLoaded', (event) => {
+    //     const preetiInput = document.getElementById('preetiInput');
 
-        //     preetiInput.addEventListener('keydown', function (e) {
-        //         if (preetiMap[e.key]) {
-        //             e.preventDefault();
-        //             preetiInput.value += preetiMap[e.key];
-        //         }
-        //     });
-        // });
-    </script>
+    //     preetiInput.addEventListener('keydown', function (e) {
+    //         if (preetiMap[e.key]) {
+    //             e.preventDefault();
+    //             preetiInput.value += preetiMap[e.key];
+    //         }
+    //     });
+    // });
+</script>
 
 <script>
     // GLOBAL SCOPE VARIABLE
+    var selectedCountry = '+977'
+    var $button = $('.btn.btn-default.dropdown-toggle.codeValue');
+    $button.html(selectedCountry)
     function handleItemClick(value, html) {
-        var $button = $('.btn.btn-default.dropdown-toggle.codeValue');
-
         // Preserve existing HTML and update button text
         var existingHtml = $button.find('.caret').parent().html(); // Get existing HTML
         $button.html(value); // Update button text
 
         // Log clicked item details
+        selectedCountry = value;
         console.log('Item clicked with value:', value);
         console.log('Item clicked with HTML:', html);
         $('#country_code').val(value);
     }
     $(document).ready(function () {
         //open camera
-        $(document).off('click','.camera_open_hai').on('click', '.camera_open_hai', function(){
+        $(document).off('click', '.camera_open_hai').on('click', '.camera_open_hai', function () {
             var camera_count = $(this).attr('camera_count');
             var default_img = "<?php echo base_url(); ?>assets/img/backgrouns_blabk.png",
-            // alert(camera_count);
-            $html = `<div class="CameraBoxChild" id="cmbx`+camera_count+`">
+                // alert(camera_count);
+                $html = `<div class="CameraBoxChild" id="cmbx` + camera_count + `">
                         <div class="inside">
                             <div id="my_camera_child"></div>
                             <input type="hidden" name="captured_image_data_child" id="captured_image_data_child">
                             <div id="results_child" style="display:none;">
                                 <div id="Capture_image_child">
-                                    <img src="`+default_img+`" alt="Image">
+                                    <img src="`+ default_img + `" alt="Image">
                                 </div>
                                 <div class="actionss">
-                                    <button type="button" id="svSnap" camera_count="`+camera_count+`">
+                                    <button type="button" id="svSnap" camera_count="`+ camera_count + `">
                                         Save
                                     </button>
-                                    <button type="button" id="refresh_camera" camera_count="`+camera_count+`">
+                                    <button type="button" id="refresh_camera" camera_count="`+ camera_count + `">
                                         refresh
                                     </button>
-                                    <button type="button" id="webcamclose1" camera_count="`+camera_count+`">
+                                    <button type="button" id="webcamclose1" camera_count="`+ camera_count + `">
                                         exit
                                     </button>
                                 </div>
                             </div>
                             <div class="actionss">
-                                <button type="button" id="captureSnapChild" camera_count="`+camera_count+`">
+                                <button type="button" id="captureSnapChild" camera_count="`+ camera_count + `">
                                     Capture
                                 </button>
                                 <button type="button" id="webcamclose">
@@ -133,40 +135,40 @@
                                 </button>
                             </div>
                         </div>
-                    </div>`; 
-                    // console.log('rajesh'); 
-                $('#appendcam'+camera_count).html($html);    
-                configure(); 
+                    </div>`;
+            // console.log('rajesh'); 
+            $('#appendcam' + camera_count).html($html);
+            configure();
         })
 
         //refresh camera
-        $(document).off('click','#refresh_camera').on('click', '#refresh_camera', function(){
+        $(document).off('click', '#refresh_camera').on('click', '#refresh_camera', function () {
             Webcam.reset();
             var camera_count = $(this).attr('camera_count');
             var default_img = "<?php echo base_url(); ?>assets/img/backgrouns_blabk.png",
-            // alert(camera_count);
-            $html = `<div class="CameraBoxChild" id="cmbx`+camera_count+`">
+                // alert(camera_count);
+                $html = `<div class="CameraBoxChild" id="cmbx` + camera_count + `">
                         <div class="inside">
                             <div id="my_camera_child"></div>
                             <input type="hidden" name="captured_image_data_child" id="captured_image_data_child">
                             <div id="results_child" style="display:none;">
                                 <div id="Capture_image_child">
-                                    <img src="`+default_img+`" alt="Image">
+                                    <img src="`+ default_img + `" alt="Image">
                                 </div>
                                 <div class="actionss">
-                                    <button type="button" id="svSnap" camera_count="`+camera_count+`">
+                                    <button type="button" id="svSnap" camera_count="`+ camera_count + `">
                                         Save
                                     </button>
-                                    <button type="button" id="refresh_camera" camera_count="`+camera_count+`">
+                                    <button type="button" id="refresh_camera" camera_count="`+ camera_count + `">
                                         refresh
                                     </button>
-                                    <button type="button" id="webcamclose1" camera_count="`+camera_count+`">
+                                    <button type="button" id="webcamclose1" camera_count="`+ camera_count + `">
                                         exit
                                     </button>
                                 </div>
                             </div>
                             <div class="actionss">
-                                <button type="button" id="captureSnapChild" camera_count="`+camera_count+`">
+                                <button type="button" id="captureSnapChild" camera_count="`+ camera_count + `">
                                     Capture
                                 </button>
                                 <button type="button" id="webcamclose">
@@ -174,11 +176,11 @@
                                 </button>
                             </div>
                         </div>
-                    </div>`; 
-                    // console.log('rajesh'); 
-                $('#viewImage'+camera_count).html('');
-                $('#appendcam'+camera_count).html($html);    
-                configure(); 
+                    </div>`;
+            // console.log('rajesh'); 
+            $('#viewImage' + camera_count).html('');
+            $('#appendcam' + camera_count).html($html);
+            configure();
         })
 
         function configure() {
@@ -190,38 +192,38 @@
                 jpeg_quailaty: 90
             });
             Webcam.attach('#my_camera_child');
-        } 
+        }
 
         //close camera
-        $(document).off('click','#webcamclose').on('click','#webcamclose',function(){
+        $(document).off('click', '#webcamclose').on('click', '#webcamclose', function () {
             Webcam.reset();
             $('.CameraBoxChild').remove();
-        }) 
+        })
         //close camera1
-        $(document).off('click','#webcamclose1').on('click','#webcamclose1',function(){
+        $(document).off('click', '#webcamclose1').on('click', '#webcamclose1', function () {
             Webcam.reset();
             var camera_count = $(this).attr('camera_count');
             $('.CameraBoxChild').remove();
-            $('#viewImage'+camera_count).html('');
-        }) 
+            $('#viewImage' + camera_count).html('');
+        })
 
         //capture image
-        $(document).off('click','#captureSnapChild').on('click','#captureSnapChild',function(){
+        $(document).off('click', '#captureSnapChild').on('click', '#captureSnapChild', function () {
             var camera_count = $(this).attr('camera_count');
             const Resultsss = document.querySelector('#results_child');
             Resultsss.style.display = "block";
             Webcam.snap(function (data_uri) {
                 const Result = document.getElementById('Capture_image_child');
-                const viewImage = document.getElementById('viewImage'+camera_count);
+                const viewImage = document.getElementById('viewImage' + camera_count);
                 Result.innerHTML = '<img id = "webcam" src = "' + data_uri + '">';
                 viewImage.innerHTML = '<img id = "webcam" src = "' + data_uri + '">';
                 $("#captured_image_data_child").val(data_uri);
             });
-        })  
-        
+        })
+
 
         //save snap 
-        $(document).off('click','#svSnap').on('click','#svSnap',function(){
+        $(document).off('click', '#svSnap').on('click', '#svSnap', function () {
             var camera_count = $(this).attr('camera_count');
             var base64data = $("#captured_image_data_child").val();
             $.ajax({
@@ -231,7 +233,7 @@
                 data: { image: base64data },
                 success: function (data) {
                     // alert("Saved");
-                    $("#captured_image"+camera_count).val(data);
+                    $("#captured_image" + camera_count).val(data);
                     Webcam.reset();
                     $('.CameraBoxChild').remove();
                     // const cameraBox = document.querySelector('.CameraBox');
@@ -253,7 +255,7 @@
                     }).showToast();
                 }
             })
-        }) 
+        })
 
         function isValidUTF8(str) {
             try {
@@ -321,7 +323,6 @@
                 ...$countryList.filter(item => item.cca3.toLowerCase() !== data)
             ];
             appendCountry(filteredArr)
-            // console.log("sagar", filteredArr)
         }
 
         $('#countryCodeSearch').on('keyup', () => {
@@ -337,7 +338,8 @@
             type: 'GET',
             success: function (data) {
                 $countryList = data;
-                appendCountry(data)
+                filterCountries('npl')
+                // appendCountry(data)
             },
             error: function (xhr, status, error) {
                 console.error("An error occurred while fetching country codes: " + error);
@@ -359,6 +361,7 @@
                         .html('<img src="' + flagUrl + '" class="flag-icon" /> ' + shortName + ' (' + code + ')')
                         .attr('onclick', 'handleItemClick("' + code + '", "' + encodeURIComponent('<img src="' + flagUrl + '" class="flag-icon" /> ' + shortName + ' (' + code + ')') + '")');
                     $countryCodeDropdown.append(option);
+
 
                 }
             });
@@ -414,7 +417,7 @@
             var contact = $(this).val();
             var country_code = $('#country_code').val();
             // alert(country_code);
-            if(!country_code || country_code == ''){
+            if (!country_code || country_code == '') {
                 $('#phone_number').val('');
                 Toastify({
 
@@ -426,8 +429,8 @@
                         background: "linear-gradient(to right, red, yellow)",
                     }
 
-                    }).showToast();
-                    return false;
+                }).showToast();
+                return false;
             }
             // alert(contact.toString().length);
             if (10 < contact.toString().length || contact.toString().length < 10) {
@@ -527,29 +530,29 @@
                                     const personalinfo4_checked = document.querySelectorAll('.personalinfo4_checked');
                                     // $(personalinfo4_checked).prop('checked', false);
                                     $(personalinfo4_checked).removeAttr('checked');
-                                } 
-                                for (let i = 1; i <= resp.data.totalchildren; i++) { 
-                                    $( "#nepali-datepickerchild"+i ).nepaliDatePicker({
+                                }
+                                for (let i = 1; i <= resp.data.totalchildren; i++) {
+                                    $("#nepali-datepickerchild" + i).nepaliDatePicker({
                                         ndpYear: true,
                                         ndpMonth: true,
                                         ndpYearCount: 100,
-                                            onChange: function(value, ui) {
-                                                console.log(value.ad);
-                                                const AGe = document.querySelector('#children_age'+i);
-                                                // const BODDD = document.querySelector('#dobsssschid1');  
-                                                let today = new Date(),
+                                        onChange: function (value, ui) {
+                                            console.log(value.ad);
+                                            const AGe = document.querySelector('#children_age' + i);
+                                            // const BODDD = document.querySelector('#dobsssschid1');  
+                                            let today = new Date(),
                                                 dob = new Date(value.ad),
                                                 age = new Date(today - dob).getFullYear() - 1970;
-                                                console.log(age);
-                                                AGe.innerHTML = age;
-                                                AGe.value = age;
-                                                // BODDD.value = value.ad;
-                                            
-                                            },
-                                        }); 
+                                            console.log(age);
+                                            AGe.innerHTML = age;
+                                            AGe.value = age;
+                                            // BODDD.value = value.ad;
+
+                                        },
+                                    });
                                 }
-                            }else{
-                                initializeDatePickers();  
+                            } else {
+                                initializeDatePickers();
                                 $("#vehicle_detailssss").css("display", "none");
                                 const personalinfo4 = document.querySelectorAll('.personalinfo4');
                                 $(personalinfo4).val("");
@@ -578,9 +581,9 @@
                             $(all_fields_checked).removeAttr('checked');
                             $('#AppendForm2').html(resp.html);
                             $('#totalchildren').val(resp.totalchildren);
-                            initializeDatePickers();  
+                            initializeDatePickers();
                         }
-                         
+
                     }
                 });
             }
@@ -756,7 +759,7 @@
                     <div class="col-sm-12">
                         <div class="form-group child_btn">
                             <label>पुरा नाम : </label>
-                            <input type="text" name="children_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_name`+total_child+`" style="width:80% !important" placeholder="पुरा नाम" value="">
+                            <input type="text" name="children_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_name`+ total_child + `" style="width:80% !important" placeholder="पुरा नाम" value="">
                         </div>
                     </div> 
                     <div class="col-sm-6">
@@ -764,9 +767,9 @@
                             <div class="flexxx">
                                 <label>जन्म मिति  : </label>
                             </div>    
-                                <input type="text" name="nepali_date_of_birthss[]" id="nepali-datepickerchild`+total_child+`" style="width:58%" class="form-control personalinfo2 nepdatesschild activessssss cmnreset" placeholder="जन्म मिति" autocomplete="off"> 
+                                <input type="text" name="nepali_date_of_birthss[]" id="nepali-datepickerchild`+ total_child + `" style="width:58%" class="form-control personalinfo2 nepdatesschild activessssss cmnreset" placeholder="जन्म मिति" autocomplete="off"> 
                                 <input type="text" name="english_date_of_birthss[]"
-                                                                id="datepickerchild`+total_child+`"
+                                                                id="datepickerchild`+ total_child + `"
                                                                 class="form-control personalinfo2 engdatesschild "
                                                                 placeholder="Date of Birth">
                                 <input type="hidden" name="children_dob[]" id="dobsssschid">
@@ -775,61 +778,61 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label> उमेर : </label> 
-                            <input type="text" name="children_age[]" class="form-control width75 personalinfo2 cmnreset" id="children_age`+total_child+`" placeholder="उमेर" value="" readonly>
+                            <input type="text" name="children_age[]" class="form-control width75 personalinfo2 cmnreset" id="children_age`+ total_child + `" placeholder="उमेर" value="" readonly>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>लिंग : </label>
                             <div class="radiosss" style="width:59%">
-                                <input type="radio" class="personalinfo2_checked cmnreset_checked" name="children_gender[`+(total_child-1)+`]" value="पुरुष"> <span>पुरुष</span>
-                                <input type="radio" class="personalinfo2_checked cmnreset_checked" name="children_gender[`+(total_child-1)+`]" value="महिला"> <span>महिला</span>
-                                <input type="radio" class="personalinfo2_checked cmnreset_checked" name="children_gender[`+(total_child-1)+`]" value="तेस्रोलिंगी"> <span>तेस्रोलिंगी</span>
+                                <input type="radio" class="personalinfo2_checked cmnreset_checked" name="children_gender[`+ (total_child - 1) + `]" value="पुरुष"> <span>पुरुष</span>
+                                <input type="radio" class="personalinfo2_checked cmnreset_checked" name="children_gender[`+ (total_child - 1) + `]" value="महिला"> <span>महिला</span>
+                                <input type="radio" class="personalinfo2_checked cmnreset_checked" name="children_gender[`+ (total_child - 1) + `]" value="तेस्रोलिंगी"> <span>तेस्रोलिंगी</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>ठेगाना : </label>
-                            <input type="text" name="children_address[]" class="form-control utf8val width75 personalinfo2 cmnreset" id="children_address`+total_child+`" placeholder="ठेगाना" value="">
+                            <input type="text" name="children_address[]" class="form-control utf8val width75 personalinfo2 cmnreset" id="children_address`+ total_child + `" placeholder="ठेगाना" value="">
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label> संरक्षकको पुरा नाम : </label>
-                            <input type="text" name="children_parent_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_parent_name`+total_child+`" style="width:80%" placeholder="संरक्षकको पुरा नाम " value="">
+                            <input type="text" name="children_parent_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_parent_name`+ total_child + `" style="width:80%" placeholder="संरक्षकको पुरा नाम " value="">
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label>सम्बन्ध : </label>
-                            <input type="text" name="children_relations[]" class="form-control utf8val personalinfo2 cmnreset" style="width:80%" id="children_relations`+total_child+`" placeholder="सम्बन्ध " value=""> 
+                            <input type="text" name="children_relations[]" class="form-control utf8val personalinfo2 cmnreset" style="width:80%" id="children_relations`+ total_child + `" placeholder="सम्बन्ध " value=""> 
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>परिचय पत्र नम्बर : </label>
-                            <input type="text" name="children_identicard_number[]" class="form-control utf8val personalinfo2 cmnreset" style="width:58%" id="children_identicard_number`+total_child+`" placeholder="परिचय पत्र नम्बर " value=""> 
+                            <input type="text" name="children_identicard_number[]" class="form-control utf8val personalinfo2 cmnreset" style="width:58%" id="children_identicard_number`+ total_child + `" placeholder="परिचय पत्र नम्बर " value=""> 
                         </div>
                     </div>  
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>फर्केको : </label>
                             <div class="radiosss width75 ">
-                                <input type="radio" class="personalinfo2_checked cmnreset_checked" name="is_returned_child[`+(total_child-1)+`]" value="1"> <span>हो</span>
-                                <input type="radio" class="personalinfo2_checked cmnreset_checked" name="is_returned_child[`+(total_child-1)+`]" value="0"> <span>होइन</span> 
+                                <input type="radio" class="personalinfo2_checked cmnreset_checked" name="is_returned_child[`+ (total_child - 1) + `]" value="1"> <span>हो</span>
+                                <input type="radio" class="personalinfo2_checked cmnreset_checked" name="is_returned_child[`+ (total_child - 1) + `]" value="0"> <span>होइन</span> 
                             </div>  
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="form-group"> 
-                            <div id="camera_open`+total_child+`" class="camera_open_hai" camera_count="`+total_child+`">
+                            <div id="camera_open`+ total_child + `" class="camera_open_hai" camera_count="` + total_child + `">
                                 <i class="fa fa-camera"></i>
                                 <p>फोटो</p>
-                                <input type="hidden" name="captured_image_child[]" id="captured_image`+total_child+`" value="">
+                                <input type="hidden" name="captured_image_child[]" id="captured_image`+ total_child + `" value="">
                             </div>
-                            <div id="viewImage`+total_child+`" class="chldimg"></div>
-                            <div id="appendcam`+total_child+`">
+                            <div id="viewImage`+ total_child + `" class="chldimg"></div>
+                            <div id="appendcam`+ total_child + `">
 
                             </div> 
                             <a class="btn btn-sm btn-danger FormRemoveFunction" id="FormRemoveFunction"><i class="fa fa-trash"></i></a>
@@ -1304,27 +1307,27 @@ if ($this->session->flashdata('success')) { ?>
 
             },
         });
-    }); 
-      
-  function initializeDatePickers() {
-    $( "#nepali-datepickerchild1" ).nepaliDatePicker({
+    });
+
+    function initializeDatePickers() {
+        $("#nepali-datepickerchild1").nepaliDatePicker({
             ndpYear: true,
             ndpMonth: true,
             ndpYearCount: 100,
-                onChange: function(value, ui) {
-                    console.log(value.ad);
-                    const AGe = document.querySelector('#children_age1');
-                    // const BODDD = document.querySelector('#dobsssschid1');  
-                    let today = new Date(),
-                        dob = new Date(value.ad),
-                        age = new Date(today - dob).getFullYear() - 1970;
-                    console.log(age);
-                    AGe.innerHTML = age;
-                    AGe.value = age;
-                    // BODDD.value = value.ad;
+            onChange: function (value, ui) {
+                console.log(value.ad);
+                const AGe = document.querySelector('#children_age1');
+                // const BODDD = document.querySelector('#dobsssschid1');  
+                let today = new Date(),
+                    dob = new Date(value.ad),
+                    age = new Date(today - dob).getFullYear() - 1970;
+                console.log(age);
+                AGe.innerHTML = age;
+                AGe.value = age;
+                // BODDD.value = value.ad;
 
-                },
-            });
+            },
+        });
     };
     initializeDatePickers();
 </script>
@@ -1543,6 +1546,6 @@ if ($this->session->flashdata('success')) { ?>
         })
 
 
-    } 
+    }
 
 </script>

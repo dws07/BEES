@@ -1639,6 +1639,9 @@ input:checked + .slider:before {
   overflow: scroll;
 }
 
+.active {
+  background: green;
+}
 .country-option {
   cursor: pointer;
 }
