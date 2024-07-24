@@ -20,8 +20,8 @@
 <script src="<?php echo base_url('assets/js/webcam/'); ?>webcam.min.js"></script>
 <script src="<?php echo base_url('assets/js/'); ?>nepali.datepicker.v4.0.4.min.js"></script>
 <script src="<?php echo base_url('assets/js/'); ?>toastify.min.js"></script>
-<script src="<?php echo base_url('assets/js/'); ?>dataTables.min.js"></script>  
-<script src="https://unpkg.com/nepalify@0.5.0/umd/nepalify.production.min.js"></script> 
+<script src="<?php echo base_url('assets/js/'); ?>dataTables.min.js"></script>
+<script src="https://unpkg.com/nepalify@0.5.0/umd/nepalify.production.min.js"></script>
 
 <script>
 
@@ -42,7 +42,7 @@
     var entry_address2 = nepalify.interceptElementById("entry_address2");
     var travel_destination = nepalify.interceptElementById("travel_destination");
     var travel_deuration = nepalify.interceptElementById("travel_deuration");
-    var traveler_proporty = nepalify.interceptElementById("traveler_proporty"); 
+    var traveler_proporty = nepalify.interceptElementById("traveler_proporty");
 
     //health roman
     var health_status = nepalify.interceptElementById("health_status");
@@ -54,9 +54,9 @@
     var driving_licence = nepalify.interceptElementById("driving_licence");
     var drivers_number = nepalify.interceptElementById("drivers_number");
     var property_information = nepalify.interceptElementById("property_information");
-    var pasengers = nepalify.interceptElementById("pasengers"); 
-    
-    var remarks = nepalify.interceptElementById("remarks"); 
+    var pasengers = nepalify.interceptElementById("pasengers");
+
+    var remarks = nepalify.interceptElementById("remarks");
 
 
     // GLOBAL SCOPE VARIABLE
@@ -347,9 +347,9 @@
         function ent_to_nepali_num_convert(number) {
             const eng_number = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "-"];
             const nep_number = ["०", "१", "२", "३", "४", "५", "६", "७", "८", "९", "+", "-"];
-            
+
             let result = '';
-            
+
             for (let i = 0; i < number.length; i++) {
                 const char = number[i];
                 const index = eng_number.indexOf(char);
@@ -359,7 +359,7 @@
                     result += char;
                 }
             }
-            
+
             return result;
         };
 
@@ -456,7 +456,7 @@
         }); 
 
         $(document).off('blur', '#phone_number').on('blur', '#phone_number', function (e) {
-            var contact = $(this).val(); 
+            var contact = $(this).val();
             var country_code = $('#country_code').val();
             // alert(country_code);
             if (!country_code || country_code == '') {
@@ -513,9 +513,9 @@
                             $('#dobssss').val(resp.data.date_of_birth);
                             var arr1 = resp.data.date_of_birth.split('-');
                             // console.log(arr1);
-                            $('#datepicker').val(arr1[1]+'/'+arr1[2]+'/'+arr1[0]);
+                            $('#datepicker').val(arr1[1] + '/' + arr1[2] + '/' + arr1[0]);
 
-                            $('#nepali-datepicker').val(resp.data.nepali_date_of_birth); 
+                            $('#nepali-datepicker').val(resp.data.nepali_date_of_birth);
                             // $('#datepicker').val(resp.data.date_of_birth);
                             $('#age').val(resp.data.age);
                             $('#address').val(resp.data.address);
@@ -867,7 +867,7 @@
             total_child = (total_child + 1)
             $('#totalchildren').val(total_child);
             $('#AppendForm2').append(
-                `<div class="DeleteFunctionsssss childraj">
+                `<div class="DeleteFunctionsssss childraj" style="border-top:1px dashed #ccc;margin-top:20px">
                 <div class="row MainForm">
                     <div class="col-sm-12">
                         <div class="form-group child_btn">
@@ -875,31 +875,31 @@
                             <input type="text" name="children_name[]" class="form-control utf8val personalinfo2 cmnreset" id="children_name`+ total_child + `" style="width:80% !important" placeholder="पुरा नाम" value="">
                         </div>
                     </div> 
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <div class="form-group child_btn">
                             <div class="flexxx">
                                 <label>जन्म मिति  : </label>
-                                <div class="swtchcld">
-                                    Switch
+                            </div>  
+                                                            <div class="swtchcld">
+                                    AD / BS
                                     <label class="switch">
-                                        <input id="Switchssschild`+total_child+`"  type="checkbox">
+                                        <input id="Switchssschild`+ total_child + `"  type="checkbox">
                                         <span class="slider round"></span>
                                     </label>
-                                </div> 
-                            </div>    
-                                <input type="text" name="nepali_date_of_birthss[]" id="nepali-datepickerchild`+total_child+`" style="width:58%" class="form-control personalinfo2 nepdatesschild activessssss cmnreset" placeholder="जन्म मिति" autocomplete="off"> 
+                                </div>   
+                                <input type="text" name="nepali_date_of_birthss[]" id="nepali-datepickerchild`+ total_child + `" style="width:58%" class="form-control personalinfo2 nepdatesschild activessssss cmnreset" placeholder="जन्म मिति" autocomplete="off"> 
                                 <input type="text" name="english_date_of_birthss[]"
-                                                                id="datepickerchild`+total_child+`"
+                                                                id="datepickerchild`+ total_child + `"
                                                                 style="width:58%"
                                                                 class="form-control personalinfo2 engdatesschild "
                                                                 placeholder="Date of Birth">
-                                <input type="hidden" name="children_dob[]" id="dobsssschid`+total_child+`">
+                                <input type="hidden" name="children_dob[]" id="dobsssschid`+ total_child + `">
                         </div>
                     </div>    
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <div class="form-group">
                             <label> उमेर : </label> 
-                            <input type="text" name="children_age[]" class="form-control width75 personalinfo2 cmnreset" id="children_age`+ total_child + `" placeholder="उमेर" value="" readonly>
+                            <input style="width:80%" type="text" name="children_age[]" class="form-control personalinfo2 cmnreset" id="children_age`+ total_child + `" placeholder="उमेर" value="" readonly>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -969,80 +969,80 @@
                 </div>
             </div>
             `
-            ); 
+            );
 
-            $( "#nepali-datepickerchild"+total_child).nepaliDatePicker({
-            ndpYear: true,
-            ndpMonth: true,
-            ndpYearCount: 100,
-                onChange: function(value, ui) {
+            $("#nepali-datepickerchild" + total_child).nepaliDatePicker({
+                ndpYear: true,
+                ndpMonth: true,
+                ndpYearCount: 100,
+                onChange: function (value, ui) {
                     console.log(value.ad);
-                    const AGe = document.querySelector('#children_age'+total_child);
-                    const BODDD = document.querySelector('#dobsssschid'+total_child);  
-                    const BODDDEng = document.querySelector('#datepickerchild'+total_child);  
+                    const AGe = document.querySelector('#children_age' + total_child);
+                    const BODDD = document.querySelector('#dobsssschid' + total_child);
+                    const BODDDEng = document.querySelector('#datepickerchild' + total_child);
                     let today = new Date(),
                         dob = new Date(value.ad),
                         age = new Date(today - dob).getFullYear() - 1970;
                     console.log(age);
                     AGe.innerHTML = age;
-                    age = ent_to_nepali_num_convert(''+age);
+                    age = ent_to_nepali_num_convert('' + age);
                     AGe.value = age;
                     BODDD.value = value.ad;
                     var arr1 = value.ad.split('-');
                     // console.log(arr1);
-                    BODDDEng.value = arr1[1]+'/'+arr1[2]+'/'+arr1[0];
+                    BODDDEng.value = arr1[1] + '/' + arr1[2] + '/' + arr1[0];
 
                 },
             });
-            
-            $("#datepickerchild"+total_child).datepicker({
+
+            $("#datepickerchild" + total_child).datepicker({
                 changeMonth: true,
                 changeYear: true,
                 showButtonPanel: true,
                 onSelect: function (value, ui) {
-                    const AGe = document.querySelector('#children_age'+total_child);
-                    const BODDD = document.querySelector('#dobsssschid'+total_child);
-                    const BODDDNep = document.querySelector('#nepali-datepickerchild'+total_child);
+                    const AGe = document.querySelector('#children_age' + total_child);
+                    const BODDD = document.querySelector('#dobsssschid' + total_child);
+                    const BODDDNep = document.querySelector('#nepali-datepickerchild' + total_child);
                     let today = new Date(),
                         dob = new Date(value),
                         age = new Date(today - dob).getFullYear() - 1970;
                     AGe.innerHTML = age;
-                    age = ent_to_nepali_num_convert(''+age);
+                    age = ent_to_nepali_num_convert('' + age);
                     AGe.value = age;
                     BODDD.value = value;
 
                     var arr1 = value.split('/');
-                    var nep_date = NepaliFunctions.AD2BS({year: arr1[2], month: arr1[0], day: arr1[1]})
-                    
-                    var nep_date_converted = nep_date.year+'-'+nep_date.month+'-'+nep_date.day
-                    BODDDNep.value = nep_date_converted; 
+                    var nep_date = NepaliFunctions.AD2BS({ year: arr1[2], month: arr1[0], day: arr1[1] })
+
+                    var nep_date_converted = nep_date.year + '-' + nep_date.month + '-' + nep_date.day
+                    BODDDNep.value = nep_date_converted;
                 },
                 maxDate: '+0d',
                 yearRange: '1920:2026',
                 changeMonth: true,
                 changeYear: true
-            }); 
+            });
 
-            var children_name1 = nepalify.interceptElementById("children_name"+total_child);
-            var children_address1 = nepalify.interceptElementById("children_address"+total_child);
-            var children_parent_name1 = nepalify.interceptElementById("children_parent_name"+total_child);
-            var children_relations1 = nepalify.interceptElementById("children_relations"+total_child);
-            var children_identicard_number1 = nepalify.interceptElementById("children_identicard_number"+total_child);
+            var children_name1 = nepalify.interceptElementById("children_name" + total_child);
+            var children_address1 = nepalify.interceptElementById("children_address" + total_child);
+            var children_parent_name1 = nepalify.interceptElementById("children_parent_name" + total_child);
+            var children_relations1 = nepalify.interceptElementById("children_relations" + total_child);
+            var children_identicard_number1 = nepalify.interceptElementById("children_identicard_number" + total_child);
 
-            const Dateswitchchild = document.querySelector('#Switchssschild'+total_child);
-                Dateswitchchild.addEventListener('click', (event) => {
+            const Dateswitchchild = document.querySelector('#Switchssschild' + total_child);
+            Dateswitchchild.addEventListener('click', (event) => {
                 Dateswitchchild.classList.toggle("actchild");
                 let added_class = '';
                 added_class = Dateswitchchild.className;
                 // const ACTChILD = document.querySelector('.actchild');
                 ACTChILD = false;
-                if(added_class){
-                    ACTChILD = document.querySelector('.'+added_class);
+                if (added_class) {
+                    ACTChILD = document.querySelector('.' + added_class);
                 }
-                
+
                 // console.log(ACTChILD);
-                const endatechild = document.querySelector('#datepickerchild'+total_child);
-                const nepdatechild = document.querySelector('#nepali-datepickerchild'+total_child);
+                const endatechild = document.querySelector('#datepickerchild' + total_child);
+                const nepdatechild = document.querySelector('#nepali-datepickerchild' + total_child);
                 if (ACTChILD) {
                     endatechild.classList.add("activessssss")
                     nepdatechild.classList.remove("activessssss")
@@ -1051,7 +1051,7 @@
                     endatechild.classList.remove("activessssss")
                     nepdatechild.classList.add("activessssss")
                 }
-            }); 
+            });
         });
         $(document).off('click', '#FormAddFunction3').on('click', '#FormAddFunction3', function (e) {
             e.preventDefault();
@@ -1495,12 +1495,12 @@ if ($this->session->flashdata('success')) { ?>
                     age = new Date(today - dob).getFullYear() - 1970;
                 console.log(age);
                 AGe.innerHTML = age;
-                age = ent_to_nepali_num_convert(''+age);
+                age = ent_to_nepali_num_convert('' + age);
                 AGe.value = age;
                 BODDD.value = value.ad;
                 var arr1 = value.ad.split('-');
                 // console.log(arr1);
-                BODDDEng.value = arr1[1]+'/'+arr1[2]+'/'+arr1[0];
+                BODDDEng.value = arr1[1] + '/' + arr1[2] + '/' + arr1[0];
 
             },
         });
@@ -1531,21 +1531,21 @@ if ($this->session->flashdata('success')) { ?>
                     },
             });
 
-            $("#datepickerchild1").datepicker({
-                changeMonth: true,
-                changeYear: true,
-                showButtonPanel: true,
-                onSelect: function (value, ui) {
-                    const AGe = document.querySelector('#children_age1');
-                    const BODDD = document.querySelector('#dobsssschid1');
-                    const BODDDNep = document.querySelector('#nepali-datepickerchild1');
-                    let today = new Date(),
-                        dob = new Date(value),
-                        age = new Date(today - dob).getFullYear() - 1970;
-                    AGe.innerHTML = age;
-                    age = ent_to_nepali_num_convert(''+age);
-                    AGe.value = age;
-                    BODDD.value = value;
+        $("#datepickerchild1").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            onSelect: function (value, ui) {
+                const AGe = document.querySelector('#children_age1');
+                const BODDD = document.querySelector('#dobsssschid1');
+                const BODDDNep = document.querySelector('#nepali-datepickerchild1');
+                let today = new Date(),
+                    dob = new Date(value),
+                    age = new Date(today - dob).getFullYear() - 1970;
+                AGe.innerHTML = age;
+                age = ent_to_nepali_num_convert('' + age);
+                AGe.value = age;
+                BODDD.value = value;
 
                     var arr1 = value.split('/');
                     var nep_date = NepaliFunctions.AD2BS({year: arr1[2], month: arr1[0], day: arr1[1]})
@@ -1595,23 +1595,23 @@ if ($this->session->flashdata('success')) { ?>
     initializeDatePickers();
 </script>
 <script>
-    function ent_to_nepali_num_convert(number) { 
-            const eng_number = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "-"];
-            const nep_number = ["०", "१", "२", "३", "४", "५", "६", "७", "८", "९", "+", "-"];
-            
-            let result = '';
-            
-            for (let i = 0; i < number.length; i++) {
-                const char = number[i];
-                const index = eng_number.indexOf(char);
-                if (index !== -1) {
-                    result += nep_number[index];
-                } else {
-                    result += char;
-                }
-            } 
-            return result;
-        };
+    function ent_to_nepali_num_convert(number) {
+        const eng_number = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "-"];
+        const nep_number = ["०", "१", "२", "३", "४", "५", "६", "७", "८", "९", "+", "-"];
+
+        let result = '';
+
+        for (let i = 0; i < number.length; i++) {
+            const char = number[i];
+            const index = eng_number.indexOf(char);
+            if (index !== -1) {
+                result += nep_number[index];
+            } else {
+                result += char;
+            }
+        }
+        return result;
+    };
     const Dateswitch = document.querySelector('#Switchsss');
     Dateswitch.addEventListener('click', (event) => {
         Dateswitch.classList.toggle("act");
@@ -1631,28 +1631,28 @@ if ($this->session->flashdata('success')) { ?>
     });
 
     $("#datepicker").datepicker({
-            changeMonth: true,
-            changeYear: true,
-            showButtonPanel: true,
-            onSelect: function (value, ui) {
-                var arr1 = value.split('/');
-                var nep_date = NepaliFunctions.AD2BS({year: arr1[2], month: arr1[0], day: arr1[1]})
-                
-                var nep_date_converted = nep_date.year+'-'+nep_date.month+'-'+nep_date.day
-                // console.log(nep_date_converted);
-                const AGe = document.querySelector('#age');
-                const BODDD = document.querySelector('#dobssss');
-                const BODDDNep = document.querySelector('#nepali-datepicker');
-                let today = new Date(),
-                    dob = new Date(value),
-                    age = new Date(today - dob).getFullYear() - 1970;
-                // console.log(age);
-                AGe.innerHTML = age;
-                age = ent_to_nepali_num_convert(''+age);
-                // console.log(age);
-                AGe.value = age;
-                BODDD.value = value;
-                BODDDNep.value = nep_date_converted;
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        onSelect: function (value, ui) {
+            var arr1 = value.split('/');
+            var nep_date = NepaliFunctions.AD2BS({ year: arr1[2], month: arr1[0], day: arr1[1] })
+
+            var nep_date_converted = nep_date.year + '-' + nep_date.month + '-' + nep_date.day
+            // console.log(nep_date_converted);
+            const AGe = document.querySelector('#age');
+            const BODDD = document.querySelector('#dobssss');
+            const BODDDNep = document.querySelector('#nepali-datepicker');
+            let today = new Date(),
+                dob = new Date(value),
+                age = new Date(today - dob).getFullYear() - 1970;
+            // console.log(age);
+            AGe.innerHTML = age;
+            age = ent_to_nepali_num_convert('' + age);
+            // console.log(age);
+            AGe.value = age;
+            BODDD.value = value;
+            BODDDNep.value = nep_date_converted;
 
             },
             maxDate: '+0d',

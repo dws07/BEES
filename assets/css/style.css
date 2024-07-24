@@ -823,6 +823,10 @@ body::-webkit-scrollbar-thumb {
   padding: 20px;
 }
 
+.form-group{
+  margin-bottom:10px;
+}
+
 #AppendForm1 .form-group {
   display: flex;
   justify-content: space-between;
@@ -934,7 +938,7 @@ body::-webkit-scrollbar-thumb {
 }
 #FormRemoveFunction {
   position: absolute;
-  top: 27px;
+  top: 120px;
   right: 0%;
 }
 
