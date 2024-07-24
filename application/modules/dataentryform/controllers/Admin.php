@@ -157,7 +157,7 @@ class Admin extends Auth_controller
 					'occupation' => $this->input->post('occupation'),
 					'profile_image' => $this->input->post('captured_image'),
 					'captured_file' => $this->input->post('captured_file'),
-					'country_code' => $this->crud_model->ent_to_nepali_num_convert($number),
+					'country_code' => $this->input->post('country_code'),
 					// $number = "1234567890";
 					// var_dump($this->crud_model->ent_to_nepali_num_convert($number));exit;$this->input->post('country_code'),
 					'remarks' => $this->input->post('remarks'),
@@ -193,6 +193,7 @@ class Admin extends Auth_controller
 
 				$children_name = $this->input->post('children_name'); 
 				$nepali_dob_children = $this->input->post('nepali_date_of_birthss');
+				$children_dob = $this->input->post('children_dob');
 				$children_age = $this->input->post('children_age');
 				$children_gender = $this->input->post('children_gender');
 				$children_address = $this->input->post('children_address');
@@ -200,6 +201,7 @@ class Admin extends Auth_controller
 				$children_parent_name = $this->input->post('children_parent_name');
 				$children_relations = $this->input->post('children_relations');
 				$captured_image_child = $this->input->post('captured_image_child');
+				$captured_file_children = $this->input->post('captured_file_children');
 				
 
 				$health_information = array(
@@ -251,25 +253,29 @@ class Admin extends Auth_controller
 									$result_update_vehicle_info = $this->crud_model->update('vehicle_information', $update_vehicle_info, array('travel_id' => $latest_travel_info->id));
 								}
 								if(count($children_name)>0){ 
-									$delete_all_child = $this->crud_model->hardDelete('children_information', array('travel_id'=>$latest_travel_info->id));
-									$isreturneed = $this->input->post('is_returned_child');
-									for($i=0;$i<count($children_name);$i++){ 
-										$children_data['travel_id'] = $latest_travel_info->id; 
-										$children_data['children_name'] = $children_name[$i];  
-										$children_data['nepali_dob_children'] = $nepali_dob_children[$i]; 
-										$children_data['children_age'] = $children_age[$i]; 
-										$children_data['children_gender'] = $children_gender[$i]; 
-										$children_data['children_address'] = $children_address[$i]; 
-										$children_data['children_identicard_number'] = $children_identicard_number[$i]; 
-										$children_data['children_parent_name'] = $children_parent_name[$i]; 
-										$children_data['children_relations'] = $children_relations[$i]; 
-										$children_data['captured_image'] = $captured_image_child[$i]; 
-										$children_data['is_returned'] = $isreturneed[$i];
-										$children_data['updated'] = date('Y-m-d');
-										$children_data['updated_by'] = $this->userId;
+									if(isset($children_name[0]) && $children_name[0] !=''){
+										$delete_all_child = $this->crud_model->hardDelete('children_information', array('travel_id'=>$latest_travel_info->id));
+										$isreturneed = $this->input->post('is_returned_child');
+										for($i=0;$i<count($children_name);$i++){ 
+											$children_data['travel_id'] = $latest_travel_info->id; 
+											$children_data['children_name'] = $children_name[$i];  
+											$children_data['nepali_dob_children'] = $nepali_dob_children[$i]; 
+											$children_data['children_dob'] = $children_dob[$i]; 
+											$children_data['children_age'] = $children_age[$i]; 
+											$children_data['children_gender'] = $children_gender[$i]; 
+											$children_data['children_address'] = $children_address[$i]; 
+											$children_data['children_identicard_number'] = $children_identicard_number[$i]; 
+											$children_data['children_parent_name'] = $children_parent_name[$i]; 
+											$children_data['children_relations'] = $children_relations[$i]; 
+											$children_data['captured_image'] = $captured_image_child[$i]; 
+											$children_data['captured_file_children'] = $captured_file_children[$i]; 
+											$children_data['is_returned'] = $isreturneed[$i];
+											$children_data['updated'] = date('Y-m-d');
+											$children_data['updated_by'] = $this->userId;
 
-										$this->crud_model->insert('children_information', $children_data);
-									}
+											$this->crud_model->insert('children_information', $children_data);
+										}
+									} 
 								}		
 							$this->session->set_flashdata('success', 'Successfully Updated.');
 							redirect('dataentryform/admin/all');	
@@ -298,21 +304,25 @@ class Admin extends Auth_controller
 							$health_insert = $this->crud_model->insert('health_information', $health_information);
 
 							if(count($children_name)>0){
-								for($i=0;$i<count($children_name);$i++){
-									$children_data['travel_id'] = $travel_id; 
-									$children_data['children_name'] = $children_name[$i];  
-									$children_data['nepali_dob_children'] = $nepali_dob_children[$i]; 
-									$children_data['children_age'] = $children_age[$i]; 
-									$children_data['children_gender'] = $children_gender[$i]; 
-									$children_data['children_address'] = $children_address[$i]; 
-									$children_data['children_identicard_number'] = $children_identicard_number[$i]; 
-									$children_data['children_parent_name'] = $children_parent_name[$i]; 
-									$children_data['children_relations'] = $children_relations[$i];
-									$children_data['captured_image'] = $captured_image_child[$i]; 
-									$children_data['created'] = date('Y-m-d');
-									$children_data['created_by'] = $this->userId; 
+								if(isset($children_name[0]) && $children_name[0] !=''){
+									for($i=0;$i<count($children_name);$i++){
+										$children_data['travel_id'] = $travel_id; 
+										$children_data['children_name'] = $children_name[$i];  
+										$children_data['nepali_dob_children'] = $nepali_dob_children[$i]; 
+										$children_data['children_dob'] = $children_dob[$i]; 
+										$children_data['children_age'] = $children_age[$i]; 
+										$children_data['children_gender'] = $children_gender[$i]; 
+										$children_data['children_address'] = $children_address[$i]; 
+										$children_data['children_identicard_number'] = $children_identicard_number[$i]; 
+										$children_data['children_parent_name'] = $children_parent_name[$i]; 
+										$children_data['children_relations'] = $children_relations[$i];
+										$children_data['captured_image'] = $captured_image_child[$i]; 
+										$children_data['captured_file_children'] = $captured_file_children[$i]; 
+										$children_data['created'] = date('Y-m-d');
+										$children_data['created_by'] = $this->userId; 
 
-									$this->crud_model->insert('children_information', $children_data);
+										$this->crud_model->insert('children_information', $children_data);
+									}
 								}
 							}
 							
@@ -411,13 +421,22 @@ class Admin extends Auth_controller
 														<div class="form-group child_btn">
 															<div class="flexxx">
 																<label>जन्म मिति  : </label>
+																<div class="swtchcld">
+																	Switch
+																	<label class="switch">
+																		<input id="Switchssschild'.($key+1).'"  type="checkbox">
+																		<span class="slider round"></span>
+																	</label>
+																</div>
 															</div>    
 																<input type="text" name="nepali_date_of_birthss[]" id="nepali-datepickerchild'.($key+1).'" style="width:58%" class="form-control personalinfo2 nepdatesschild activessssss cmnreset" placeholder="जन्म मिति" autocomplete="off" value="'.$val->nepali_dob_children.'"> 
 																<input type="text" name="english_date_of_birthss[]"
 																								id="datepickerchild'.($key+1).'"
+																								style="width:58%"
 																								class="form-control personalinfo2 engdatesschild "
-																								placeholder="Date of Birth">
-																<input type="hidden" name="children_dob[]" id="dobsssschid">
+																								placeholder="Date of Birth"
+																								value="'.$val->children_dob.'">
+																<input type="hidden" name="children_dob[]" id="dobsssschid'.($key+1).'">
 														</div>
 													</div>    
 													<div class="col-sm-6">
@@ -469,8 +488,8 @@ class Admin extends Auth_controller
 															</div>  
 														</div>
 													</div>
-													<div class="col-sm-12">
-														<div class="form-group"> 
+													<div class="col-sm-6">
+														<div class="form-group children-photo"> 
 															<div id="camera_open'.($key+1).'" class="camera_open_hai" camera_count="'.($key+1).'">
 																<i class="fa fa-camera"></i>
 																<p>फोटो</p>
@@ -482,6 +501,13 @@ class Admin extends Auth_controller
 															<div id="appendcam'.($key+1).'">
 
 															</div>  
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group children-photo">  
+															<p id="viewFileChildren'.($key+1).'">Upload File</p>
+															<input type="file" name="document_upload" class="children_doc" id="document_upload_children'.($key+1).'" filecount="'.($key+1).'">
+															<input type="hidden" name="captured_file_children[]" id="captured_file_children'.($key+1).'" value="">
 														</div>
 													</div>
 												</div>
@@ -500,13 +526,21 @@ class Admin extends Auth_controller
 											<div class="form-group child_btn">
 												<div class="flexxx">
 													<label>जन्म मिति  : </label>
+													<div class="swtchcld">
+														Switch
+														<label class="switch">
+															<input id="Switchssschild1"  type="checkbox">
+															<span class="slider round"></span>
+														</label>
+													</div>
 												</div>    
 													<input type="text" name="nepali_date_of_birthss[]" id="nepali-datepickerchild1" style="width:58%" class="form-control personalinfo2 nepdatesschild activessssss cmnreset" placeholder="जन्म मिति" autocomplete="off"> 
 													<input type="text" name="english_date_of_birthss[]"
 																					id="datepickerchild1"
+																					style="width:58%"
 																					class="form-control personalinfo2 engdatesschild "
 																					placeholder="Date of Birth">
-													<input type="hidden" name="children_dob[]" id="dobsssschid">
+													<input type="hidden" name="children_dob[]" id="dobsssschid1">
 											</div>
 										</div>    
 										<div class="col-sm-6">
@@ -558,8 +592,8 @@ class Admin extends Auth_controller
 												</div>  
 											</div>
 										</div>
-										<div class="col-sm-12">
-											<div class="form-group"> 
+										<div class="col-sm-6">
+											<div class="form-group children-photo"> 
 												<div id="camera_open1" class="camera_open_hai" camera_count="1">
 													<i class="fa fa-camera"></i>
 													<p>फोटो</p>
@@ -569,6 +603,13 @@ class Admin extends Auth_controller
 												<div id="appendcam1">
 
 												</div>  
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="form-group children-photo">  
+												<p id="viewFileChildren1">Upload File</p>
+												<input type="file" name="document_upload" class="children_doc" id="document_upload_children1" filecount="1">
+												<input type="hidden" name="captured_file_children[]" id="captured_file_children1" value="">
 											</div>
 										</div>
 									</div>
@@ -599,13 +640,21 @@ class Admin extends Auth_controller
 										<div class="form-group child_btn">
 											<div class="flexxx">
 												<label>जन्म मिति  : </label>
+												<div class="swtchcld">
+													Switch
+													<label class="switch">
+														<input id="Switchssschild1"  type="checkbox">
+														<span class="slider round"></span>
+													</label>
+												</div>
 											</div>    
 												<input type="text" name="nepali_date_of_birthss[]" id="nepali-datepickerchild1" style="width:58%" class="form-control personalinfo2 nepdatesschild activessssss cmnreset" placeholder="जन्म मिति" autocomplete="off"> 
 												<input type="text" name="english_date_of_birthss[]"
 																				id="datepickerchild1"
+																				style="width:58%"
 																				class="form-control personalinfo2 engdatesschild "
 																				placeholder="Date of Birth">
-												<input type="hidden" name="children_dob[]" id="dobsssschid">
+												<input type="hidden" name="children_dob[]" id="dobsssschid1">
 										</div>
 									</div>    
 									<div class="col-sm-6">
@@ -657,8 +706,8 @@ class Admin extends Auth_controller
 											</div>  
 										</div>
 									</div>
-									<div class="col-sm-12">
-										<div class="form-group"> 
+									<div class="col-sm-6">
+										<div class="form-group children-photo"> 
 											<div id="camera_open1" class="camera_open_hai" camera_count="1">
 												<i class="fa fa-camera"></i>
 												<p>फोटो</p>
@@ -668,6 +717,13 @@ class Admin extends Auth_controller
 											<div id="appendcam1">
 
 											</div>  
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group children-photo">  
+											<p id="viewFileChildren1">Upload File</p>
+											<input type="file" name="document_upload" class="children_doc" id="document_upload_children1" filecount="1">
+											<input type="hidden" name="captured_file_children[]" id="captured_file_children1" value="">
 										</div>
 									</div>
 								</div>
@@ -701,13 +757,21 @@ class Admin extends Auth_controller
 								<div class="form-group child_btn">
 									<div class="flexxx">
 										<label>जन्म मिति  : </label>
+										<div class="swtchcld">
+											Switch
+											<label class="switch">
+												<input id="Switchssschild1"  type="checkbox">
+												<span class="slider round"></span>
+											</label>
+										</div>
 									</div>    
 										<input type="text" name="nepali_date_of_birthss[]" id="nepali-datepickerchild1" style="width:58%" class="form-control personalinfo2 nepdatesschild activessssss cmnreset" placeholder="जन्म मिति" autocomplete="off"> 
 										<input type="text" name="english_date_of_birthss[]"
 																		id="datepickerchild1"
+																		style="width:58%"
 																		class="form-control personalinfo2 engdatesschild "
 																		placeholder="Date of Birth">
-										<input type="hidden" name="children_dob[]" id="dobsssschid">
+										<input type="hidden" name="children_dob[]" id="dobsssschid1">
 								</div>
 							</div>    
 							<div class="col-sm-6">
@@ -759,8 +823,8 @@ class Admin extends Auth_controller
 									</div>  
 								</div>
 							</div>
-							<div class="col-sm-12">
-								<div class="form-group"> 
+							<div class="col-sm-6">
+								<div class="form-group children-photo"> 
 									<div id="camera_open1" class="camera_open_hai" camera_count="1">
 										<i class="fa fa-camera"></i>
 										<p>फोटो</p>
@@ -770,6 +834,13 @@ class Admin extends Auth_controller
 									<div id="appendcam1">
 
 									</div>  
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group children-photo">  
+									<p id="viewFileChildren1">Upload File</p>
+									<input type="file" name="document_upload" class="children_doc" id="document_upload_children1" filecount="1">
+									<input type="hidden" name="captured_file_children[]" id="captured_file_children1" value="">
 								</div>
 							</div>
 						</div>

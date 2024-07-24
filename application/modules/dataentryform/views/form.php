@@ -38,7 +38,7 @@
     .swtchcld {
         position: absolute;
         bottom: -20px;
-    }
+    } 
 </style>
 <section class="content">
     <div class="row">
@@ -71,7 +71,7 @@
                                                             <button type="button"
                                                                 class="btn btn-default dropdown-toggle codeValue"
                                                                 data-toggle="dropdown" aria-haspopup="true"
-                                                                aria-expanded="false"><?php echo $this->crud_model->ent_to_nepali_num_convert('+977'); ?><span
+                                                                aria-expanded="false"><?php echo $this->crud_model->ent_to_nepali_num_convert('+256'); ?><span
                                                                     class="caret"></span></button>
                                                             <ul class="dropdown-menu" id="countryCode">
                                                                 <li>
@@ -80,7 +80,7 @@
                                                                         class="form-control">
                                                                 </li>
                                                             </ul>
-                                                            <input type="hidden" name="country_code" id="country_code" value="+977">
+                                                            <input type="hidden" name="country_code" id="country_code" value="">
                                                             <?php if (form_error('country_code'))
                                                             echo '<span class="field_validation">' . form_error('country_code') . '</span>' ?>
                                                         </div><!-- /btn-group -->
@@ -521,7 +521,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-12">
+                                                    <div class="col-sm-6">
                                                         <div class="form-group children-photo"> 
                                                             <div id="camera_open1" class="camera_open_hai" camera_count="1">
                                                                 <i class="fa fa-camera"></i>
@@ -532,6 +532,13 @@
                                                             <div id="appendcam1">
 
                                                             </div> 
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group children-photo">  
+                                                            <p id="viewFileChildren1">Upload File</p>
+                                                            <input type="file" name="document_upload" class="children_doc" id="document_upload_children1" filecount='1'>
+                                                            <input type="hidden" name="captured_file_children[]" id="captured_file_children1" value="">
                                                         </div>
                                                     </div>
                                                 </div>

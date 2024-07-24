@@ -386,6 +386,14 @@
                                                                             <th>फोटो</th>
                                                                             <td><div class="chldimgrpt"><img src = "<?php echo base_url().$child_val->captured_image ?>"></div></td>
                                                                         </tr>
+                                                                        <tr> 
+                                                                            <th>फाईल</th>
+                                                                            <td>
+                                                                                <?php if(isset($child_val->captured_file_children)){ ?>
+                                                                                <div class="chldimgrpt"><a href="<?php echo base_url().$child_val->captured_file_children; ?>" target="_blank" style="font-size: 30px;"><i class="fa fa-file-photo-o"></i></a></div>
+                                                                                <?php } ?>    
+                                                                            </td>
+                                                                        </tr>
                                                                         <tr>
                                                                             <th>फर्केको</th>
                                                                             <td><?php echo (isset($child_va->is_returned) && $child_val->is_returned == '1')?"हो":"होइन"; ?></td>
