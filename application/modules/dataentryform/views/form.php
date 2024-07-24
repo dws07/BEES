@@ -36,8 +36,9 @@
         font-weight: bold;
     }
     .swtchcld {
-        position: absolute;
-        bottom: -20px;
+        margin-left:33px;
+        /* position: absolute;
+        bottom: -20px; */
     }
 </style>
 <section class="content">
@@ -166,11 +167,13 @@
                                                 <div class="form-group">
                                                     <div class="flexxx">
                                                         <label>जन्म मिति : </label>
-                                                        Switch BS to AD
-                                                    <label class="switch">
-                                                        <input id="Switchsss"  type="checkbox">
-                                                        <span class="slider round"></span>
-                                                    </label>
+                                                        <div>
+                                                            AD / BS
+                                                        <label class="switch">
+                                                            <input id="Switchsss"  type="checkbox">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                        </div>
                                                     </div>
                                                     <input type="text" name="nepali_date_of_birth"
                                                         id="nepali-datepicker"
@@ -422,18 +425,18 @@
                                                                 value="<?php echo (((isset($detail->children_name)) && $detail->children_name != '') ? $detail->children_name : '') ?>">
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-12">
                                                         <div class="form-group child_btn">
                                                             <div class="flexxx">
-                                                                <label>जन्म मिति : </label>
-                                                                <div class="swtchcld">
-                                                                    Switch
+                                                                <label>जन्म मिति : </label>   
+                                                            </div>
+                                                            <div class="swtchcld">
+                                                                AD / BS
                                                                     <label class="switch">
                                                                         <input id="Switchssschild1"  type="checkbox">
                                                                         <span class="slider round"></span>
                                                                     </label>
-                                                                </div>    
-                                                            </div>
+                                                            </div> 
                                                             <input type="text" style="width:58%"
                                                                 name="nepali_date_of_birthss[]"
                                                                 id="nepali-datepickerchild1"
@@ -446,11 +449,11 @@
                                                             <input type="hidden" name="children_dob[]" id="dobsssschid1">
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-12">
                                                         <div class="form-group">
                                                             <label> उमेर : </label>
-                                                            <input type="text" name="children_age[]"
-                                                                class="form-control width75 personalinfo2 cmnreset"
+                                                            <input style="width:80%" type="text" name="children_age[]"
+                                                                class="form-control personalinfo2 cmnreset"
                                                                 id="children_age1" placeholder="उमेर"
                                                                 value="<?php echo (((isset($detail->children_age)) && $detail->children_age != '') ? $detail->children_age : '') ?>"
                                                                 readonly
