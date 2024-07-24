@@ -71,7 +71,7 @@
                             <tr>
                                 <td><?php echo $this->crud_model->ent_to_nepali_num_convert($key+1); ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->name; ?></td>
-                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><p id="no_preeti"><?php echo $this->crud_model->ent_to_nepali_num_convert($value->country_code) ?></p><?php echo $value->phone_number; ?></td>
+                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $this->crud_model->ent_to_nepali_num_convert($value->country_code) ?>-<?php echo $value->phone_number; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->nationality; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->identicard_type; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->identicard_number; ?></td>
