@@ -25,6 +25,8 @@ class Admin extends Auth_controller
 			$this->session->set_flashdata('error', 'Person not found!!!');
 			redirect('dataentryform/admin/all');
 		}
+		$person_files = $this->crud_model->get_where_order_by('person_info_files', array('person_id'=>$person_id), 'id', 'desc'); 
+		$person_detail->person_files = $person_files;
 		$like = [];
 		$param = [
 			'status !=' => '2',
@@ -95,10 +97,13 @@ class Admin extends Auth_controller
 			$travel_lit[$key]->vehicle_info = $vehicle_info;
 
 			$health_info = $this->crud_model->get_where_single_order_by('health_information', array('travel_id'=>$val->id), 'id', 'desc');
-			$travel_lit[$key]->health_info = $health_info;
+			$travel_lit[$key]->health_info = $health_info; 
+
+			$travel_files = $this->crud_model->get_where_order_by('travel_info_files', array('travel_id'=>$val->id), 'id', 'desc'); 
+			$travel_lit[$key]->travel_files = $travel_files;
 		}
 		// echo "<pre>";
-		// var_dump($person_detail);exit();
+		// var_dump($travel_lit);exit();
 		$data['travel_lit'] = $travel_lit;
 		$data['offset'] = $page;
 		$data['title'] = 'Travel Detail For Person : '.$person_detail->name?$person_detail->name:'';

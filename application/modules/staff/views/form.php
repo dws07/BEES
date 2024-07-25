@@ -51,8 +51,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>तोकिएको मिति <span>*</span></label>
-                                    <input type="text" name="appointed_datess" class="form-control" id="appointed_date" placeholder="तोकिएको मिति">
-                                    <input type="hidden" name="appointed_date" id="dateappnd">
+                                    <input type="text" name="appointed_date" class="form-control" id="nepali-datepicker" placeholder="तोकिएको मिति"> 
                                 </div>
                             </div>
                             <div class="col-md-4">

@@ -76,6 +76,100 @@
         $('#country_code').val(value);
     }
     $(document).ready(function () {
+        //switch सवारी साधनको नम्बर
+        const Dateswitch = document.querySelector('#switch_vehicle_number');
+        Dateswitch.addEventListener('click', (event) => {
+            Dateswitch.classList.toggle("act_vn");
+            const ACT = document.querySelector('.act_vn');
+            const endate = document.querySelector('#vehicle_number');
+            const nepdate = document.querySelector('#vehicle_number_nepali');
+            // endate.classList.toggle("activess") 
+            // nepdate.classList.toggle("activess")   
+            if (ACT) {
+                endate.classList.add("activessssss")
+                nepdate.classList.remove("activessssss")
+            }
+            else {
+                endate.classList.remove("activessssss")
+                nepdate.classList.add("activessssss")
+            }
+        });
+        //remove uploaded files
+        $(document).off('click', '.removeFiles').on('click', '.removeFiles', function (e) {
+            e.preventDefault(); 
+            $(this).parent().remove();
+        });
+
+        //travell file upload
+        $('#document_upload_travel').on('change', function () {
+            var fileInput = document.getElementById('document_upload_travel');
+            var file = fileInput.files[0];
+
+            if (file) {
+                var reader = new FileReader();
+
+                // reader.onload = function (e) {
+                //     const viewImage = document.getElementById('viewFile');
+                //     viewImage.innerHTML = '<p class="fleupled">फाईल अपलोड पूर्ण भयो !!!</p>';
+                //     viewImage.style.display = "block";
+                // }
+
+                reader.readAsDataURL(file);
+
+                var formData = new FormData();
+                formData.append('document_upload', file);
+
+                $.ajax({
+                    url: "<?php echo base_url(); ?>dataentryform/admin/upload_file_travel",
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if(response.status == 'success'){
+                            $(".appnd_iles_upld_travel").append(response.html);
+                            Toastify({
+
+                                text: response.status_message,
+
+                                duration: 6000,
+
+                                style: {
+                                    background: "linear-gradient(to right, red, yellow)",
+                                }
+
+                                }).showToast();
+                        }else{
+                            Toastify({
+
+                                text: response.status_message,
+
+                                duration: 6000,
+
+                                style: {
+                                    background: "linear-gradient(to right, red, yellow)",
+                                }
+
+                                }).showToast();
+                        } 
+                    },
+                    error: function (xhr, status, error) {
+                        Toastify({
+
+                            text: "An error occurred: " + xhr.status + " " + xhr.statusText,
+
+                            duration: 6000,
+
+                            style: {
+                                background: "linear-gradient(to right, red, yellow)",
+                            }
+
+                        }).showToast();
+                    }
+                });
+            }
+        });
+
         //open camera
         $(document).off('click', '.camera_open_hai').on('click', '.camera_open_hai', function () {
             var camera_count = $(this).attr('camera_count');
@@ -371,11 +465,11 @@
             if (file) {
                 var reader = new FileReader();
 
-                reader.onload = function (e) {
-                    const viewImage = document.getElementById('viewFile');
-                    viewImage.innerHTML = '<p class="fleupled">फाईल अपलोड पूर्ण भयो !!!</p>';
-                    viewImage.style.display = "block";
-                }
+                // reader.onload = function (e) {
+                //     const viewImage = document.getElementById('viewFile');
+                //     viewImage.innerHTML = '<p class="fleupled">फाईल अपलोड पूर्ण भयो !!!</p>';
+                //     viewImage.style.display = "block";
+                // }
 
                 reader.readAsDataURL(file);
 
@@ -383,13 +477,38 @@
                 formData.append('document_upload', file);
 
                 $.ajax({
-                    url: "<?php echo base_url(); ?>dataentryform/admin/upload_image",
+                    url: "<?php echo base_url(); ?>dataentryform/admin/upload_file",
                     type: 'POST',
                     data: formData,
                     contentType: false,
                     processData: false,
                     success: function (response) {
-                        $("#captured_file").val(response);
+                        if(response.status == 'success'){
+                            $(".appnd_iles_upld").append(response.html);
+                            Toastify({
+
+                                text: response.status_message,
+
+                                duration: 6000,
+
+                                style: {
+                                    background: "linear-gradient(to right, red, yellow)",
+                                }
+
+                                }).showToast();
+                        }else{
+                            Toastify({
+
+                                text: response.status_message,
+
+                                duration: 6000,
+
+                                style: {
+                                    background: "linear-gradient(to right, red, yellow)",
+                                }
+
+                                }).showToast();
+                        } 
                     },
                     error: function (xhr, status, error) {
                         Toastify({
@@ -532,9 +651,11 @@
                             $('#remarks').val(resp.data.remarks);
                             var filepath = `<?php echo base_url(''); ?>`;
                             $('#viewImage').html(`<img id = "webcam" src = "` + filepath + resp.data.profile_image + `">`);
-                            $('#captured_file').val(resp.data.captured_file);
-                            $('#viewFile').html(`<a href="` + filepath + resp.data.captured_file + `" target="_blank">फाईल हेर्नुहोस </a>`);
-                            $("#viewImage").css("display", "block");
+                            // $('#captured_file').val(resp.data.captured_file);
+                            // $('#viewFile').html(`<a href="` + filepath + resp.data.captured_file + `" target="_blank">फाईल हेर्नुहोस </a>`);
+                            $("#viewImage").css("display", "block"); 
+                            $(".appnd_iles_upld").html(resp.htmlperson);
+                            $(".appnd_iles_upld_travel").html(resp.htmltravel);
                             // initializeDatePickers();
 
                             if (resp.returned == 0) {
@@ -563,6 +684,7 @@
                                     jQuery('input:radio[name="vehicle_information"]').filter(`[value="` + resp.data.vehicle_info.vehicle_information + `"]`).attr('checked', true);
                                     jQuery('input:radio[name="types_of_vehicle"]').filter(`[value="` + resp.data.vehicle_info.types_of_vehicle + `"]`).attr('checked', true);
                                     $('#vehicle_number').val(resp.data.vehicle_info.vehicle_number);
+                                    $('#vehicle_number_nepali').val(resp.data.vehicle_info.vehicle_number_nepali);
                                     $('#drivers_name').val(resp.data.vehicle_info.drivers_name);
                                     $('#driving_licence').val(resp.data.vehicle_info.driving_licence);
                                     $('#drivers_number').val(resp.data.vehicle_info.drivers_number);
@@ -683,7 +805,7 @@
                                 $(personalinfo3).val("");
                                 const personalinfo3_checked = document.querySelectorAll('.personalinfo3_checked');
                                 $(personalinfo3_checked).removeAttr('checked');
-                                // $(personalinfo3_checked).prop('checked', false);
+                                // $(personalinfo3_checked).prop('checked', false); 
                             }
                         } else {
                             const all_fields = document.querySelectorAll('.cmnreset');
@@ -693,7 +815,12 @@
                             // $(all_fields_checked).prop('checked', false);
                             $(all_fields_checked).removeAttr('checked');
                             $('#AppendForm2').html(resp.html);
+                            $(".appnd_iles_upld").html(resp.htmlperson);
+                            $(".appnd_iles_upld_travel").html(resp.htmltravel);
+                            $('#viewImage').html('');
+                            $("#viewImage").css("display", "none");
                             $('#totalchildren').val(resp.totalchildren);
+                            $('#captured_image').val('');
                             initializeDatePickers();
                         }
 

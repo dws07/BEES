@@ -40,6 +40,16 @@
         /* position: absolute;
         bottom: -20px; */
     }
+    .iles_upld a { 
+        color: #3c0280 !important;
+    }
+    .media_uploader_child:hover a {
+        cursor: pointer;
+        color: #fff !important;
+    }
+    .form-group.travel_files {
+        flex-direction: column;
+    }
 </style>
 <section class="content">
     <div class="row">
@@ -396,6 +406,28 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div class="media_uploader"> 
+                                                    <div class="media_uploader_child">
+                                                        
+                                                        <div class="form-group">
+                                                            <div>
+                                                                <label for="document_upload_travel"> <i class="fa fa-file-photo-o" style="font-size: 25px;color: #3c0280;">
+                                                                    </i></label>
+                                                                <p>Upload
+                                                                    File</p>
+                                                                <input type="file" name="document_upload_travel" id="document_upload_travel" style="display:none">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="divider"></div>
+                                                    <div class="media_uploader_child"> 
+                                                        <div class="form-group travel_files">
+                                                            <p>Uploaded Files</p>
+                                                            <div class="appnd_iles_upld_travel">
+                                                            </div>    
+                                                        </div>
+                                                    </div>
+                                                </div>
                                         </div>
                                     </div>
                                 </div>
@@ -644,6 +676,9 @@
                                                                     name="types_of_vehicle" value="एम्बुलेन्स" <?php echo (((isset($detail->types_of_vehicle)) && $detail->types_of_vehicle == 'एम्बुलेन्स') ? 'checked' : '') ?>> <span>एम्बुलेन्स</span>
                                                                 <input type="radio"
                                                                     class="personalinfo4_checked cmnreset_checked"
+                                                                    name="types_of_vehicle" value="स्कुटर" <?php echo (((isset($detail->types_of_vehicle)) && $detail->types_of_vehicle == 'स्कुटर') ? 'checked' : '') ?>> <span>स्कुटर</span>
+                                                                <input type="radio"
+                                                                    class="personalinfo4_checked cmnreset_checked"
                                                                     name="types_of_vehicle" value="अन्य" <?php echo (((isset($detail->types_of_vehicle)) && $detail->types_of_vehicle == 'अन्य') ? 'checked' : '') ?>> <span>अन्य</span>
                                                             </div>
                                                         </div>
@@ -652,9 +687,22 @@
                                                         <div class="form-group">
                                                             <label class="width50">सवारी साधनको नम्बर : <span
                                                                     class="required">*</span></label>
+                                                                    <div>
+                                                                        Switch
+                                                                    <label class="switch">
+                                                                        <input id="switch_vehicle_number"  type="checkbox">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                    </div>
+                                                            <input type="text" name="vehicle_number_nepali"
+                                                                class="form-control utf8val personalinfo4 cmnreset activessssss"
+                                                                id="vehicle_number_nepali" placeholder="सवारी साधनको नम्बर"
+                                                                style="display:none"
+                                                                value="<?php echo (((isset($detail->vehicle_number_nepali)) && $detail->vehicle_number_nepali != '') ? $detail->vehicle_number_nepali : '') ?>">
                                                             <input type="text" name="vehicle_number"
                                                                 class="form-control utf8val personalinfo4 cmnreset"
-                                                                id="vehicle_number" placeholder="सवारी साधनको नम्बर"
+                                                                id="vehicle_number" placeholder="Vehicle Number" 
+                                                                style="display:none"
                                                                 value="<?php echo (((isset($detail->vehicle_number)) && $detail->vehicle_number != '') ? $detail->vehicle_number : '') ?>">
                                                         </div>
                                                     </div>
@@ -827,7 +875,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="viewFile"></div>
+                                    <div class="divider"></div>
+                                    <div class="media_uploader_child"> 
+                                        <div class="form-group">
+                                            <p>Uploaded Files</p>
+                                            <div class="appnd_iles_upld">
+                                            </div>    
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -837,7 +892,7 @@
                             <div class="col-md-12">
                                 <div class="form-group align-right" style=text-align:end>
                                     <input type="hidden" name="captured_image" id="captured_image" value="">
-                                    <input type="hidden" name="captured_file" id="captured_file" value="">
+                                    <!-- <input type="hidden" name="captured_file" id="captured_file" value=""> -->
                                     <input type="submit" name="submit" class=" form-control btn btn-sm btn-primary"
                                         value="सेभ गर्नुहोस" id="sbmt">
                                     <input type="hidden" name="id" class="form-control btn btn-sm btn-primary"

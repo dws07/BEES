@@ -133,7 +133,7 @@ class Dashboard extends Auth_controller {
 			'ti.status !='=>'2',
 		];  
 
-		$data['roles'] = $this->crud_model->get_person_list_limit_group_by_travel(4, 0, $param);
+		$data['roles'] = $this->crud_model->get_person_list_limit_group_by_travel(100, 0, $param);
 		// echo "<pre>";
 		// var_dump($data['roles']);
 		// exit();

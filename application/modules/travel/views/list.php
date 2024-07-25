@@ -102,9 +102,14 @@
                         <p style="margin-left:1rem;" id="nepali_preeti"><?php echo $person_detail->occupation?$person_detail->occupation:'' ?></p>
                     </div>
                     <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
-                        <span class="label">फाईल :</span>
-                        <a href="<?php echo base_url().$person_detail->captured_file; ?>" target="_blank" style="font-size: 30px;"><i class="fa fa-file-photo-o">
+                        <span class="label">फाईलहरु :</span>
+                        <?php 
+                            if($person_detail->person_files){ 
+                                foreach($person_detail->person_files as $key=>$val){
+                        ?>
+                        <a href="<?php echo base_url().$val->files; ?>" target="_blank" style="font-size: 30px;"><i class="fa fa-file-photo-o">
                                                     </i></a>
+                        <?php }} ?>                            
                     </div>
 
                         <!-- <div class="col-md-6" style="border-right: 1px solid #ddd;">
@@ -286,6 +291,18 @@
                                                                         <th>दिशा तर्फ</th>
                                                                         <td><?php echo $value->gone_dirction; ?></td>
                                                                     </tr>
+                                                                    <tr>
+                                                                        <th>फाईलहरु</th> 
+                                                                        <td>
+                                                                        <?php 
+                                                                            if($value->travel_files){ 
+                                                                                foreach($value->travel_files as $key_travel_files=>$travel_files_val){
+                                                                                    if(isset($travel_files_val->files)){ 
+                                                                        ?>
+                                                                            <div class="chldimgrpt"><a href="<?php echo base_url().$travel_files_val->files; ?>" target="_blank" style="font-size: 30px;"><i class="fa fa-file-photo-o"></i></a></div>
+                                                                        <?php }}} ?>    
+                                                                        </td>
+                                                                    </tr>
                                                                 </table>
                                                             </div>
                                                             <div class="Datasss vehicleData">
@@ -384,7 +401,11 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <th>फोटो</th>
-                                                                            <td><div class="chldimgrpt"><img src = "<?php echo base_url().$child_val->captured_image ?>"></div></td>
+                                                                            <td>
+                                                                                <?php if(isset($child_val->captured_image)){ ?>
+                                                                                <div class="chldimgrpt"><a href="<?php echo base_url().$child_val->captured_image; ?>" target="_blank"><img src = "<?php echo base_url().$child_val->captured_image ?>"></a></div>
+                                                                                <?php } ?>
+                                                                            </td>
                                                                         </tr>
                                                                         <tr> 
                                                                             <th>फाईल</th>

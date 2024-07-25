@@ -112,7 +112,7 @@ class Admin extends Auth_controller
 
 	public function upload_image() {
         $config['upload_path'] = './uploads/';
-        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg|webp|pdf|heic';
         $config['max_size'] = 500000;
         // $config['max_width'] = 1024;
         // $config['max_height'] = 768;
@@ -129,6 +129,74 @@ class Admin extends Auth_controller
             $Image = $file[ 'file_name' ];
             echo 'uploads/'.$Image;
         }
+    }
+
+	public function upload_file() {
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg|webp|pdf|heic';
+        $config['max_size'] = 500000;
+        // $config['max_width'] = 1024;
+        // $config['max_height'] = 768;
+
+        // $this->load->library('upload', $config);
+		$this->upload->initialize($config);
+
+        if (!$this->upload->do_upload('document_upload')) { 
+			$response = array(
+				'status' => 'error',
+				'status_message' => $this->upload->display_errors()
+			);   
+        } else {
+            // $data = array('upload_data' => $this->upload->data());
+			$file = $this->upload->data();
+            $Image = $file[ 'file_name' ];
+			$html = '<div class="iles_upld">
+						<a href="'.base_url('uploads/').$Image.'" target="_blank">View</a>
+						<a class="btn btn-sm btn-danger removeFiles"><i class="fa fa-trash"></i></a>
+						<input type="hidden" name="captured_file[]" value="/uploads/'.$Image.'">
+					</div>';
+			$response = array(
+				'status' => 'success',
+				'status_message' => 'successfully uploaded',
+				'html' => $html
+			);
+        }
+		header('Content-Type: application/json');
+		echo json_encode($response);
+    }
+
+	public function upload_file_travel() {
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $config['max_size'] = 500000;
+        // $config['max_width'] = 1024;
+        // $config['max_height'] = 768;
+
+        // $this->load->library('upload', $config);
+		$this->upload->initialize($config);
+
+        if (!$this->upload->do_upload('document_upload')) { 
+			$response = array(
+				'status' => 'error',
+				'status_message' => $this->upload->display_errors()
+			);   
+        } else {
+            // $data = array('upload_data' => $this->upload->data());
+			$file = $this->upload->data();
+            $Image = $file[ 'file_name' ];
+			$html = '<div class="iles_upld">
+						<a href="'.base_url('uploads/').$Image.'" target="_blank">View</a>
+						<a class="btn btn-sm btn-danger removeFiles"><i class="fa fa-trash"></i></a>
+						<input type="hidden" name="captured_file_travel[]" value="/uploads/'.$Image.'">
+					</div>';
+			$response = array(
+				'status' => 'success',
+				'status_message' => 'successfully uploaded',
+				'html' => $html
+			);
+        }
+		header('Content-Type: application/json');
+		echo json_encode($response);
     }
 
 	public function form($id = '')
@@ -156,7 +224,7 @@ class Admin extends Auth_controller
 					'marital_status_remarks' => $this->input->post('marital_status_remarks'),
 					'occupation' => $this->input->post('occupation'),
 					'profile_image' => $this->input->post('captured_image'),
-					'captured_file' => $this->input->post('captured_file'),
+					// 'captured_file' => $this->input->post('captured_file'),
 					'country_code' => $this->input->post('country_code'),
 					// $number = "1234567890";
 					// var_dump($this->crud_model->ent_to_nepali_num_convert($number));exit;$this->input->post('country_code'),
@@ -182,6 +250,7 @@ class Admin extends Auth_controller
 					'vehicle_information' => $this->input->post('vehicle_information'),
 					'types_of_vehicle' => $this->input->post('types_of_vehicle'),
 					'vehicle_number' => $this->input->post('vehicle_number'),
+					'vehicle_number_nepali' => $this->input->post('vehicle_number_nepali'),
 					'drivers_name' => $this->input->post('drivers_name'),
 					'driving_licence' => $this->input->post('driving_licence'),
 					'drivers_number' => $this->input->post('drivers_number'),
@@ -208,6 +277,9 @@ class Admin extends Auth_controller
 					'health_status' => $this->input->post('health_status'),
 					'health_result' => $this->input->post('health_result'),
 				);
+
+				$captured_file = $this->input->post('captured_file');
+				$captured_file_travel = $this->input->post('captured_file_travel');
 				// print_r($data);exit;
 				$id = $this->input->post('id');
 				if ($id == '') { 
@@ -217,6 +289,19 @@ class Admin extends Auth_controller
 						$personal_data['updated'] = date('Y-m-d');
 						$personal_data['updated_by'] = $this->userId;
 						$result = $this->crud_model->update('personal_information', $personal_data, array('id' => $person_id));
+						if($result){
+							if(count($captured_file)>0){ 
+								if(isset($captured_file[0]) && $captured_file[0] !=''){
+									$delete_all_child = $this->crud_model->hardDelete('person_info_files', array('person_id'=>$person_id));
+									for($i=0;$i<count($captured_file);$i++){ 
+										$captured_file_data['person_id'] = $person_id; 
+										$captured_file_data['files'] = $captured_file[$i];   
+
+										$this->crud_model->insert('person_info_files', $captured_file_data);
+									}
+								} 
+							}	
+						}
 					}else{
 						$personal_data['created'] = date('Y-m-d');
 						$personal_data['created_by'] = $this->userId;
@@ -227,6 +312,16 @@ class Admin extends Auth_controller
 							redirect('dataentryform/admin/form/' . $id);
 						}
 						$person_id = $this->db->insert_id();
+						if(count($captured_file)>0){ 
+							if(isset($captured_file[0]) && $captured_file[0] !=''){ 
+								for($i=0;$i<count($captured_file);$i++){ 
+									$captured_file_data['person_id'] = $person_id; 
+									$captured_file_data['files'] = $captured_file[$i];   
+
+									$this->crud_model->insert('person_info_files', $captured_file_data);
+								}
+							} 
+						}
 					}	
 					
 					$latest_travel_info = $this->crud_model->get_where_single_order_by('travel_information', array('is_returned'=>0,'person_id'=>$person_id), 'id', 'desc');
@@ -237,6 +332,17 @@ class Admin extends Auth_controller
 						$update_travel_info['updated_by'] = $this->userId;
 						$result_update_travel_info = $this->crud_model->update('travel_information', $update_travel_info, array('id' => $latest_travel_info->id));
 						if ($result_update_travel_info == true) {
+							if(count($captured_file_travel)>0){ 
+								if(isset($captured_file_travel[0]) && $captured_file_travel[0] !=''){
+									$delete_all_child = $this->crud_model->hardDelete('travel_info_files', array('travel_id'=>$latest_travel_info->id));
+									for($i=0;$i<count($captured_file_travel);$i++){ 
+										$captured_file_travel_data['travel_id'] = $latest_travel_info->id; 
+										$captured_file_travel_data['files'] = $captured_file_travel[$i];   
+
+										$this->crud_model->insert('travel_info_files', $captured_file_travel_data);
+									}
+								} 
+							}
 							// $gone_direction = '';
 							// if($latest_travel_info->gone_dirction == "नेपाल"){
 							// 	$gone_direction = "भारत";
@@ -298,6 +404,17 @@ class Admin extends Auth_controller
 								$vehicle_information['created'] = date('Y-m-d');
 								$vehicle_information['created_by'] = $this->userId;
 								$vehicle_insert = $this->crud_model->insert('vehicle_information', $vehicle_information);
+							}
+
+							if(count($captured_file_travel)>0){ 
+								if(isset($captured_file_travel[0]) && $captured_file_travel[0] !=''){ 
+									for($i=0;$i<count($captured_file_travel);$i++){ 
+										$captured_file_travel_data['travel_id'] = $travel_id; 
+										$captured_file_travel_data['files'] = $captured_file_travel[$i];   
+
+										$this->crud_model->insert('travel_info_files', $captured_file_travel_data);
+									}
+								} 
 							}
 
 							$health_information['travel_id'] = $travel_id; 
@@ -400,6 +517,8 @@ class Admin extends Auth_controller
 						// echo "here";exit;
 						$childrens = [];
 						$childrens = $this->crud_model->get_where_order_by('children_information', array('travel_id'=>$latest_travel_info->id), 'id', 'desc');
+						$travel_files = $this->crud_model->get_where_order_by('travel_info_files', array('travel_id'=>$latest_travel_info->id), 'id', 'desc');
+						$person_files = $this->crud_model->get_where_order_by('person_info_files', array('person_id'=>$person->id), 'id', 'desc');
 						$health_info = $this->crud_model->get_where_single_order_by('health_information', array('travel_id'=>$latest_travel_info->id), 'id', 'desc');
 						$vehicle_info = $this->crud_model->get_where_single_order_by('vehicle_information', array('travel_id'=>$latest_travel_info->id), 'id', 'desc');
 						
@@ -618,6 +737,33 @@ class Admin extends Auth_controller
 									</div>
 								</div>';
 						}
+
+						$travel_files_html = '';
+						if($travel_files){
+							foreach($travel_files as $key=>$val){ 
+								$files_travel = ($val->files !== '' && $val->files)?base_url('/').$val->files:base_url('/uploads/Circle-icons-profile.svg.png'); 
+
+								$travel_files_html .= '<div class="iles_upld">
+											<a href="'.$files_travel.'" target="_blank">View</a>
+											<a class="btn btn-sm btn-danger removeFiles"><i class="fa fa-trash"></i></a>
+											<input type="hidden" name="captured_file_travel[]" value="'.$val->files.'">
+										</div>';			
+							}
+						}
+
+						$person_file_html = '';
+						if($person_files){
+							foreach($person_files as $key=>$val){ 
+								$files_person = ($val->files !== '' && $val->files)?base_url('/').$val->files:base_url('/uploads/Circle-icons-profile.svg.png'); 
+
+								$person_file_html .= '<div class="iles_upld">
+											<a href="'.$files_person.'" target="_blank">View</a>
+											<a class="btn btn-sm btn-danger removeFiles"><i class="fa fa-trash"></i></a>
+											<input type="hidden" name="captured_file[]" value="'.$val->files.'">
+										</div>';			
+							}
+						}
+						
 						$person->travel_info = $latest_travel_info;
 						$person->totalchildren = $totalchildren;
 						$person->childrens = $html;
@@ -628,6 +774,8 @@ class Admin extends Auth_controller
 							'status_code' => 200,
 							'status_message' => 'Successfully retrived',
 							'data' => $person,
+							'htmlperson' => $person_file_html,
+							'htmltravel' => $travel_files_html,
 							'returned' => 0,
 						);
 					}else{ 
@@ -739,6 +887,8 @@ class Admin extends Auth_controller
 							'status_code' => 200,
 							'status_message' => 'Successfully retrived',
 							'data' => $person,
+							'htmlperson' => '',
+							'htmltravel' => '',
 							'returned' => 1, 
 						);
 					} 
@@ -749,6 +899,8 @@ class Admin extends Auth_controller
 						'status_message' => 'No person found for this number',
 						'data' => [],
 						'totalchildren' => $totalchildren,
+						'htmlperson' => '',
+						'htmltravel' => '',
 						'html' => '<div class="DeleteFunctionsssss childraj" style="border-top:1px dashed #ccc;margin-top:20px">
 						<div class="row MainForm">
 							<div class="col-sm-12">

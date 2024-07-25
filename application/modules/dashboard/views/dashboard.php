@@ -115,23 +115,37 @@ function ent_to_nepali_num_convert($number)
                             if ($roles) { 
                             foreach ($roles as $key => $value) { 
                             ?>
-                            <tr>
-                                <td class="ViewDataBTN"><?php echo $value->name; ?></td>
-                                <td>
-                                    <?php echo $value->gender?> 
-                                </td>
-                                <td><?php echo $this->crud_model->ent_to_nepali_num_convert($value->country_code) ?>-<?php echo $value->phone_number; ?></td>
-                                <td>
-                                    <?php echo $value->gone ?> 
-                                </td>
-                                <td>
-                                    <a href="<?php echo base_url('travel/admin/all/'.$value->id); ?>" class="btn btn-flat margin ViewDataBTN"
-                                                        style="background-color : #053775; color:#fff">
-                                        <i class="fa fa-eye"></i>
-                                    </a> 
-                                   
-                                </td>
-                            </tr>
+                                    
+                                    <tr> 
+                                        <td class="ViewDataBTN">
+                                            <a href="<?php echo base_url('travel/admin/all/'.$value->id); ?>">
+                                                <?php echo $value->name; ?>
+                                            </a>
+                                        </td> 
+                                        <td>
+                                            <a href="<?php echo base_url('travel/admin/all/'.$value->id); ?>">
+                                                <?php echo $value->gender?> 
+                                            </a>    
+                                        </td>
+                                        <td>
+                                            <a href="<?php echo base_url('travel/admin/all/'.$value->id); ?>">    
+                                                <?php echo $this->crud_model->ent_to_nepali_num_convert($value->country_code) ?>-<?php echo $value->phone_number; ?>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="<?php echo base_url('travel/admin/all/'.$value->id); ?>">
+                                                <?php echo $value->gone ?> 
+                                            </a>    
+                                        </td>
+                                        <td>
+                                            <a href="<?php echo base_url('travel/admin/all/'.$value->id); ?>" class="btn btn-flat margin ViewDataBTN"
+                                                                style="background-color : #053775; color:#fff">
+                                                <i class="fa fa-eye"></i>
+                                            </a> 
+                                        
+                                        </td>
+                                    </tr>
+                                    </a>
 
 
                                         <?php } ?>
