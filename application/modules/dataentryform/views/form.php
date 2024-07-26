@@ -17,6 +17,7 @@
         border: 1px solid #ddd;
         color: #f04848;
     }
+
     .chldimg img {
         width: 33%;
         border: 1px solid #ddd;
@@ -35,18 +36,22 @@
         font-size: 20px;
         font-weight: bold;
     }
+
     .swtchcld {
-        margin-left:33px;
+        margin-left: 33px;
         /* position: absolute;
         bottom: -20px; */
     }
-    .iles_upld a { 
+
+    .iles_upld a {
         color: #3c0280 !important;
     }
+
     .media_uploader_child:hover a {
         cursor: pointer;
         color: #fff !important;
     }
+
     .form-group.travel_files {
         flex-direction: column;
     }
@@ -91,14 +96,15 @@
                                                                         class="form-control">
                                                                 </li>
                                                             </ul>
-                                                            <input type="hidden" name="country_code" id="country_code" value="">
+                                                            <input type="hidden" name="country_code" id="country_code"
+                                                                value="">
                                                             <?php if (form_error('country_code'))
-                                                            echo '<span class="field_validation">' . form_error('country_code') . '</span>' ?>
-                                                        </div><!-- /btn-group -->
-                                                        <input type="text" name="phone_number"
-                                                            class="form-control utf8val personalinfo phone_number_class" id="phone_number"
-                                                            placeholder="सम्पर्क नम्बर"
-                                                            value="<?php echo (((isset($detail->phone_number)) && $detail->phone_number != '') ? $detail->phone_number : '') ?>"
+                                                                echo '<span class="field_validation">' . form_error('country_code') . '</span>' ?>
+                                                            </div><!-- /btn-group -->
+                                                            <input type="text" name="phone_number"
+                                                                class="form-control utf8val personalinfo phone_number_class"
+                                                                id="phone_number" placeholder="सम्पर्क नम्बर"
+                                                                value="<?php echo (((isset($detail->phone_number)) && $detail->phone_number != '') ? $detail->phone_number : '') ?>"
                                                             required>
                                                         <?php if (form_error('phone_number'))
                                                             echo '<span class="field_validation">' . form_error('phone_number') . '</span>' ?>
@@ -179,17 +185,16 @@
                                                         <label>जन्म मिति : </label>
                                                         <div>
                                                             AD / BS
-                                                        <label class="switch">
-                                                            <input id="Switchsss"  type="checkbox">
-                                                            <span class="slider round"></span>
-                                                        </label>
+                                                            <label class="switch">
+                                                                <input id="Switchsss" type="checkbox">
+                                                                <span class="slider round"></span>
+                                                            </label>
                                                         </div>
                                                     </div>
                                                     <input type="text" name="nepali_date_of_birth"
                                                         id="nepali-datepicker"
                                                         class="form-control dobnep personalinfo cmnreset nepdatess activessssss"
-                                                        placeholder="जन्म मिति"
-                                                        value="" />
+                                                        placeholder="जन्म मिति" value="" />
                                                     <input type="text" name="english_date_of_birth" id="datepicker"
                                                         class="form-control personalinfo cmnreset engdatess "
                                                         placeholder="Date of Birth">
@@ -306,8 +311,7 @@
                                                     <input type="time" name="exit_time"
                                                         class="form-control personalinfo1 cmnreset" id="exit_time"
                                                         placeholder="प्रबेश समय"
-                                                        value="<?php echo (((isset($detail->exit_time)) && $detail->exit_time != '') ? $detail->exit_time : '') ?>"
-                                                        >
+                                                        value="<?php echo (((isset($detail->exit_time)) && $detail->exit_time != '') ? $detail->exit_time : '') ?>">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
@@ -315,8 +319,8 @@
                                                     <label>प्रबेश बिन्दू (सिमा निरीक्षण कक्ष / प्रबेश स्थाल) : <span
                                                             class="required">*</span></label>
                                                     <input type="text" name="entry_address2"
-                                                        class="form-control utf8val personalinfo1 cmnreset" id="entry_address2"
-                                                        placeholder="प्रबेश बिन्दू"
+                                                        class="form-control utf8val personalinfo1 cmnreset"
+                                                        id="entry_address2" placeholder="प्रबेश बिन्दू"
                                                         value="<?php echo (((isset($detail->entry_address2)) && $detail->entry_address2 != '') ? $detail->entry_address2 : '') ?>"
                                                         required>
                                                 </div>
@@ -336,8 +340,8 @@
                                                     <label>यात्राको अबधि ( गन्तव्यमा अपेक्षित रहने अबधि) : <span
                                                             class="required">*</span></label>
                                                     <input type="text" name="travel_deuration"
-                                                        class="form-control utf8val personalinfo1 cmnreset" id="travel_deuration"
-                                                        placeholder="यात्राको अबधि"
+                                                        class="form-control utf8val personalinfo1 cmnreset"
+                                                        id="travel_deuration" placeholder="यात्राको अबधि"
                                                         value="<?php echo (((isset($detail->travel_deuration)) && $detail->travel_deuration != '') ? $detail->travel_deuration : '') ?>"
                                                         required>
                                                 </div>
@@ -346,22 +350,28 @@
                                                 <div class="form-group">
                                                     <label>यात्रा को उदेश्य : <span class="required">*</span></label>
                                                     <div class="radiosss">
-                                                        <input type="radio" class="personalinfo1_checked cmnreset_checked" name="travel_porpose"
-                                                            value="पर्यटन" <?php echo (((isset($detail->travel_porpose)) && $detail->travel_porpose == 'पर्यटन') ? 'checked' : '') ?>
+                                                        <input type="radio"
+                                                            class="personalinfo1_checked cmnreset_checked"
+                                                            name="travel_porpose" value="पर्यटन" <?php echo (((isset($detail->travel_porpose)) && $detail->travel_porpose == 'पर्यटन') ? 'checked' : '') ?>
                                                             required> <span>पर्यटन</span>
-                                                        <input type="radio" class="personalinfo1_checked cmnreset_checked" name="travel_porpose"
-                                                            value="व्यापार" <?php echo (((isset($detail->travel_porpose)) && $detail->travel_porpose == 'व्यापार') ? 'checked' : '') ?>>
+                                                        <input type="radio"
+                                                            class="personalinfo1_checked cmnreset_checked"
+                                                            name="travel_porpose" value="व्यापार" <?php echo (((isset($detail->travel_porpose)) && $detail->travel_porpose == 'व्यापार') ? 'checked' : '') ?>>
                                                         <span>व्यापार</span>
-                                                        <input type="radio" class="personalinfo1_checked cmnreset_checked" name="travel_porpose"
-                                                            value="व्यक्तिगत_काम" <?php echo (((isset($detail->travel_porpose)) && $detail->travel_porpose == 'व्यक्तिगत_काम') ? 'checked' : '') ?>> <span>व्यक्तिगत काम</span>
-                                                        <input type="radio" class="personalinfo1_checked cmnreset_checked" name="travel_porpose"
-                                                            value="उपचार" <?php echo (((isset($detail->travel_porpose)) && $detail->travel_porpose == 'उपचार') ? 'checked' : '') ?>>
+                                                        <input type="radio"
+                                                            class="personalinfo1_checked cmnreset_checked"
+                                                            name="travel_porpose" value="व्यक्तिगत_काम" <?php echo (((isset($detail->travel_porpose)) && $detail->travel_porpose == 'व्यक्तिगत_काम') ? 'checked' : '') ?>> <span>व्यक्तिगत काम</span>
+                                                        <input type="radio"
+                                                            class="personalinfo1_checked cmnreset_checked"
+                                                            name="travel_porpose" value="उपचार" <?php echo (((isset($detail->travel_porpose)) && $detail->travel_porpose == 'उपचार') ? 'checked' : '') ?>>
                                                         <span>उपचार</span>
-                                                        <input type="radio" class="personalinfo1_checked cmnreset_checked" name="travel_porpose"
-                                                            value="ट्रान्जिट" <?php echo (((isset($detail->travel_porpose)) && $detail->travel_porpose == 'ट्रान्जिट') ? 'checked' : '') ?>>
+                                                        <input type="radio"
+                                                            class="personalinfo1_checked cmnreset_checked"
+                                                            name="travel_porpose" value="ट्रान्जिट" <?php echo (((isset($detail->travel_porpose)) && $detail->travel_porpose == 'ट्रान्जिट') ? 'checked' : '') ?>>
                                                         <span>ट्रान्जिट</span>
-                                                        <input type="radio" class="personalinfo1_checked cmnreset_checked" name="travel_porpose"
-                                                            value="अन्य" <?php echo (((isset($detail->travel_porpose)) && $detail->travel_porpose == 'अन्य') ? 'checked' : '') ?>>
+                                                        <input type="radio"
+                                                            class="personalinfo1_checked cmnreset_checked"
+                                                            name="travel_porpose" value="अन्य" <?php echo (((isset($detail->travel_porpose)) && $detail->travel_porpose == 'अन्य') ? 'checked' : '') ?>>
                                                         <span>अन्य</span>
                                                     </div>
                                                 </div>
@@ -370,8 +380,8 @@
                                                 <div class="form-group">
                                                     <label>सामानको विवरण (यदि लानु छ भने) : </label>
                                                     <input type="text" name="traveler_proporty"
-                                                        class="form-control utf8val personalinfo width70 cmnreset" id="traveler_proporty"
-                                                        placeholder="सामानको विवरण "
+                                                        class="form-control utf8val personalinfo width70 cmnreset"
+                                                        id="traveler_proporty" placeholder="सामानको विवरण "
                                                         value="<?php echo (((isset($detail->traveler_proporty)) && $detail->traveler_proporty != '') ? $detail->traveler_proporty : '') ?>">
                                                 </div>
                                             </div>
@@ -380,13 +390,15 @@
                                                     <label> यात्राको किसिम : <span class="required">*</span></label>
                                                     <div class="radiosss width60 ">
                                                         <span>
-                                                            <input id="Paidalll" type="radio" class="personalinfo1_checked cmnreset_checked"
+                                                            <input id="Paidalll" type="radio"
+                                                                class="personalinfo1_checked cmnreset_checked"
                                                                 name="travel_type" value="पैदल" <?php echo (((isset($detail->travel_type)) && $detail->travel_type == 'पैदल') ? 'checked' : '') ?>
                                                                 required>
                                                             <span>पैदल</span>
                                                         </span>
                                                         <span>
-                                                            <input id="Gaddi" type="radio" class="personalinfo1_checked cmnreset_checked"
+                                                            <input id="Gaddi" type="radio"
+                                                                class="personalinfo1_checked cmnreset_checked"
                                                                 name="travel_type" value="गाडी" <?php echo (((isset($detail->travel_type)) && $detail->travel_type == 'गाडी') ? 'checked' : '') ?>>
                                                             <span>गाडी</span>
                                                         </span>
@@ -406,28 +418,34 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="media_uploader"> 
-                                                    <div class="media_uploader_child">
-                                                        
-                                                        <div class="form-group">
-                                                            <div>
-                                                                <label for="document_upload_travel"> <i class="fa fa-file-photo-o" style="font-size: 25px;color: #3c0280;">
-                                                                    </i></label>
-                                                                <p>Upload
-                                                                    File</p>
-                                                                <input type="file" name="document_upload_travel" id="document_upload_travel" style="display:none">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="divider"></div>
-                                                    <div class="media_uploader_child"> 
-                                                        <div class="form-group travel_files">
-                                                            <p>Uploaded Files</p>
-                                                            <div class="appnd_iles_upld_travel">
-                                                            </div>    
+                                            <div class="media_uploader travel_detail_media" style="margin-bottom:0px">
+                                                <div class="media_uploader travel_detail_media"
+                                                    style=" width: 100%; display: flex; align-items: center; justify-content: center;height: 200px;margin-bottom:0px;border:none">
+                                                    <div class="media_uploader_child"
+                                                        style="min-height: 150px; display: flex; align-items: center; justify-content: center; width: 100%; position: relative;">
+                                                        <div
+                                                            style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; display: flex; align-items: center; justify-content: center;">
+                                                            <label for="document_upload_travel"
+                                                                style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; cursor: pointer;flex-direction:column">
+                                                                <i class="fa fa-file-photo-o"
+                                                                    style="font-size: 25px; color: #3c0280;"></i>
+                                                                <p style="font-weight:400">
+                                                                    Upload File</p>
+                                                            </label>
+                                                            <input type="file" name="document_upload_travel"
+                                                                id="document_upload_travel" style="display: none;">
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="divider"></div>
+                                                <div class="media_uploader_child" style="height:100%">
+                                                    <div class="form-group travel_files">
+                                                        <p>Uploaded Files</p>
+                                                        <div class="appnd_iles_upld_travel">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -452,33 +470,35 @@
                                                         <div class="form-group child_btn">
                                                             <label>पुरा नाम : </label>
                                                             <input type="text" name="children_name[]"
-                                                                class="form-control utf8val personalinfo2 cmnreset" id="children_name1"
-                                                                placeholder="पुरा नाम" style="width:80% !important"
+                                                                class="form-control utf8val personalinfo2 cmnreset"
+                                                                id="children_name1" placeholder="पुरा नाम"
+                                                                style="width:80% !important"
                                                                 value="<?php echo (((isset($detail->children_name)) && $detail->children_name != '') ? $detail->children_name : '') ?>">
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-12">
                                                         <div class="form-group child_btn">
                                                             <div class="flexxx">
-                                                                <label>जन्म मिति : </label>   
+                                                                <label>जन्म मिति : </label>
                                                             </div>
                                                             <div class="swtchcld">
                                                                 AD / BS
-                                                                    <label class="switch">
-                                                                        <input id="Switchssschild1"  type="checkbox">
-                                                                        <span class="slider round"></span>
-                                                                    </label>
-                                                            </div> 
+                                                                <label class="switch">
+                                                                    <input id="Switchssschild1" type="checkbox">
+                                                                    <span class="slider round"></span>
+                                                                </label>
+                                                            </div>
                                                             <input type="text" style="width:58%"
                                                                 name="nepali_date_of_birthss[]"
                                                                 id="nepali-datepickerchild1"
                                                                 class="form-control personalinfo2 nepdatesschild activessssss cmnreset"
-                                                                placeholder="जन्म मिति" value=""/>
-                                                            <input type="text" style="width:58%" name="english_date_of_birthss[]"
-                                                                id="datepickerchild1"
+                                                                placeholder="जन्म मिति" value="" />
+                                                            <input type="text" style="width:58%"
+                                                                name="english_date_of_birthss[]" id="datepickerchild1"
                                                                 class="form-control personalinfo2 engdatesschild cmnreset"
-                                                                placeholder="Date of Birth" value=""/>
-                                                            <input type="hidden" name="children_dob[]" id="dobsssschid1">
+                                                                placeholder="Date of Birth" value="" />
+                                                            <input type="hidden" name="children_dob[]"
+                                                                id="dobsssschid1">
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-12">
@@ -488,8 +508,7 @@
                                                                 class="form-control personalinfo2 cmnreset"
                                                                 id="children_age1" placeholder="उमेर"
                                                                 value="<?php echo (((isset($detail->children_age)) && $detail->children_age != '') ? $detail->children_age : '') ?>"
-                                                                readonly
-                                                                >
+                                                                readonly>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
@@ -530,8 +549,9 @@
                                                         <div class="form-group">
                                                             <label>सम्बन्ध : </label>
                                                             <input type="text" name="children_relations[]"
-                                                                class="form-control utf8val personalinfo2 cmnreset" style="width:80%"
-                                                                id="children_relations1" placeholder="सम्बन्ध "
+                                                                class="form-control utf8val personalinfo2 cmnreset"
+                                                                style="width:80%" id="children_relations1"
+                                                                placeholder="सम्बन्ध "
                                                                 value="<?php echo (((isset($detail->children_relations)) && $detail->children_relations != '') ? $detail->children_relations : '') ?>">
                                                         </div>
                                                     </div>
@@ -549,31 +569,51 @@
                                                         <div class="form-group">
                                                             <label>फर्केको : </label>
                                                             <div class="radiosss width75 ">
-                                                                <input type="radio" class="personalinfo2_checked cmnreset"
+                                                                <input type="radio"
+                                                                    class="personalinfo2_checked cmnreset"
                                                                     name="is_returned_child[0]" value="1" <?php echo (((isset($detail->is_returned_child)) && $detail->is_returned_child == '1') ? 'checked' : '') ?>> <span>हो</span>
-                                                                <input type="radio" class="personalinfo2_checked cmnreset"
+                                                                <input type="radio"
+                                                                    class="personalinfo2_checked cmnreset"
                                                                     name="is_returned_child[0]" value="0" <?php echo (((isset($detail->is_returned_child)) && $detail->is_returned_child == '0') ? 'checked' : '') ?>> <span>होइन</span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
-                                                        <div class="form-group children-photo"> 
-                                                            <div id="camera_open1" class="camera_open_hai" camera_count="1">
+                                                        <div class="form-group children-photo">
+                                                            <div id="camera_open1" class="camera_open_hai"
+                                                                camera_count="1">
                                                                 <i class="fa fa-camera"></i>
                                                                 <p>फोटो</p>
-                                                                <input type="hidden" name="captured_image_child[]" id="captured_image1" value="">
+                                                                <input type="hidden" name="captured_image_child[]"
+                                                                    id="captured_image1" value="">
                                                             </div>
                                                             <div id="viewImage1" class="chldimg"></div>
                                                             <div id="appendcam1">
 
-                                                            </div> 
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
-                                                        <div class="form-group children-photo">  
+                                                        <!-- <div class="form-group children-photo">
                                                             <p id="viewFileChildren1">Upload File</p>
-                                                            <input type="file" name="document_upload" class="children_doc" id="document_upload_children1" filecount='1'>
-                                                            <input type="hidden" name="captured_file_children[]" id="captured_file_children1" value="">
+                                                            <input type="file" name="document_upload"
+                                                                class="children_doc" id="document_upload_children1"
+                                                                filecount='1'>
+                                                            <input type="hidden" name="captured_file_children[]"
+                                                                id="captured_file_children1" value="">
+                                                        </div> -->
+                                                        <div class="form-group children-photo"
+                                                            style="position: relative; cursor: pointer;min-height:108px;display:flex; align-items:center; justify-content:center;">
+                                                            <p id="viewFileChildren1"
+                                                                style="font-size: 2.5rem; color: #3c0280;">Upload File
+                                                            </p>
+                                                            <input type="file" name="document_upload"
+                                                                class="children_doc" id="document_upload_children1"
+                                                                filecount='1' style="display: none;">
+                                                            <input type="hidden" name="captured_file_children[]"
+                                                                id="captured_file_children1" value="">
+                                                            <label for="document_upload_children1"
+                                                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -687,21 +727,21 @@
                                                         <div class="form-group">
                                                             <label class="width50">सवारी साधनको नम्बर : <span
                                                                     class="required">*</span></label>
-                                                                    <div>
-                                                                        Switch
-                                                                    <label class="switch">
-                                                                        <input id="switch_vehicle_number"  type="checkbox">
-                                                                        <span class="slider round"></span>
-                                                                    </label>
-                                                                    </div>
+                                                            <div>
+                                                                Switch
+                                                                <label class="switch">
+                                                                    <input id="switch_vehicle_number" type="checkbox">
+                                                                    <span class="slider round"></span>
+                                                                </label>
+                                                            </div>
                                                             <input type="text" name="vehicle_number_nepali"
                                                                 class="form-control utf8val personalinfo4 cmnreset activessssss"
-                                                                id="vehicle_number_nepali" placeholder="सवारी साधनको नम्बर"
-                                                                style="display:none"
+                                                                id="vehicle_number_nepali"
+                                                                placeholder="सवारी साधनको नम्बर" style="display:none"
                                                                 value="<?php echo (((isset($detail->vehicle_number_nepali)) && $detail->vehicle_number_nepali != '') ? $detail->vehicle_number_nepali : '') ?>">
                                                             <input type="text" name="vehicle_number"
                                                                 class="form-control utf8val personalinfo4 cmnreset"
-                                                                id="vehicle_number" placeholder="Vehicle Number" 
+                                                                id="vehicle_number" placeholder="Vehicle Number"
                                                                 style="display:none"
                                                                 value="<?php echo (((isset($detail->vehicle_number)) && $detail->vehicle_number != '') ? $detail->vehicle_number : '') ?>">
                                                         </div>
@@ -855,7 +895,7 @@
                                 <div class="media_uploader">
                                     <div class="media_uploader_child">
                                         <div id="viewImage"></div>
-                                        <div class="form-group">
+                                        <div class="form-group" style="width: 100%;">
                                             <div id="camera_open" onclick="Camera_open();">
                                                 <i class="fa fa-camera"></i>
                                                 <p>फोटो</p>
@@ -863,8 +903,7 @@
                                         </div>
                                     </div>
                                     <div class="divider"></div>
-                                    <div class="media_uploader_child">
-                                        
+                                    <!-- <div class="media_uploader_child">
                                         <div class="form-group">
                                             <div id="camera_open">
                                                 <label for="document_upload"> <i class="fa fa-file-photo-o">
@@ -874,13 +913,30 @@
                                                 <input type="file" name="document_upload" id="document_upload">
                                             </div>
                                         </div>
+                                    </div> -->
+                                    <div class="media_uploader_child"
+                                        style="min-height: 112px; display: flex; align-items: center; justify-content: center; width: 100%; position: relative;">
+                                        <div class="form-group">
+                                            <div id="camera_open"
+                                                style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; display: flex; align-items: center; justify-content: center;">
+                                                <label for="document_upload"
+                                                    style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; cursor: pointer;flex-flow:column">
+                                                    <i class="fa fa-file-photo-o"
+                                                        style="font-size: 25px; color: #3c0280;"></i>
+                                                    <p style="font-weight:400">
+                                                        Upload File</p>
+                                                </label>
+                                                <input type="file" name="document_upload" id="document_upload"
+                                                    style="display: none;">
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="divider"></div>
-                                    <div class="media_uploader_child"> 
+                                    <div class="media_uploader_child" style="height:100%">
                                         <div class="form-group">
                                             <p>Uploaded Files</p>
                                             <div class="appnd_iles_upld">
-                                            </div>    
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
