@@ -299,7 +299,7 @@
                                                                                 foreach($value->travel_files as $key_travel_files=>$travel_files_val){
                                                                                     if(isset($travel_files_val->files)){ 
                                                                         ?>
-                                                                            <div class="chldimgrpt"><a href="<?php echo base_url().$travel_files_val->files; ?>" target="_blank" style="font-size: 30px;"><i class="fa fa-file-photo-o"></i></a></div>
+                                                                            <div class="chldimgrpt"><a href="<?php echo base_url().$travel_files_val->files; ?>" target="_blank" style="font-size: 30px;"><i class="fa fa-file-photo-o"></i><?php echo (isset($travel_files_val->file_taken_direction)&&$travel_files_val->file_taken_direction=='1')?'फर्किदा':'जादा'  ?></a></div>
                                                                         <?php }}} ?>    
                                                                         </td>
                                                                     </tr>

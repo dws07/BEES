@@ -82,7 +82,7 @@
                                                             <button type="button"
                                                                 class="btn btn-default dropdown-toggle codeValue"
                                                                 data-toggle="dropdown" aria-haspopup="true"
-                                                                aria-expanded="false"><?php echo $this->crud_model->ent_to_nepali_num_convert('+256'); ?><span
+                                                                aria-expanded="false"><?php echo $this->crud_model->ent_to_nepali_num_convert('+977'); ?><span
                                                                     class="caret"></span></button>
                                                             <ul class="dropdown-menu" id="countryCode">
                                                                 <li>
@@ -91,7 +91,7 @@
                                                                         class="form-control">
                                                                 </li>
                                                             </ul>
-                                                            <input type="hidden" name="country_code" id="country_code" value="">
+                                                            <input type="hidden" name="country_code" id="country_code" value="<?php echo $this->crud_model->ent_to_nepali_num_convert('+977'); ?>">
                                                             <?php if (form_error('country_code'))
                                                             echo '<span class="field_validation">' . form_error('country_code') . '</span>' ?>
                                                         </div><!-- /btn-group -->
@@ -376,7 +376,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
-                                                <div class="form-group" style="gap: 15rem;">
+                                                <div class="form-group">
                                                     <label> यात्राको किसिम : <span class="required">*</span></label>
                                                     <div class="radiosss width60 ">
                                                         <span>

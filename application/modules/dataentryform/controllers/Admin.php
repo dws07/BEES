@@ -188,6 +188,7 @@ class Admin extends Auth_controller
 						<a href="'.base_url('uploads/').$Image.'" target="_blank">View</a>
 						<a class="btn btn-sm btn-danger removeFiles"><i class="fa fa-trash"></i></a>
 						<input type="hidden" name="captured_file_travel[]" value="/uploads/'.$Image.'">
+						<input type="hidden" name="file_taken_direction[]" value="1">
 					</div>';
 			$response = array(
 				'status' => 'success',
@@ -280,6 +281,7 @@ class Admin extends Auth_controller
 
 				$captured_file = $this->input->post('captured_file');
 				$captured_file_travel = $this->input->post('captured_file_travel');
+				$file_taken_direction = $this->input->post('file_taken_direction');
 				// print_r($data);exit;
 				$id = $this->input->post('id');
 				if ($id == '') { 
@@ -332,14 +334,17 @@ class Admin extends Auth_controller
 						$update_travel_info['updated_by'] = $this->userId;
 						$result_update_travel_info = $this->crud_model->update('travel_information', $update_travel_info, array('id' => $latest_travel_info->id));
 						if ($result_update_travel_info == true) {
+
 							if(count($captured_file_travel)>0){ 
 								if(isset($captured_file_travel[0]) && $captured_file_travel[0] !=''){
-									$delete_all_child = $this->crud_model->hardDelete('travel_info_files', array('travel_id'=>$latest_travel_info->id));
+									// $delete_all_child = $this->crud_model->hardDelete('travel_info_files', array('travel_id'=>$latest_travel_info->id));
 									for($i=0;$i<count($captured_file_travel);$i++){ 
-										$captured_file_travel_data['travel_id'] = $latest_travel_info->id; 
-										$captured_file_travel_data['files'] = $captured_file_travel[$i];   
-
-										$this->crud_model->insert('travel_info_files', $captured_file_travel_data);
+										if($file_taken_direction[$i]=='1'){
+											$captured_file_travel_data['travel_id'] = $latest_travel_info->id; 
+											$captured_file_travel_data['files'] = $captured_file_travel[$i]; 
+											$captured_file_travel_data['file_taken_direction'] = '1'; 
+											$this->crud_model->insert('travel_info_files', $captured_file_travel_data);
+										}
 									}
 								} 
 							}
@@ -411,6 +416,7 @@ class Admin extends Auth_controller
 									for($i=0;$i<count($captured_file_travel);$i++){ 
 										$captured_file_travel_data['travel_id'] = $travel_id; 
 										$captured_file_travel_data['files'] = $captured_file_travel[$i];   
+										$captured_file_travel_data['file_taken_direction'] = '0';   
 
 										$this->crud_model->insert('travel_info_files', $captured_file_travel_data);
 									}
@@ -744,9 +750,9 @@ class Admin extends Auth_controller
 								$files_travel = ($val->files !== '' && $val->files)?base_url('/').$val->files:base_url('/uploads/Circle-icons-profile.svg.png'); 
 
 								$travel_files_html .= '<div class="iles_upld">
-											<a href="'.$files_travel.'" target="_blank">View</a>
-											<a class="btn btn-sm btn-danger removeFiles"><i class="fa fa-trash"></i></a>
+											<a href="'.$files_travel.'" target="_blank">View</a> 
 											<input type="hidden" name="captured_file_travel[]" value="'.$val->files.'">
+											<input type="hidden" name="file_taken_direction[]" value="0">
 										</div>';			
 							}
 						}
