@@ -102,7 +102,7 @@ function ent_to_nepali_num_convert($number)
                 </div>
                 <div class="col-sm-12">
                     <div class="DBox">
-                        <div class="box-body" style="height:327px; overflow : auto;">
+                        <div class="box-body dashboardTable">
                             <table class="table table-bordered" id="nepali_preeti">
                                 <thead>
                                     <tr>
@@ -141,8 +141,7 @@ function ent_to_nepali_num_convert($number)
                                                 </td>
                                                 <td>
                                                     <a href="<?php echo base_url('travel/admin/all/' . $value->id); ?>"
-                                                        class="btn btn-flat margin ViewDataBTN"
-                                                        style="background-color : #053775; color:#fff">
+                                                        class="btn btn-flat margin ViewDataBTN" style="color: #053775;border: 1px solid #053775;">
                                                         <i class="fa fa-eye"></i>
                                                     </a>
 

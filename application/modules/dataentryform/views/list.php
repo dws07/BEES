@@ -132,7 +132,8 @@
                                     $check_dataentryform_soft_delete = $this->crud_model->get_module_function_for_role('travel', 'all');
                                     if ($check_dataentryform_soft_delete == true) {
                                     ?>
-                                    <a href="<?php echo base_url('travel/admin/all/'.$value->id); ?>" class="btn bg-green btn-flat margin ViewDataBTN"><i class="fa fa-eye"></i></a> 
+                                    <a href="<?php echo base_url('travel/admin/all/'.$value->id); ?>" class="btn bg-green btn-flat margin ViewDataBTN" style="color: #053775;
+    border: 1px solid #053775;"><i class="fa fa-eye"></i></a> 
                                     <?php } ?>
                                 </td>
                             </tr>
