@@ -515,14 +515,20 @@
                                                         <div class="form-group">
                                                             <label>लिंग : </label>
                                                             <div class="radiosss" style="width:59%">
-                                                                <input type="radio" class="personalinfo2"
-                                                                    name="children_gender[0]" value="पुरुष" <?php echo (((isset($detail->children_gender)) && $detail->children_gender == 'पुरुष') ? 'checked' : '') ?>>
-                                                                <span>पुरुष</span>
-                                                                <input type="radio" class="personalinfo2"
-                                                                    name="children_gender[0]" value="महिला" <?php echo (((isset($detail->children_gender)) && $detail->children_gender == 'महिला') ? 'checked' : '') ?>>
-                                                                <span>महिला</span>
-                                                                <input type="radio" class="personalinfo2"
-                                                                    name="children_gender[0]" value="तेस्रोलिंगी" <?php echo (((isset($detail->children_gender)) && $detail->children_gender == 'तेस्रोलिंगी') ? 'checked' : '') ?>> <span>तेस्रोलिंगी</span>
+                                                                <span>
+                                                                    <input type="radio" class="personalinfo2"
+                                                                        name="children_gender[0]" value="पुरुष" <?php echo (((isset($detail->children_gender)) && $detail->children_gender == 'पुरुष') ? 'checked' : '') ?>>
+                                                                    <span>पुरुष</span>
+                                                                </span>
+                                                                <span>
+                                                                    <input type="radio" class="personalinfo2"
+                                                                        name="children_gender[0]" value="महिला" <?php echo (((isset($detail->children_gender)) && $detail->children_gender == 'महिला') ? 'checked' : '') ?>>
+                                                                    <span>महिला</span>
+                                                                </span>
+                                                                <span>
+                                                                    <input type="radio" class="personalinfo2"
+                                                                        name="children_gender[0]" value="तेस्रोलिंगी" <?php echo (((isset($detail->children_gender)) && $detail->children_gender == 'तेस्रोलिंगी') ? 'checked' : '') ?>> <span>तेस्रोलिंगी</span>
+                                                                </span>
                                                             </div>
                                                         </div>
                                                     </div>
