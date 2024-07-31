@@ -12,6 +12,7 @@ class Dashboard extends Auth_controller {
 		$this->userId = $this->data['userId'];
 		$this->session->unset_userdata('form_data');
 		$this->session->unset_userdata('param');
+		$this->session->unset_userdata('like');
 	}
 
 	public function total_data_gone_direction(){
@@ -128,12 +129,12 @@ class Dashboard extends Auth_controller {
 	
 	public function index()
 	{ 
-		$like = [];
+		$like = '';
 		$param = [
 			'ti.status !='=>'2',
 		];  
 
-		$data['roles'] = $this->crud_model->get_person_list_limit_group_by_travel(100, 0, $param);
+		$data['roles'] = $this->crud_model->get_person_list_limit_group_by_travel(100, 0, $param, $like);
 		// echo "<pre>";
 		// var_dump($data['roles']);
 		// exit();

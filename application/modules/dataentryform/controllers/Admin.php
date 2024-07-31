@@ -22,17 +22,27 @@ class Admin extends Auth_controller
 
 		// $number = "1234567890";
 		// var_dump($this->crud_model->ent_to_nepali_num_convert($number));exit;
-		$like = [];
+		$like = '';
 		$param = [
 			'ti.status !=' => '2',
 		];
 		$session_param = $this->session->userdata('param');
+		$session_like = $this->session->userdata('like');
 		if($this->input->method() == 'post' && $this->input->post()){
 			$fromdate = $this->input->post('fromdate');
 			$todate = $this->input->post('todate');
-			$param['ti.created >='] = $fromdate;
-			$param['ti.created <='] = $todate;
+			$search_field = $this->input->post('search_field');
+			if(isset($fromdate)&& $fromdate != ''){
+				$param['ti.created >='] = $fromdate;
+			}
+			if(isset($todate)&& $todate != ''){
+				$param['ti.created <='] = $todate;
+			}
+			if(isset($search_field)&& $search_field != ''){
+				$like = $search_field; 
+			}
 			$this->session->set_userdata('param', $param);
+			$this->session->set_userdata('like', $like);
 			$this->session->set_userdata('form_data', $this->input->post());
 
 			redirect('dataentryform/admin/all');
@@ -40,11 +50,13 @@ class Admin extends Auth_controller
 		// var_dump($param);exit; 
 		}else if($session_param){
 			$param = $session_param;
+			$like = $session_like; 
 		}
 		// echo "<pre>";
 		// var_dump($param);exit; 
-		$total = $this->crud_model->get_total_count_traveller_group_by_person($param); 
-		// var_dump($total);exit;
+		// $total = $this->crud_model->get_total_count_traveller_group_by_person($param); 
+		$total = $this->crud_model->get_traveller_count_group_by_travel($param,$like); 
+		// var_dump($total, $this->db->last_query());exit;
 		$config['base_url'] = base_url($this->redirect.'all');
 		$config['total_rows'] = $total;
 		$config['uri_segment'] = 4;
@@ -87,9 +99,9 @@ class Admin extends Auth_controller
 
 		$data['pagination'] = $this->pagination->create_links();
 
-		$data['items']  = $this->crud_model->get_person_list_limit_group_by_travel($config['per_page'], $page, $param);
+		$data['items']  = $this->crud_model->get_person_list_limit_group_by_travel($config['per_page'], $page, $param,$like);
 		// echo "<pre>";
-		// var_dump($data['roles']);exit();
+		// var_dump($this->db->last_query());exit();
 		$data['offset'] = $page;
 		$data['title'] = 'Data Entry Form';
 		$data['page'] = 'list';
@@ -235,7 +247,7 @@ class Admin extends Auth_controller
 				$travell_data = array(
 					'travel_start_country' => $this->input->post('travel_start_country'),
 					'entry_adress' => $this->input->post('entry_adress'),
-					'entry_time' => $this->input->post('entry_time'),
+					// 'entry_time' => $this->input->post('entry_time'),
 					// 'exit_time' => $this->input->post('exit_time'),
 					'entry_address2' => $this->input->post('entry_address2'),
 					'travel_destination' => $this->input->post('travel_destination'),
@@ -328,7 +340,8 @@ class Admin extends Auth_controller
 					
 					$latest_travel_info = $this->crud_model->get_where_single_order_by('travel_information', array('is_returned'=>0,'person_id'=>$person_id), 'id', 'desc');
 					if($latest_travel_info){
-						$update_travel_info['exit_time'] = $this->input->post('exit_time');
+						$update_travel_info['exit_time'] = date('H:i:s');
+						$update_travel_info['exit_date'] = date('Y-m-d');
 						$update_travel_info['is_returned'] = 1;
 						$update_travel_info['updated'] = date('Y-m-d');
 						$update_travel_info['updated_by'] = $this->userId;
@@ -394,6 +407,8 @@ class Admin extends Auth_controller
 					}else{
 						$travell_data['person_id'] = $person_id;
 						$travell_data['is_returned'] = 0;
+						$travell_data['entry_time'] = date('H:i:s');
+						$travell_data['entry_date'] = date('Y-m-d');
 						$travell_data['created'] = date('Y-m-d');
 						$travell_data['created_by'] = $this->userId;
 						$travell_data['status'] = '1';

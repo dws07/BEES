@@ -54,7 +54,7 @@
                 <div class="row">
                     <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
                         <span class="label">सम्पर्क नम्बर :</span>
-                        <p style="margin-left:1rem;"><?php echo $this->crud_model->ent_to_nepali_num_convert($person_detail->country_code)?></p><p style="margin-left:1rem;"  id="nepali_preeti"><?php echo $person_detail->phone_number?$person_detail->phone_number:'' ?></p>
+                        <p style="margin-left:1rem;"><?php echo $this->crud_model->ent_to_nepali_num_convert($person_detail->country_code)?>-<?php echo $person_detail->phone_number?$person_detail->phone_number:'' ?></p>
                     </div>
                     <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
                         <span class="label">राष्ट्रियता :</span>
@@ -67,6 +67,10 @@
                     <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
                         <span class="label">उमेर :</span>
                         <p style="margin-left:1rem;"><?php echo $person_detail->age?$this->crud_model->ent_to_nepali_num_convert($person_detail->age):'' ?></p>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
+                        <span class="label">Date Of Birth :</span>
+                        <p style="margin-left:1rem;"><?php echo $person_detail->date_of_birth?$person_detail->date_of_birth:'' ?></p>
                     </div>
                     <div class="col-md-6 col-sm-12 col-xs-12 col-xl-6" style="text-align : left">
                         <span class="label">लिंग :</span>
@@ -106,30 +110,12 @@
                         <?php 
                             if($person_detail->person_files){ 
                                 foreach($person_detail->person_files as $key=>$val){
+                                    if(isset($val->files) && $val->files !=''){
                         ?>
                         <a href="<?php echo base_url().$val->files; ?>" target="_blank" style="font-size: 30px;"><i class="fa fa-file-photo-o">
                                                     </i></a>
-                        <?php }} ?>                            
+                        <?php }} } ?>                            
                     </div>
-
-                        <!-- <div class="col-md-6" style="border-right: 1px solid #ddd;">
-                            <div class="detaillist">
-                                                <p><level>सम्पर्क नम्बर :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
-                                                <p><level>राष्ट्रियता :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
-                                                <p><level>जन्म मिति :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
-                                                <p><level>उमेर :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
-                                                <p><level>लिंग :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
-                            </div> 
-                        </div>
-                        <div class="col-md-6">
-                            <div class="detaillist">
-                                                <p><level>ठेगाना :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p> 
-                                                <p><level>परिचय पत्र किसिम :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
-                                                <p><level>परिचय पत्र नम्बर  :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
-                                                <p><level>वैवाहिक स्थिति :</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
-                                                <p><level>पेशा / ब्यबसायी:</level><?php echo $person_detail->age?$person_detail->age:'' ?></p>
-                                </div>
-                            </div> -->
                 </div> 
             </div>
         </div>
@@ -151,6 +137,7 @@
                                 <th>यात्रा प्रारम्भ गरेको मुलुक</th>
                                 <th>प्रवेश बिन्दू</th>
                                 <th>प्रवेश समय</th>
+                                <th>फर्केको समय</th>
                                 <th>यात्रा गन्तब्य </th>
                                 <th>यात्राको अबधि </th>
                                 <th>दिशा तर्फ</th>
@@ -158,6 +145,7 @@
                                 <th>यात्राको किसिम</th>
                                 <th>बालबालिका</th>
                                 <th>फर्केको हो?</th>
+                                <th>सिर्जना गर्ने</th>
                                 <th>कार्य</th>
                             </tr>
                         </thead>
@@ -165,12 +153,23 @@
                             <?php
                             if ($travel_lit) { 
                             foreach ($travel_lit as $key => $value) {  
+                                $created_by = '';
+                                if($value->created_by){ 
+                                    $user_detail = $this->db->get_where('users',array('id'=>$value->created_by))->row();
+                                    if($user_detail){
+                                        $staff_detail = $this->db->get_where('staff_infos',array('id'=>$user_detail->staff_id))->row();
+                                        if($staff_detail){
+                                            $created_by = $staff_detail->full_name;
+                                        }
+                                    }
+                                };
                             ?>
                             <tr>
                                 <td><?php echo $this->crud_model->ent_to_nepali_num_convert($key+1); ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->travel_start_country; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->entry_adress; ?></td>
-                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>" id="no_preeti"><?php echo $value->entry_time; ?></td>
+                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>" id="no_preeti"><?php echo $value->entry_date; ?> <?php echo $value->entry_time; ?></td>
+                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>" id="no_preeti"><?php echo $value->exit_date; ?> <?php echo $value->exit_time; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->travel_destination; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->travel_deuration; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->gone_dirction; ?></td>
@@ -178,6 +177,7 @@
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->travel_type; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->childrens_list?$this->crud_model->ent_to_nepali_num_convert(count($value->childrens_list)):0; ?></td>
                                 <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo ($value->is_returned && $value->is_returned == 1)?'हो':'होइन'; ?></td>
+                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $created_by; ?></td>
                                 <td>
                                 <?php
                                     $check_dataentryform_soft_delete = $this->crud_model->get_module_function_for_role('travel', 'form');
@@ -254,14 +254,11 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <th>प्रवेश समय</th>
-                                                                        <td id="no_preeti"><?php echo $value->entry_time; ?></td>
+                                                                        <td id="no_preeti"><?php echo $value->entry_date; ?> <?php echo $value->entry_time; ?></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <th>फर्केको समय</th>
-                                                                        <td id="no_preeti">
-                                                                            <?php echo $value->exit_time; ?>
-                                                                            
-                                                                        </td>
+                                                                        <td id="no_preeti"> <?php echo $value->exit_date; ?> <?php echo $value->exit_time; ?> </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <th>प्रबेश बिन्दू (सिमा निरीक्षण कक्ष / प्रबेश स्थाल)</th>
@@ -297,7 +294,7 @@
                                                                         <?php 
                                                                             if($value->travel_files){ 
                                                                                 foreach($value->travel_files as $key_travel_files=>$travel_files_val){
-                                                                                    if(isset($travel_files_val->files)){ 
+                                                                                    if(isset($travel_files_val->files) && $travel_files_val->files !=''){ 
                                                                         ?>
                                                                             <div class="chldimgrpt"><a href="<?php echo base_url().$travel_files_val->files; ?>" target="_blank" style="font-size: 30px;"><i class="fa fa-file-photo-o"></i><?php echo (isset($travel_files_val->file_taken_direction)&&$travel_files_val->file_taken_direction=='1')?'फर्किदा':'जादा'  ?></a></div>
                                                                         <?php }}} ?>    
@@ -318,6 +315,10 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <th>सवारी साधनको नम्बर</th>
+                                                                            <td><?php echo $value->vehicle_info->vehicle_number_nepali; ?></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>Vehicle Number</th>
                                                                             <td><?php echo $value->vehicle_info->vehicle_number; ?></td>
                                                                         </tr>
                                                                         <tr>
@@ -370,7 +371,7 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <th>जन्म मिति</th>
-                                                                            <td id="no_preeti"><?php echo $this->crud_model->ent_to_nepali_num_convert($child_val->nepali_dob_children); ?></td>
+                                                                            <td id="no_preeti"><?php echo $this->crud_model->ent_to_nepali_num_convert($child_val->nepali_dob_children); ?> ( <?php echo $child_val->children_dob ?> ) </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <th>उमेर</th>
@@ -402,7 +403,7 @@
                                                                         <tr>
                                                                             <th>फोटो</th>
                                                                             <td>
-                                                                                <?php if(isset($child_val->captured_image)){ ?>
+                                                                                <?php if(isset($child_val->captured_image) && $child_val->captured_image !=''){ ?>
                                                                                 <div class="chldimgrpt"><a href="<?php echo base_url().$child_val->captured_image; ?>" target="_blank"><img src = "<?php echo base_url().$child_val->captured_image ?>"></a></div>
                                                                                 <?php } ?>
                                                                             </td>
@@ -410,7 +411,7 @@
                                                                         <tr> 
                                                                             <th>फाईल</th>
                                                                             <td>
-                                                                                <?php if(isset($child_val->captured_file_children)){ ?>
+                                                                                <?php if(isset($child_val->captured_file_children) && $child_val->captured_file_children !=''){ ?>
                                                                                 <div class="chldimgrpt"><a href="<?php echo base_url().$child_val->captured_file_children; ?>" target="_blank" style="font-size: 30px;"><i class="fa fa-file-photo-o"></i></a></div>
                                                                                 <?php } ?>    
                                                                             </td>

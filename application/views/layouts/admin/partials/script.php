@@ -49,14 +49,14 @@
     var health_result = nepalify.interceptElementById("health_result");
 
     //vehicle roman
-    var vehicle_number = nepalify.interceptElementById("vehicle_number");
+    var vehicle_number_nepali = nepalify.interceptElementById("vehicle_number_nepali");
     var drivers_name = nepalify.interceptElementById("drivers_name");
     var driving_licence = nepalify.interceptElementById("driving_licence");
     var drivers_number = nepalify.interceptElementById("drivers_number");
     var property_information = nepalify.interceptElementById("property_information");
     var pasengers = nepalify.interceptElementById("pasengers");
 
-    var remarks = nepalify.interceptElementById("remarks");
+    var remarks = nepalify.interceptElementById("remarks"); 
 
 
     // GLOBAL SCOPE VARIABLE
@@ -1090,7 +1090,7 @@
                             <p id="viewFileChildren`+ total_child + `"  style="font-size: 2.5rem; color: #3c0280;">Upload File</p>
                             <input style="display: none;" type="file" name="document_upload" class="children_doc" id="document_upload_children`+ total_child + `" filecount='` + total_child + `'>
                             <input type="hidden" name="captured_file_children[]" id="captured_file_children`+ total_child + `" value="">
-                            <label for="document_upload_children1" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></label>
+                            <label for="document_upload_children`+total_child+`" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></label>
                             <a class="btn btn-sm btn-danger FormRemoveFunction" id="FormRemoveFunction"><i class="fa fa-trash"></i></a>
                         </div>
                     </div>
@@ -1353,6 +1353,28 @@
     })
 </script>
 
+<script>
+    //switch search
+    // var search_field = nepalify.interceptElementById("search_field");
+    const Dateswitch = document.querySelector('#switch_search');
+        Dateswitch.addEventListener('click', (event) => { 
+            Dateswitch.classList.toggle("act_vn");
+            const ACT = document.querySelector('.act_vn');  
+            if (ACT) { 
+                $('.searchswitch').attr('id', 'search_field'); 
+                // $( ".searchswitch" ).load(window.location.href + " #here" );
+                $('.searchswitch').val(''); 
+                var search_field = nepalify.interceptElementById("search_field"); 
+            }
+            else {
+                $('.searchswitch').removeAttr('id');
+                $( "#rfs" ).load(window.location.href + " #rfschld " );
+                $('.searchswitch').val('');
+               
+            }
+        });
+</script>
+
 <?php if ($this->session->flashdata('error')) { ?>
     <script>
         Toastify({
@@ -1380,7 +1402,54 @@ if ($this->session->flashdata('success')) { ?>
     </script>
 <?php } ?>
 
+<script>
+    function copyToClipboard() {
+        // Get the input field
+        var inputField = document.getElementById('autopassgen');
 
+        // Select the text field
+        inputField.select();
+        inputField.setSelectionRange(0, 99999); // For mobile devices
+
+        // Copy the text inside the text field
+        document.execCommand("copy");
+
+        // Alert the copied text (optional)
+        // alert("Copied the text: " + inputField.value);
+        // alert("Copied the text: " + inputField.value);
+        $('#password').val(inputField.value);
+        $('#password_conf').val(inputField.value);
+        $('#autogenmodal').modal('toggle');
+    }
+    //refresh auto password
+    $('#refreshautopass').on('click', function () {
+        $.ajax({
+            url: "<?php echo base_url(); ?>user/admin/getrandompass",
+            type: 'POST',
+            // data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                if (response.status == 'successfull') {
+                    $("#autopassgen").val(response.password); 
+                } 
+            },
+            error: function (xhr, status, error) {
+                Toastify({
+
+                    text: "An error occurred: " + xhr.status + " " + xhr.statusText,
+
+                    duration: 6000,
+
+                    style: {
+                        background: "linear-gradient(to right, red, yellow)",
+                    }
+
+                }).showToast();
+            }
+        }); 
+        });
+</script>
 <script>
     const ViewDataBTNs = document.querySelectorAll('.ViewDataBTN');
     ViewDataBTNs.forEach((personalbtn) => {

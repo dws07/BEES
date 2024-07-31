@@ -220,11 +220,36 @@ class Admin extends Auth_controller
 			}
 		} 
 		$data['detail'] = $this->db->get_where('users', array('id' => $id))->row();
-		$data['title'] = 'Change Password '.$data['detail']->user_name;
+		$data['title'] = 'Change Password For '.$data['detail']->user_name;
 		$data['page'] = 'changepassword';
 		$data = array_merge($this->data, $data);
 		$this->load->view('layouts/admin/index', $data);
 	} 
+
+	public function getrandompass()
+	{
+		try {
+
+			if (!$this->input->is_ajax_request()) {
+				exit('No direct script access allowed');
+			} else {
+				$random_pass = $this->crud_model->generateRandomPassword(12);
+				$response = array(
+					'status' => 'successfull',
+					'status_code' => 200,
+					'status_message' => 'Successfully retrived',
+					'password' => $random_pass, 
+				);
+			}
+		} catch (Exception $e) {
+			$response = array(
+				'status' => 'error',
+				'status_message' => $e->getMessage()
+			);
+		}
+		header('Content-Type: application/json');
+		echo json_encode($response);
+	}		
 
 	public function send_mail($email,$user_name,$password){
 

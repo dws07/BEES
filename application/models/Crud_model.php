@@ -59,7 +59,32 @@ class Crud_model extends CI_Model
         return $this->db->get()->result();
     }
 
-    function get_person_list_limit_group_by_travel($limit, $offset, $param) {
+    function get_person_list_limit_group_by_travel($limit, $offset, $param, $like) {
+        $subquery = "(SELECT MAX(id) AS max_id, person_id FROM travel_information GROUP BY person_id) t";
+        
+        $this->db->select("p.*, ti.gone_dirction as gone", False);
+        $this->db->from($subquery);
+        $this->db->join('personal_information p', "t.person_id = p.id");
+        $this->db->join('travel_information ti', "t.person_id = ti.person_id AND t.max_id = ti.id");
+        $this->db->join('vehicle_information vi', "t.max_id = vi.travel_id");
+        // $this->db->where('ti.status !=','2');
+        $this->db->where($param);
+        if(isset($like)){ 
+            $this->db->group_start();
+            $this->db->like('p.phone_number', $like);
+            $this->db->or_like('p.name',$like);
+            $this->db->or_like('vi.vehicle_number',$like);
+            $this->db->or_like('vi.vehicle_number_nepali',$like);
+            $this->db->group_end();
+        }
+        $this->db->order_by('ti.id', 'desc'); 
+        $this->db->limit($limit, $offset);
+        
+        return $this->db->get()->result();
+    }
+
+    function get_traveller_count_group_by_travel($param, $like) {
+        // var_dump($like); exit;
         $subquery = "(SELECT MAX(id) AS max_id, person_id FROM travel_information GROUP BY person_id) t";
         
         $this->db->select("p.*, ti.gone_dirction as gone", False);
@@ -68,10 +93,16 @@ class Crud_model extends CI_Model
         $this->db->join('travel_information ti', "t.person_id = ti.person_id AND t.max_id = ti.id");
         // $this->db->where('ti.status !=','2');
         $this->db->where($param);
-        $this->db->order_by('ti.id', 'desc'); 
-        $this->db->limit($limit, $offset);
+        if(isset($like)){ 
+            $this->db->group_start();
+            $this->db->like('p.phone_number', $like);
+            $this->db->or_like('p.name',$like);
+            // $this->db->or_like('vehicle_number',$like['search_field']);
+            $this->db->group_end();
+        }
+        $this->db->order_by('ti.id', 'desc');  
         
-        return $this->db->get()->result();
+        return $this->db->get()->num_rows();
     }
 
     function get_total_count_traveller_group_by_person($param){
@@ -712,6 +743,26 @@ class Crud_model extends CI_Model
     {
         $this->db->where($param);
         return $this->db->delete($table);
+    }
+
+    function generateRandomPassword($length = 12) {
+        // Define the characters that can be included in the password
+        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $numbers = '0123456789';
+        $characters = $alphabet . $numbers;
+    
+        // Shuffle the characters to ensure randomness
+        $shuffledCharacters = str_shuffle($characters);
+    
+        // Initialize the password variable
+        $password = '';
+    
+        // Generate the password by randomly picking characters from the shuffled set
+        for ($i = 0; $i < $length; $i++) {
+            $password .= $shuffledCharacters[rand(0, strlen($shuffledCharacters) - 1)];
+        }
+    
+        return $password;
     }
 
     function ent_to_nepali_num_convert($number){

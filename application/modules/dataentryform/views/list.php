@@ -9,6 +9,18 @@
     .input-group.input-group-sm.hidden-xs label {
         font-size: 12px;
     }
+    span.slider.round {
+        /* top: -24px !important;
+        bottom: 23px !important; */
+        width: 40px !important;
+        /* left: 10px !important; */
+    }
+    .switch {
+        top: -24px !important;
+        bottom: 23px !important;
+        width: 40px !important;
+        left: 10px !important;
+    }
 </style>
 <?php 
     $session_form_data = $this->session->userdata('form_data');
@@ -21,23 +33,33 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title"> 
-                            <a class="btn btn-sm btn-primary"> यात्रीहरुको सुची</a> 
+                            <a href="<?php echo base_url('/dataentryform/admin/all') ?>" class="btn btn-sm btn-primary"> यात्रीहरुको सुची</a> 
                     </h3>
                     <div class="box-tools">
                         <form action="" method="post">
-                            <div class="input-group input-group-sm hidden-xs">
-                                <label>From date</label>
-                                <input type="date" name="fromdate" class="form-control pull-right"
-                                    placeholder="Search"
-                                    value="<?php echo isset($session_form_data['fromdate'])?$session_form_data['fromdate']:'' ?>">
-                                <label>To date</label>
-                                <input type="date" name="todate" class="form-control pull-right"
-                                    placeholder="Search"
-                                    value="<?php echo isset($session_form_data['todate'])?$session_form_data['todate']:'' ?>">
-                                <div class="input-group-btn">
-                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                                </div>
+                            <div class="row" id="rfs">
+                                <div class="input-group input-group-sm hidden-xs" id="rfschld"> 
+                                    <label>Search Field</label> 
+                                    <label class="switch">
+                                        <input id="switch_search" type="checkbox">
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <input type="text" name="search_field" class="form-control pull-right searchswitch"
+                                        placeholder="phone,vehicle and name" 
+                                        value="<?php echo isset($session_form_data['search_field'])?$session_form_data['search_field']:'' ?>">  
+                                    <label>From date</label>
+                                    <input type="date" name="fromdate" class="form-control pull-right"
+                                        placeholder="Search"
+                                        value="<?php echo isset($session_form_data['fromdate'])?$session_form_data['fromdate']:'' ?>">
+                                    <label>To date</label>
+                                    <input type="date" name="todate" class="form-control pull-right"
+                                        placeholder="Search"
+                                        value="<?php echo isset($session_form_data['todate'])?$session_form_data['todate']:'' ?>">
+                                    <div class="input-group-btn">
+                                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                    </div>
 
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -58,7 +80,9 @@
                                 <th>लिंग</th>
                                 <th>ठेगाना </th>
                                 <th>वैवाहिक स्थिति</th>
-                                <th>पेशा / ब्यबसायी</th>
+                                <th>पेशा / ब्यबसायी</th> 
+                                <th>सिर्जना गर्ने</th>
+                                <th>सिर्जना दिन</th>
                                 <th>कार्य</th>
                             </tr>
                         </thead> 
@@ -67,6 +91,16 @@
                             if ($items) {
                                 $i = 1;
                             foreach ($items as $key => $value) {  
+                                $created_by = '';
+                                if($value->created_by){ 
+                                    $user_detail = $this->db->get_where('users',array('id'=>$value->created_by))->row();
+                                    if($user_detail){
+                                        $staff_detail = $this->db->get_where('staff_infos',array('id'=>$user_detail->staff_id))->row();
+                                        if($staff_detail){
+                                            $created_by = $staff_detail->full_name;
+                                        }
+                                    }
+                                };
                             ?>
                             <tr>
                                 <td><?php echo $this->crud_model->ent_to_nepali_num_convert($key+1); ?></td>
@@ -87,7 +121,9 @@
                                     <p style="margin-left:1rem;"><?php echo $value->marital_status?$value->marital_status:'' ?></p>
                                 <?php } ?>     
                                 </td>
-                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->occupation; ?></td>
+                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->occupation; ?></td> 
+                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $created_by; ?></td> 
+                                <td data-toggle="modal" data-target="#ViewData<?php echo $value->id; ?>"><?php echo $value->created; ?></td>
                                 <td>
                                 <?php
                                     $check_dataentryform_soft_delete = $this->crud_model->get_module_function_for_role('personal_information', 'soft_delete');

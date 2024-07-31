@@ -294,7 +294,7 @@
                                                         required>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-7">
+                                            <!-- <div class="col-sm-7">
                                                 <div class="form-group">
                                                     <label>प्रवेश समय : <span class="required">*</span></label>
                                                     <input type="time" name="entry_time"
@@ -309,10 +309,10 @@
                                                     <label>फर्केको समय : </label>
                                                     <input type="time" name="exit_time"
                                                         class="form-control personalinfo1 cmnreset" id="exit_time"
-                                                        placeholder="प्रबेश समय"
+                                                        placeholder="फर्केको समय"
                                                         value="<?php echo (((isset($detail->exit_time)) && $detail->exit_time != '') ? $detail->exit_time : '') ?>">
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label>प्रबेश बिन्दू (सिमा निरीक्षण कक्ष / प्रबेश स्थाल) : <span
