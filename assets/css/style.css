@@ -1,3 +1,287 @@
+/* @font-face {
+  font-family: "Preeti";
+  src: url("/assets/webfonts/nepali/preeti.TTF") format("truetype");
+} */
+/* For Webkit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+  height: 12px; /* Height of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Track color */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #053775; /* Thumb (scroll handle) color */
+  border-radius: 6px; /* Optional: Rounds the corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #053775; /* Thumb color on hover */
+}
+
+/* For Firefox */
+html {
+  scrollbar-width: thin; /* Thin scrollbar */
+  scrollbar-color: #053775 #f1f1f1; /* Thumb color and track color */
+}
+.dashboardTable {
+  height: 327px;
+  overflow: scroll;
+}
+.dashboardTable::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+  height: 12px; /* Height of the scrollbar */
+}
+
+.dashboardTable::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Track color */
+}
+
+.dashboardTable::-webkit-scrollbar-thumb {
+  background: #053775; /* Thumb (scroll handle) color */
+  border-radius: 6px; /* Optional: Rounds the corners */
+}
+
+.dashboardTable::-webkit-scrollbar-thumb:hover {
+  background: #053775; /* Thumb color on hover */
+}
+
+/* For Firefox */
+.dashboardTable {
+  scrollbar-width: thin; /* Thin scrollbar */
+  scrollbar-color: #053775 #f1f1f1; /* Thumb color and track color */
+}
+#name {
+  font-family: "Preeti", sans-serif;
+}
+#phone_number {
+  font-family: "Preeti", sans-serif;
+}
+#nationality {
+  font-family: "Preeti", sans-serif;
+}
+#identicard_number {
+  font-family: "Preeti", sans-serif;
+}
+#address {
+  font-family: "Preeti", sans-serif;
+}
+#occupation {
+  font-family: "Preeti", sans-serif;
+}
+#marital_status_remarks {
+  font-family: "Preeti", sans-serif;
+}
+#travel_start_country {
+  font-family: "Preeti", sans-serif;
+}
+#entry_adress {
+  font-family: "Preeti", sans-serif;
+}
+#entry_address2 {
+  font-family: "Preeti", sans-serif;
+}
+#travel_destination {
+  font-family: "Preeti", sans-serif;
+}
+#travel_deuration {
+  font-family: "Preeti", sans-serif;
+}
+#traveler_proporty {
+  font-family: "Preeti", sans-serif;
+}
+#vehicle_number {
+  font-family: "Preeti", sans-serif;
+}
+#drivers_name {
+  font-family: "Preeti", sans-serif;
+}
+#driving_licence {
+  font-family: "Preeti", sans-serif;
+}
+#drivers_number {
+  font-family: "Preeti", sans-serif;
+}
+#property_information {
+  font-family: "Preeti", sans-serif;
+}
+#pasengers {
+  font-family: "Preeti", sans-serif;
+}
+#remarks {
+  font-family: "Preeti", sans-serif;
+}
+#health_status {
+  font-family: "Preeti", sans-serif;
+}
+#health_result {
+  font-family: "Preeti", sans-serif;
+}
+
+#children_name1 {
+  font-family: "Preeti", sans-serif;
+}
+#children_name2 {
+  font-family: "Preeti", sans-serif;
+}
+#children_name3 {
+  font-family: "Preeti", sans-serif;
+}
+#children_name4 {
+  font-family: "Preeti", sans-serif;
+}
+#children_name5 {
+  font-family: "Preeti", sans-serif;
+}
+#children_name6 {
+  font-family: "Preeti", sans-serif;
+}
+#children_name7 {
+  font-family: "Preeti", sans-serif;
+}
+#children_name8 {
+  font-family: "Preeti", sans-serif;
+}
+#children_name9 {
+  font-family: "Preeti", sans-serif;
+}
+#children_name10 {
+  font-family: "Preeti", sans-serif;
+}
+#children_address1 {
+  font-family: "Preeti", sans-serif;
+}
+#children_address2 {
+  font-family: "Preeti", sans-serif;
+}
+#children_address3 {
+  font-family: "Preeti", sans-serif;
+}
+#children_address4 {
+  font-family: "Preeti", sans-serif;
+}
+#children_address5 {
+  font-family: "Preeti", sans-serif;
+}
+#children_address6 {
+  font-family: "Preeti", sans-serif;
+}
+#children_address7 {
+  font-family: "Preeti", sans-serif;
+}
+#children_address8 {
+  font-family: "Preeti", sans-serif;
+}
+#children_address9 {
+  font-family: "Preeti", sans-serif;
+}
+#children_address10 {
+  font-family: "Preeti", sans-serif;
+}
+#children_parent_name1 {
+  font-family: "Preeti", sans-serif;
+}
+#children_parent_name2 {
+  font-family: "Preeti", sans-serif;
+}
+#children_parent_name3 {
+  font-family: "Preeti", sans-serif;
+}
+#children_parent_name4 {
+  font-family: "Preeti", sans-serif;
+}
+#children_parent_name5 {
+  font-family: "Preeti", sans-serif;
+}
+#children_parent_name6 {
+  font-family: "Preeti", sans-serif;
+}
+#children_parent_name7 {
+  font-family: "Preeti", sans-serif;
+}
+#children_parent_name8 {
+  font-family: "Preeti", sans-serif;
+}
+#children_parent_name9 {
+  font-family: "Preeti", sans-serif;
+}
+#children_parent_name10 {
+  font-family: "Preeti", sans-serif;
+}
+#children_relations1 {
+  font-family: "Preeti", sans-serif;
+}
+#children_relations2 {
+  font-family: "Preeti", sans-serif;
+}
+#children_relations3 {
+  font-family: "Preeti", sans-serif;
+}
+#children_relations4 {
+  font-family: "Preeti", sans-serif;
+}
+#children_relations5 {
+  font-family: "Preeti", sans-serif;
+}
+#children_relations6 {
+  font-family: "Preeti", sans-serif;
+}
+#children_relations7 {
+  font-family: "Preeti", sans-serif;
+}
+#children_relations8 {
+  font-family: "Preeti", sans-serif;
+}
+#children_relations9 {
+  font-family: "Preeti", sans-serif;
+}
+#children_relations10 {
+  font-family: "Preeti", sans-serif;
+}
+#children_identicard_number1 {
+  font-family: "Preeti", sans-serif;
+}
+#children_identicard_number2 {
+  font-family: "Preeti", sans-serif;
+}
+#children_identicard_number3 {
+  font-family: "Preeti", sans-serif;
+}
+#children_identicard_number4 {
+  font-family: "Preeti", sans-serif;
+}
+#children_identicard_number5 {
+  font-family: "Preeti", sans-serif;
+}
+#children_identicard_number6 {
+  font-family: "Preeti", sans-serif;
+}
+#children_identicard_number7 {
+  font-family: "Preeti", sans-serif;
+}
+#children_identicard_number8 {
+  font-family: "Preeti", sans-serif;
+}
+#children_identicard_number9 {
+  font-family: "Preeti", sans-serif;
+}
+#children_identicard_number10 {
+  font-family: "Preeti", sans-serif;
+}
+#nepali_preeti {
+  font-family: "Preeti", sans-serif;
+}
+#no_preeti {
+  font-family: sans-serif !important;
+}
+
+.all_form input {
+  font-family: "MyCustomFont";
+  font-size: 1.5rem;
+}
+
 li.page-item a {
   font-size: 12px !important;
   padding: 10px !important;
@@ -420,12 +704,33 @@ body::-webkit-scrollbar-thumb {
 .box.box-default {
   border: none !important;
 }
+.login-page {
+  background-color: #fff;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .login-box,
 .register-box {
   border: 1px solid #ddd;
-  width: 370px;
+  width: 400px;
   padding: 20px;
   border-radius: 10px;
+}
+.login-box .icon {
+  margin-top: 5px;
+  font-size: 2rem;
+  margin-right: 5px;
+}
+.login-box .loginBtn {
+  height: 45px;
+}
+.login-box .loginBtn:hover {
+  background-color: #fff;
+  border: 1x solid #053775;
+  color: #053775;
+  transition: 1s;
 }
 .login-box-body,
 .register-box-body {
@@ -455,6 +760,8 @@ body::-webkit-scrollbar-thumb {
 
 .login-box form .form-control {
   border-radius: 20px;
+  margin-top: 25px;
+  height: 45px;
 }
 .border-color-rr {
   border-color: #4b1b87;
@@ -566,6 +873,10 @@ body::-webkit-scrollbar-thumb {
   padding: 20px;
 }
 
+.form-group {
+  margin-bottom: 10px;
+}
+
 #AppendForm1 .form-group {
   display: flex;
   justify-content: space-between;
@@ -645,10 +956,10 @@ body::-webkit-scrollbar-thumb {
   width: 100%;
   min-height: 50px;
 } */
-.content {
+/* .content {
   height: 100vh;
-  /* min-height: calc(100vh-200px); */
-}
+  min-height: calc(100vh-200px);
+} */
 
 .VehicleDetails {
   border-right: 1px solid #ddd;
@@ -677,7 +988,7 @@ body::-webkit-scrollbar-thumb {
 }
 #FormRemoveFunction {
   position: absolute;
-  top: 27px;
+  top: 120px;
   right: 0%;
 }
 
@@ -789,7 +1100,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 #add_function {
-  color: #053775 !mportant;
+  color: #053775 !important;
 }
 
 .profileesss {
@@ -802,6 +1113,17 @@ body::-webkit-scrollbar-thumb {
 }
 .logiii {
   border-radius: 20px !important;
+  height: 40px;
+}
+.logiii:hover {
+  border: 1px solid #053775;
+  background-color: #fff;
+  color: #053775;
+  transition: 1s;
+}
+.login-box-body span {
+  font-size: 1.5rem;
+  margin-top: 4px;
 }
 .displayNoness {
   display: none;
@@ -831,7 +1153,35 @@ body::-webkit-scrollbar-thumb {
   position: relative;
   overflow: hidden;
 }
+.CameraBoxChild {
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  bottom: 0;
+  right: 0px;
+  background: rgba(0, 0, 0, 0.9);
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  z-index: 999;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.CameraBoxChild .inside {
+  width: 480px;
+  /* height: 500px; */
+  background-color: #fff;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
 #my_camera {
+  overflow: hidden;
+  background-color: #000;
+}
+#my_camera_child {
   overflow: hidden;
   background-color: #000;
 }
@@ -865,6 +1215,9 @@ body::-webkit-scrollbar-thumb {
 }
 .navbar-nav > .user-menu > .dropdown-menu > li.user-header {
   background-color: #053775;
+}
+.navbar-nav > .user-menu > .dropdown-menu {
+  height: 232px;
 }
 .dissflexxxx {
   display: flex;
@@ -900,7 +1253,21 @@ body::-webkit-scrollbar-thumb {
   background-color: #fff;
   display: none;
 }
+#results_child {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+  background-color: #fff;
+  display: none;
+}
 #results img {
+  width: 100%;
+  height: 285px;
+}
+#results_child img {
   width: 100%;
   height: 285px;
 }
@@ -1168,28 +1535,24 @@ input:checked + .slider:before {
   padding-top: 4rem;
 }
 .media_uploader {
-  border: 3px dashed #d2d6de;
+  border: 1px dashed #d2d6de;
   border-radius: 10px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 3rem;
-  background-color: #fafbfd;
   margin-bottom: 3rem;
-  padding: 3rem;
+  /* padding: 3rem; */
 }
 .media_uploader .media_uploader_child {
-  min-height: 200px;
-  min-width: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
 .media_uploader_child:hover {
   background-color: #053775;
-  border-radius: 20px;
 }
 
 .media_uploader_child:hover p {
@@ -1207,12 +1570,14 @@ input:checked + .slider:before {
   color: #3c0280;
 }
 .divider {
-  min-height: 200px;
   min-width: 2px;
   max-width: 2px;
   background-color: #d2d6de;
+  min-height: 90%;
 }
-
+.travel_detail_media {
+  height: 150px;
+}
 /* user profile */
 .card {
   padding-top: 3rem;
@@ -1258,6 +1623,35 @@ input:checked + .slider:before {
   color: #fff !important;
 }
 
+.camera_open_hai {
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.camera_open_hai p {
+  margin-top: 10px;
+}
+.chldimg {
+  background-color: transparent !important;
+}
+.children-photo {
+  /* display: flex !important;
+  align-items: center !important;
+  justify-content: center !important; */
+  border: 1px dashed #ccc;
+  /* padding: 20px; */
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.children-photo:hover {
+  background-color: #053775;
+  color: #fff;
+}
+
 /* responsive */
 @media only screen and (max-width: 767px) {
   /* Your CSS rules here */
@@ -1280,4 +1674,31 @@ input:checked + .slider:before {
     border-bottom: 1px solid #ccc;
     padding-bottom: 20px;
   }
+}
+
+.country-option {
+  display: flex;
+  align-items: center;
+  padding: 5px; /* Adjust the padding as needed */
+}
+
+.flag-icon {
+  width: 20px !important; /* Adjust the width as needed */
+  height: auto !important; /* Maintain aspect ratio */
+  margin-right: 10px !important; /* Space between the image and text */
+}
+
+.dropdown-menu {
+  height: 150px;
+  overflow: scroll;
+}
+
+.active {
+  background: green;
+}
+.country-option {
+  cursor: pointer;
+}
+.country-option:hover {
+  background: green;
 }

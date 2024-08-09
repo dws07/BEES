@@ -41,7 +41,8 @@ function ent_to_nepali_num_convert($number)
                 <div class="col-sm-6">
                     <div class="DBox">
                         <h2>
-                            नेपाल देखि भारत जाने कुल यात्रुहरुको संख्या :
+                            <!-- नेपाल देखि भारत जाने कुल यात्रुहरुको संख्या : -->
+                            भारत तर्फ जाने संख्या:
                             <span>
                                 <?php
                                 $Total = $total_data_gone_direction->india_gone_male + $total_data_gone_direction->india_gone_female + $total_data_gone_direction->india_gone_other + $total_data_gone_direction->india_gone_children;
@@ -60,7 +61,7 @@ function ent_to_nepali_num_convert($number)
                             </li>
                             <li> <span><?php echo isset($total_data_gone_direction->india_gone_children) ? ent_to_nepali_num_convert($total_data_gone_direction->india_gone_children) : 0; ?></span>
                                 <span>बालबालिका</span>
-                            </li> 
+                            </li>
                             <li> <span><?php echo isset($total_data_gone_direction->india_gone_vehicle) ? ent_to_nepali_num_convert($total_data_gone_direction->india_gone_vehicle) : 0; ?></span>
                                 <span>सवारीसाधनहरु</span>
                             </li>
@@ -71,7 +72,8 @@ function ent_to_nepali_num_convert($number)
                     <div class="DBox">
                         <?php echo $value->name; ?>
                         <h2>
-                            नेपाल आउने कुल यात्रुहरुको संख्या :
+                            <!-- नेपाल आउने कुल यात्रुहरुको संख्या : -->
+                            नेपाल तर्फ आउने संख्या:
                             <span>
                                 <?php
                                 $Total = $total_data_gone_direction->nepal_gone_male + $total_data_gone_direction->nepal_gone_female + $total_data_gone_direction->nepal_gone_other + $total_data_gone_direction->nepal_gone_children;
@@ -91,7 +93,7 @@ function ent_to_nepali_num_convert($number)
                             </li>
                             <li> <span><?php echo isset($total_data_gone_direction->nepal_gone_children) ? ent_to_nepali_num_convert($total_data_gone_direction->nepal_gone_children) : 0; ?></span>
                                 <span>बालबालिका</span>
-                            </li> 
+                            </li>
                             <li> <span><?php echo isset($total_data_gone_direction->nepal_gone_vehicle) ? ent_to_nepali_num_convert($total_data_gone_direction->nepal_gone_vehicle) : 0; ?></span>
                                 <span>सवारीसाधनहरु</span>
                             </li>
@@ -99,38 +101,53 @@ function ent_to_nepali_num_convert($number)
                     </div>
                 </div>
                 <div class="col-sm-12">
-				<div class="DBox">
-				<div class="box-body">
-                    <table class="table table-bordered" >
-                        <thead>
-                            <tr>
-                                <th>पुरा नाम</th>
-                                <th>लिंग</th>
-                                <th>सम्पर्क नम्बर</th>
-                                <th>दिशा तर्फ</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            if ($roles) { 
-                            foreach ($roles as $key => $value) { 
-                            ?>
-                            <tr>
-                                <td class="ViewDataBTN"><?php echo $value->name; ?></td>
-                                <td>
-                                    <?php echo $value->gender?> 
-                                </td>
-                                <td><?php echo $value->phone_number; ?></td>
-                                <td>
-                                    <?php echo $value->gone_dirction ?> 
-                                </td>
-                                <td>
-                                    <a href="<?php echo base_url('travel/admin/all/'.$value->id); ?>" class="btn bg-green btn-flat margin ViewDataBTN">
-                                        <i class="fa fa-eye"></i>
-                                    </a> 
-                                   
-                                </td>
-                            </tr>
+                    <div class="DBox">
+                        <div class="box-body dashboardTable">
+                            <table class="table table-bordered" id="nepali_preeti">
+                                <thead>
+                                    <tr>
+                                        <th>पुरा नाम</th>
+                                        <th>लिंग</th>
+                                        <th>सम्पर्क नम्बर</th>
+                                        <th>दिशा तर्फ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    if ($roles) {
+                                        foreach ($roles as $key => $value) {
+                                            ?>
+
+                                            <tr>
+                                                <td class="ViewDataBTN">
+                                                    <a href="<?php echo base_url('travel/admin/all/' . $value->id); ?>">
+                                                        <?php echo $value->name; ?>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="<?php echo base_url('travel/admin/all/' . $value->id); ?>">
+                                                        <?php echo $value->gender ?>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="<?php echo base_url('travel/admin/all/' . $value->id); ?>">
+                                                        <?php echo $this->crud_model->ent_to_nepali_num_convert($value->country_code) ?>-<?php echo $value->phone_number; ?>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="<?php echo base_url('travel/admin/all/' . $value->id); ?>">
+                                                        <?php echo $value->gone ?>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="<?php echo base_url('travel/admin/all/' . $value->id); ?>"
+                                                        class="btn btn-flat margin ViewDataBTN" style="color: #053775;border: 1px solid #053775;">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+
+                                                </td>
+                                            </tr>
+                                            </a>
 
 
                                         <?php } ?>
@@ -147,8 +164,8 @@ function ent_to_nepali_num_convert($number)
                                     <?php echo $pagination; ?>
                                 </div>
                             <?php } ?>
-                            <a class="btn btn-success pull-right"
-                                href="<?php echo base_url('dataentryform/admin/all'); ?>">View More</a>
+                            <a style="background-color : #053775; color:#fff" class="btn btn-success pull-right"
+                                href="<?php echo base_url('dataentryform/admin/all') ?>">View More</a>
                         </div>
                     </div>
                 </div>
@@ -171,14 +188,16 @@ function ent_to_nepali_num_convert($number)
                         <div class="col-md-6 col-sm-12 col-lg-6 col-xs-12 col-xl-12"
                             style="border-right: 1px solid #ddd">
                             <div class="ChartBox">
-                                <div id="chartContainer1" style="height: 300px; width: 100%;"></div>
-                                <h2 class="text-center">नेपाल देखि भारत जाने कुल यात्रुहरुको संख्या</h2>
+                                <div id="chartContainer1" style="min-height: 300px; width: 100%;"></div>
+                                <!-- <h2 class="text-center">नेपाल देखि भारत जाने कुल यात्रुहरुको संख्या</h2> -->
+                                <h2 class="text-center">नेपाल निकास</h2>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-12 col-lg-6 col-xs-12 col-xl-12">
                             <div class="ChartBox">
                                 <div id="chartContainer2" style="height: 300px; width: 100%;"></div>
-                                <h2 class="text-center">नेपाल आउने कुल यात्रुहरुको संख्या</h2>
+                                <!-- <h2 class="text-center">नेपाल आउने कुल यात्रुहरुको संख्या</h2> -->
+                                <h2 class="text-center">नेपाल प्रवेश</h2>
                             </div>
                         </div>
                     </div>
@@ -247,7 +266,7 @@ function ent_to_nepali_num_convert($number)
 
 
 <script>
-    window.onload = function () { 
+    window.onload = function () {
 
         function toggleDataSeries(e) {
             if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {

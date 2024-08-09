@@ -12,11 +12,18 @@
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/plugin/css/_all-skins.min.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/plugin/css/jquery-jvectormap.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/plugin/css/select2.min.css">
+    <!-- <style>
+        @font-face {
+            font-family: 'Preeti';
+            src: url("<?php //echo base_url() ?>/assets/webfonts/nepali/preeti.TTF") format('truetype');
+        }
+        
+    </style> -->
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/style.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/nepali.datepicker.v4.0.4.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/toastify.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/dataTables.dataTables.min.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>jquery-ui.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>jquery-ui.css"> 
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">

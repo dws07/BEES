@@ -10,6 +10,8 @@ class Dashboard extends Auth_controller {
 		$this->load->library('Nepali_calendar');
 		$this->table = 'personal_information';
 		$this->userId = $this->data['userId'];
+		$this->session->unset_userdata('form_data');
+		$this->session->unset_userdata('param');
 	}
 
 	public function total_data_gone_direction(){
@@ -128,10 +130,10 @@ class Dashboard extends Auth_controller {
 	{ 
 		$like = [];
 		$param = [
-			'status !=' => '2',
+			'ti.status !='=>'2',
 		];  
 
-		$data['roles'] = $this->crud_model->get_person_list_group_by_travel($param);
+		$data['roles'] = $this->crud_model->get_person_list_limit_group_by_travel(100, 0, $param);
 		// echo "<pre>";
 		// var_dump($data['roles']);
 		// exit();
