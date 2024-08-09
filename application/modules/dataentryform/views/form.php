@@ -527,16 +527,18 @@
                                                                 </span>
                                                                 <span>
                                                                     <input type="radio" class="personalinfo2"
-                                                                        name="children_gender[0]" value="तेस्रोलिंगी" <?php echo (((isset($detail->children_gender)) && $detail->children_gender == 'तेस्रोलिंगी') ? 'checked' : '') ?>> <span>तेस्रोलिंगी</span>
+                                                                        name="children_gender[0]" value="तेस्रोलिंगी"
+                                                                        <?php echo (((isset($detail->children_gender)) && $detail->children_gender == 'तेस्रोलिंगी') ? 'checked' : '') ?>> <span>तेस्रोलिंगी</span>
                                                                 </span>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-12">
                                                         <div class="form-group">
                                                             <label>ठेगाना : </label>
-                                                            <input type="text" name="children_address[]"
-                                                                class="form-control utf8val width75 personalinfo2 cmnreset"
+                                                            <input style="width:80%" type="text"
+                                                                name="children_address[]"
+                                                                class="form-control utf8val personalinfo2 cmnreset"
                                                                 id="children_address1" placeholder="ठेगाना"
                                                                 value="<?php echo (((isset($detail->children_address)) && $detail->children_address != '') ? $detail->children_address : '') ?>">
                                                         </div>
